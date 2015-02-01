@@ -1,5 +1,55 @@
 Rails.application.routes.draw do
+  get 'goto' => 'redirects#bye', as: :goto
+
+  get 'ratings/posts'
+
+  devise_for :users
+  resources :comments, only: [:create]
+
+  get 'robots.txt' => 'robots#index'
+
+  get 'welcome/index'
+
+  get 'errors/routing'
+
+  get 'errors/not_found'
+
+  get 'errors/exception'
+
+  root 'welcome#index'
+  get ':blog/:year/:month/:day/:id' => "posts#show", :as => :post
+  get ':blog/:year/:month/:day/:slug_id/:title' => "posts#show", :as => :post_with_slug
+  get 'posts/:slug_id' => "posts#show", as: :post_permalink
+
+  get 'widgets' => 'widgets#index'
+  get 'w/p/:id' => 'widgets#post'
+  get 'w/:action', controller: 'widgets'
+
+  get '/p/views/:id' => 'posts#counter'
+
+
+  get 'digest/:slug' => 'post_digests#show', :as => :digest
+
+
+  get 'about' => 'static#about', as: :about
+
+  get 'search' => 'search#index', :as => :search
+
+  get 'tools/:action', :controller => :tools
+  post 'tools/:action', :controller => :tools
+  get 'tools' => "tools#index"
+
+  get 'tags/:tag' => "tags#show", :as => :tag
+
+  get 'recent' => "posts#index", :as => :posts
+
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+
+  get "/main" => "posts#index" # legacy
+  get ':slug' => "blogs#show", :as => :blog
+
+  get '*a', :to => 'errors#not_found'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

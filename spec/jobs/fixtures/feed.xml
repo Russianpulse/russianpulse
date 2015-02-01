@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet title="XSL_formatting" type="text/xsl" href="/shared/bsp/xsl/rss/nolsol.xsl"?>
+
+<rss xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">  
+  <channel> 
+    <title>BBC News - Business</title>  
+    <link>http://www.bbc.co.uk/news/business/#sa-ns_mchannel=rss&amp;ns_source=PublicRSS20-sa</link>  
+    <description>The latest stories from the Business section of the BBC News web site.</description>  
+    <language>en-gb</language>  
+    <lastBuildDate>Sat, 31 Jan 2015 13:34:11 GMT</lastBuildDate>  
+    <copyright>Copyright: (C) British Broadcasting Corporation, see http://news.bbc.co.uk/2/hi/help/rss/4498287.stm for terms and conditions of reuse.</copyright>  
+    <image> 
+      <url>http://news.bbcimg.co.uk/nol/shared/img/bbc_news_120x60.gif</url>  
+      <title>BBC News - Business</title>  
+      <link>http://www.bbc.co.uk/news/business/#sa-ns_mchannel=rss&amp;ns_source=PublicRSS20-sa</link>  
+      <width>120</width>  
+      <height>60</height> 
+    </image>  
+    <ttl>15</ttl>  
+    <atom:link href="http://feeds.bbci.co.uk/news/business/rss.xml" rel="self" type="application/rss+xml"/>  
+    <item> 
+      <title>Merkel rules out Greek debt relief</title>  
+      <description>German Chancellor Angela Merkel rejects any cancellation of Greece's debt, saying banks and creditors have already made substantial cuts.</description>  
+      <link>http://www.bbc.co.uk/news/world-europe-31072321#sa-ns_mchannel=rss&amp;ns_source=PublicRSS20-sa</link>  
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/world-europe-31072321</guid>  
+      <pubDate>Sat, 31 Jan 2015 14:05:39 GMT</pubDate>  
+      <media:thumbnail width="66" height="49" url="http://news.bbcimg.co.uk/media/images/80693000/jpg/_80693136_5gzuvvf5.jpg"/>  
+      <media:thumbnail width="144" height="81" url="http://news.bbcimg.co.uk/media/images/80693000/jpg/_80693137_5gzuvvf5.jpg"/> 
+    </item>  
+    <item> 
+      <title>Midnight tax return deadline looms</title>  
+      <description>Hundreds of thousands of people are expected to log on today to file a self-assessment tax return and avoid a £100 fine.</description>  
+      <link>http://www.bbc.co.uk/news/business-31069070#sa-ns_mchannel=rss&amp;ns_source=PublicRSS20-sa</link>  
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/business-31069070</guid>  
+      <pubDate>Sat, 31 Jan 2015 00:18:26 GMT</pubDate>  
+      <media:thumbnail width="66" height="49" url="http://news.bbcimg.co.uk/media/images/80691000/jpg/_80691051_87143644.jpg"/>  
+      <media:thumbnail width="144" height="81" url="http://news.bbcimg.co.uk/media/images/80691000/jpg/_80691052_87143644.jpg"/> 
+    </item>  
+    <item> 
+      <title>Qatar buys 10% stake in BA owner</title>  
+      <description>Qatar Airways announces a surprise investment in International Airlines Group, the owner of British Airways and Iberia.</description>  
+      <link>http://www.bbc.co.uk/news/business-31063157#sa-ns_mchannel=rss&amp;ns_source=PublicRSS20-sa</link>  
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/business-31063157</guid>  
+      <pubDate>Fri, 30 Jan 2015 16:55:42 GMT</pubDate>  
+      <media:thumbnail width="66" height="49" url="http://news.bbcimg.co.uk/media/images/80686000/jpg/_80686561_455667810.jpg"/>  
+      <media:thumbnail width="144" height="81" url="http://news.bbcimg.co.uk/media/images/80686000/jpg/_80686562_455667810.jpg"/> 
+    </item>  
+  </channel> 
+</rss>

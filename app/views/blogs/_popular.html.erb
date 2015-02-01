@@ -1,0 +1,15 @@
+
+<div class="row">
+  <% for group in posts.in_groups(2, nils=false) do %>
+    <div class="col-sm-6">
+      <% for post in group %>
+        <div style="" class="truncate">
+          •
+          <%= link_to typography(post.title), smart_post_path(post), :title => post.title %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+<hr />

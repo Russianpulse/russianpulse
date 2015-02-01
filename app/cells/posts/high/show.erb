@@ -1,0 +1,17 @@
+<div class="cells-post cells-post-high">
+  <%= link_to smart_post_path(@post) do %>
+    <div class="picture" style="background-image: url('<%= @post.picture_url %>')">
+      
+    </div>
+  <% end %>
+
+  <h3>
+    <%= link_to @post.title, smart_post_path(@post) %>
+  </h3>
+
+  <div class="description">
+    <%= text_short @post.body, 120 %>
+    <%= comments_link @post %>
+    <div class="spacer"></div>
+  </div>
+</div>

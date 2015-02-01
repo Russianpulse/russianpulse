@@ -1,0 +1,10 @@
+<table class="table">
+  <% posts.each_with_index do |post, n| %>
+    <tr>
+      <td><%= n + 1 %></td>
+      <td><%= link_to typography(post.title), smart_post_path(post) %></td>
+      <td><%= post.views %></td>
+    </tr>
+  <% end %>
+</table>
+

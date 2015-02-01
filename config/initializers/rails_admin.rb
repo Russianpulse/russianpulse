@@ -1,4 +1,8 @@
+require 'i18n'
+I18n.default_locale = :en
+
 RailsAdmin.config do |config|
+  config.excluded_models << "PostArchived"
 
   ### Popular gems integration
 
@@ -30,5 +34,23 @@ RailsAdmin.config do |config|
     ## With an audit adapter, you can add:
     # history_index
     # history_show
+  end
+
+  config.model 'Blog' do 
+    configure :posts do
+      hide
+    end
+  end
+
+  config.model 'Tag' do 
+    configure :post_ids do
+      hide
+    end
+  end
+
+  config.authorize_with do
+    authenticate_or_request_with_http_basic('Rails admin') do |username, password|
+      username == (ENV["ADMIN_USERNAME"] || 'admin') && password == (ENV["ADMIN_PASSWORD"] || 'secret')
+    end
   end
 end

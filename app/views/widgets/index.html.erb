@@ -1,0 +1,84 @@
+<h1>Widgets</h1>
+
+
+<h2>Recent posts</h2>
+
+<textarea cols="80" rows="5">
+  <%= capture do %>
+    <div id="mazavr-embded-posts"></div>
+    <%= javascript_include_tag "http://#{ Rails.configuration.x.domain }/w/widget.js" %>
+    <script>
+      var M = new Mazavr({ domain: "<%= Rails.configuration.x.domain %>" });
+      M.RecentWidget("#mazavr-embded-posts", { limit: 5 });
+    </script>
+  <% end.strip.gsub(/\s\s/, " ") %>
+</textarea>
+
+<h3>Example:</h3>
+
+<div id="mazavr-embded-posts"></div>
+<%= javascript_include_tag "http://#{ Rails.configuration.x.domain }/w/widget.js" %>
+<script>
+  var M = new Mazavr({ domain: "<%= Rails.configuration.x.domain %>" });
+  M.RecentWidget("#mazavr-embded-posts", { limit: 5 });
+</script>
+
+<h3>Options</h3>
+
+<table class="table">
+  <tr>
+    <th>name</th>
+    <th>type</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>limit</td>
+    <td>int</td>
+    <td>limit number of displayed posts (default: 5)</td>
+  </tr>
+  <tr>
+    <td>featured</td>
+    <td>bool</td>
+    <td>display posts from featured blogs only (default: false)</td>
+  </tr>
+</table>
+
+
+<hr />
+<h2>Popular posts</h2>
+
+<textarea cols="80" rows="5">
+  <%= capture do %>
+    <div id="mazavr-embded-posts-popular"></div>
+    <%= javascript_include_tag "http://#{ Rails.configuration.x.domain }/w/widget.js" %>
+    <script>
+      var M = new Mazavr({ domain: "<%= Rails.configuration.x.domain %>" });
+      M.PopularWidget("#mazavr-embded-posts-popular", { limit: 5 });
+    </script>
+  <% end.strip.gsub(/\s\s/, " ") %>
+</textarea>
+
+<h3>Example:</h3>
+
+<div id="mazavr-embded-posts-popular"></div>
+<%= javascript_include_tag "http://#{ Rails.configuration.x.domain }/w/widget.js" %>
+<script>
+  var M = new Mazavr({ domain: "<%= Rails.configuration.x.domain %>" });
+  M.PopularWidget("#mazavr-embded-posts-popular", { limit: 5 });
+</script>
+
+<h3>Options</h3>
+
+<table class="table">
+  <tr>
+    <th>name</th>
+    <th>type</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>limit</td>
+    <td>int</td>
+    <td>limit number of displayed posts (default: 5)</td>
+  </tr>
+</table>
+

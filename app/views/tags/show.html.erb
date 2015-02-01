@@ -1,0 +1,29 @@
+<% if params[:before].present? %>
+  <% content_for(:meta_title, "#{@tag.title}: #{t(:posts_before)} #{format_date Time.at(params[:before].to_f)}") %>
+<% else %>
+  <% content_for(:meta_title, @tag.title) %>
+<% end %>
+
+<h1><%= @tag.title %></h1>
+
+<ol class="breadcrumb">
+  <li>
+    <%= link_to(t(:all).mb_chars.capitalize, posts_path)  %>
+  </li>
+  <% if params[:before].present? %>
+    <li>
+      <%= link_to(@tag.title, tag_path(@tag.slug))  %>
+    </li>
+    <li class="active"><%= "#{t(:posts_before)} #{format_date Time.at(params[:before].to_f)}" %></li>
+  <% else %>
+    <li class="active"><%= @tag.title %></li>
+  <% end %>
+</ol>
+
+<%= render :partial => "posts/list", :locals => { :posts => @posts } %>
+
+<% if @posts.size >= 12 %>
+  <%= link_to("#{t(:more_stories).mb_chars.capitalize} →", url_for(:before => @posts.last.created_at.to_f ), :class => "btn btn-default")  %>
+<% else %>
+  <%= link_to("#{t(:more_stories).mb_chars.capitalize} →", "#", :class => "btn btn-default disabled")  %>
+<% end %>

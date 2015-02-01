@@ -1,11 +1,26 @@
+require 'timeout'
+
 class UpdateBlogJob < ActiveJob::Base
   queue_as :default
 
-  def perform(blog, force=false)
+  def perform(blog=nil, force=false)
+    if blog.nil?
+      Blog.with_feed.find_each do |blog|
+        UpdateBlogJob.perform_later blog
+      end
+
+      return
+    end
+
     return unless need_check?(blog) || force
 
     logger.info "Updating blog #{blog.id} feed '#{blog.feed_url}'"
-    result = Feedjira::Feed.fetch_and_parse(blog.feed_url, :timeout => 30)
+
+    result = Timeout::timeout(30) do
+      Feedjira::Feed.fetch_and_parse(blog.feed_url)
+    end
+
+    EventTracker.track "Blogs", "Feed update", blog.title
 
     if result.is_a? Numeric
       raise "Updating blog #{blog.id} faild, feedzirra status code '#{result}'"
@@ -13,11 +28,11 @@ class UpdateBlogJob < ActiveJob::Base
 
     feed = result
 
-    not_older_than = blog.posts.maximum(:created_at) || created_at
+    not_older_than = blog.posts.maximum(:created_at)
 
     # сначала старые
     feed.entries.reverse.each do |entry|
-      if entry.published.present? && entry.published < not_older_than
+      if not_older_than.present? && entry.published.present? && entry.published < not_older_than
         logger.warn "Entry #{entry.url} is old"
         next
       end
@@ -40,34 +55,43 @@ class UpdateBlogJob < ActiveJob::Base
         next
       end
 
-      title = entry.title.mb_chars[0..124] rescue nil
+      title = entry.title
 
       if title.present?
         pub_date = if entry.published.blank?
                      Time.now
-                   elsif entry.published < (checked_at || 1.hour.ago)
-                     (checked_at || 1.hour.ago)
+                   elsif entry.published < (blog.checked_at || 1.hour.ago)
+                     (blog.checked_at || 1.hour.ago)
                    else
                      [entry.published.to_time, Time.now].min
                    end
 
+        if caps? title
+          title = title.mb_chars.capitalize.to_s
+        end
 
-        post = blog.posts.create!(:title  => title, :body => post_body, :source_url => entry_url, :created_at => pub_date)
+        post = blog.posts.new(:title  => title, :source_html => post_body, :body => blog.cleanup_html(post_body), :source_url => entry_url, :created_at => pub_date)
+        if post.valid?
+          post.save!
+          EventTracker.track "Blogs", "Created post via Feed", blog.title
+          TaggerJob.perform_later post
+          ImageFinderJob.perform_later post
 
-        logger.info "Post ##{post.id} created!"
-
-        #PostFullTextWorker.perform_async(post.id)
+          logger.info "Post ##{post.id} created!"
+        else
+          EventTracker.track "Blogs", "Failed to create post via Feed", blog.title
+        end
       else
         logger.error "Entry #{entry_url} has no title!"
       end
     end
 
     blog.touch(:checked_at)
-    update_average_period
   end
 
   def need_check?(blog)
-    blog.checked_at.blank? || blog.checked_at < 1.hour.ago || blog.checked_at < (1.hour / blog.posts_per_hour).seconds.ago
+    posts_per_hour = [blog.posts_per_hour || 1, 1].max
+    blog.checked_at.blank? || blog.checked_at < 1.hour.ago || blog.checked_at < (1.hour / (posts_per_hour || 1)).seconds.ago
   end
 
   # получаем полный url - после редиректов
@@ -89,12 +113,7 @@ class UpdateBlogJob < ActiveJob::Base
     source_url
   end
 
-  def update_average_period(blog)
-    recent_posts = blog.posts.order("created_at DESC").limit(5)
-
-    return if recent_posts.blank?
-
-    # в минутах
-    blog.update_column :average_period, ((blog.checked_at || Time.now) - recent_posts.last.created_at) / 60 / recent_posts.size
+  def caps?(text)
+    text.strip.present? && !text.match(/[a-zа-я]+/)
   end
 end

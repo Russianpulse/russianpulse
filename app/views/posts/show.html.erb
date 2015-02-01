@@ -1,0 +1,105 @@
+<% content_for(:meta_title, strip_tags(typography(@post.title))) %>
+
+<% content_for :share_description do %>
+  <%= render :partial => "shared/share_description", :locals => { :title => strip_tags(typography(@post.title)), :url => smart_post_url(@post), :text => @post.body, :image => @post.picture_url } %>
+<% end %>
+
+<div itemscope itemtype="http://schema.org/BlogPosting">
+  <%= render :partial => 'meta_tags' %>
+
+  <% if ab_variant? %>
+    <h1 style="font-weight: normal"><%= typography(@post.title) %></h1>
+  <% else %>
+    <h1><%= typography(@post.title) %></h1>
+
+    <% if policy(@post).update? %>
+      <%= link_to "Edit", "/admin/post/#{@post.id}/edit", :class => "btn btn-default" %>
+    <% end %>
+  <% end %>
+
+  <%= render :partial => 'tags' %>
+
+  <hr />
+
+  <%= link_to @post.blog.title, blog_path(@post.blog.slug), class: 'blog_link' %>,
+
+  <%= content_tag(:span, format_date(@post.created_at, time: false), class: '') %>
+
+  <% if @post.source_url.present? %>
+    &nbsp;
+    –
+    &nbsp;
+    <%= link_to @post.source_url, title: t(:original), target: '_blank', class: 'no-decoration' do %>
+      <%= favicon_icon(@post.source_url) %>
+      <%= URI(@post.source_url).host %>
+    <% end %>
+  <% end %>
+
+  <%= comments_link @post, without_comments: true %>
+
+  <br />
+  <br />
+  <br />
+
+  <table width="100%">
+    <tr>
+      <td width="100%" valign="top">
+        <%= render :partial => 'body' %>
+      </td>
+      <td valign="top" class="visible-lg visible-md" style="padding-left: 15px">
+        <%= snippet :post_right_tower do %>
+          <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+          <!-- РП: Медиа небоскреб, комментарии -->
+          <ins class="adsbygoogle"
+               style="display:inline-block;width:300px;height:600px"
+               data-ad-client="ca-pub-2182128721324958"
+               data-ad-slot="4891970281"></ins>
+          <script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
+        <% end %>
+      </td>
+    </tr>
+  </table>
+
+
+  <%= counter_tag @post.id %>
+</div>
+
+<hr />
+
+<%= snippet :below_article, :url => smart_post_url(@post) %>
+
+<div class="row">
+  <div class="col-sm-6">
+    <div>
+      <%= render partial: "comments", locals: { comments: @post.comments.order(:created_at) } %>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <%= snippet :right_tower_below_article, :url => smart_post_url(@post) %>
+  </div>
+</div>
+
+<br />
+<br />
+
+<%= render partial: 'most_discussed', locals: { posts: Post.newer_than(1.week.ago).where.not(id: @post).most_discussed.limit(9) } %>
+
+<h2><%= t(:recent_comments) %></h2>
+
+<br />
+  
+<div class="row">
+  <% Comment.recent.not_for(@post).limit(20).in_groups(2, false).each do |comments| %>
+    <div class="col-sm-6">
+      <%= render partial: "shared/recent_comments", locals: { comments: comments } %>
+    </div>
+  <% end %>
+</div>
+
+<br />
+
+<%= render "read_more" %>
+
+<%= snippet :below_comments, :url => smart_post_url(@post) %>

@@ -1,0 +1,5 @@
+web:
+  environment:
+    - RAILS_ENV=development
+  volumes:
+    - ./:/app

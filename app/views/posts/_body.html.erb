@@ -1,0 +1,9 @@
+<% cache @post do %>
+  <div class="body" itemprop="articleBody">
+    <%= format_post typography(@post.body) %>
+
+    <p>
+      <%= raw post_teaser_for(@post) %>
+    </p>
+  </div>
+<% end %>

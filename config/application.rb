@@ -14,7 +14,9 @@ require "sprockets/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module Richblog
+require 'newrelic_rpm'
+
+module Mazavr
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -22,13 +24,25 @@ module Richblog
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
-    # config.time_zone = 'Central Time (US & Canada)'
+    config.time_zone = ENV['TIMEZONE'] || 'Moscow'
+
+    config.autoload_paths += %W(#{Rails.root}/app/services) 
+    config.autoload_paths += %W(#{Rails.root}/app/workers) 
+    config.autoload_paths += %W(#{Rails.root}/app/decorators) 
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
-    # config.i18n.default_locale = :de
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    config.x.domain = ENV['DOMAIN_NAME']
+    config.x.archive_sign_salt = ENV['ARCHIVE_SIGN_SALT'] || "abc123"
+
+    config.x.cleanup_posts_limit = (ENV['CLEANUP_POSTS_LIMIT'] || 8000).to_i
+
+    ENV['CACHE_REVALIDATE_SECRET_COOKIE'] ||= "wEYfgbwfhg8239FBwhejFNO4fbg8ebfkwgbg"
+
+    config.active_job.queue_adapter = :sucker_punch
   end
 end

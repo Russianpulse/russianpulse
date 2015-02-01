@@ -1,0 +1,13 @@
+<br />
+<br />
+<div class="jumbotron">
+  <h1><%= t(:post_is_blocked) %></h1>
+  <div>
+    <%= simple_format @post.block_reason %>
+  </div>
+
+  <em>
+    You are going to be redirected in 3 seconds
+  </em>
+  <%= js_redirect_to root_path %>
+</div>

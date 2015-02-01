@@ -1,0 +1,43 @@
+<h1>Cleanup Rules Checker</h1>
+
+<table width="100%">
+  <tr>
+    <td>
+    </td>
+    <td>
+      Output
+    </td>
+  </tr>
+
+  <tr>
+    <td valign="top">
+
+      <%= form_tag url_for(:action => :cleanup), :method => :post do %>
+        <p>
+        <%= label_tag :html %><br />
+        <%= text_area_tag :html, params[:html], :style => "width: 90%; height: 300px" %>
+        </p>
+
+        <p>
+        <%= label_tag :rules %><br />
+        <%= text_area_tag :rules, params[:rules], :style => "width: 90%; height: 150px" %>
+        </p>
+
+
+        <p>
+        <%= label_tag :source_code %><br />
+        <%= check_box_tag :source_code, params[:source_code] %>
+        </p>
+
+        <p>
+        <%= submit_tag "Check" %>
+        </p>
+      <% end %>
+    </td>
+    <td style="border: 1px solid grey" width="50%" valign="top">
+      <p>
+      <%= params[:source_code].blank? ? raw(@result) : h(@result) %>
+      </p>
+    </td>
+  </tr>
+</table>

@@ -1,0 +1,25 @@
+<% if post.has_picture? %>
+  <div class="post post-with-picture well">
+    <%= link_to smart_post_path(post) do %>
+      <img src="<%= post.picture_url %>" class="img-responsive" />
+    <% end %>
+    <div class="blog">
+      <%= post.blog.title %>
+    </div>
+    <div class="title">
+      <%= link_to typography(post.title), smart_post_path(post), :class => (:strong if post.blog.featured?), :title => post.title %>
+    </div>
+    <div class="description">
+      <%= text_short(post.body, 140) %>
+    </div>
+  </div>
+<% else %>
+  <div class="post">
+    <div class="title">
+      <%= link_to typography(post.title), smart_post_path(post), :class => (:strong if post.blog.featured?), :title => post.title %>
+    </div>
+    <div class="description">
+      <%= text_short(post.body, 320) %>
+    </div>
+  </div>
+<% end %>

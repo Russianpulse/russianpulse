@@ -20,4 +20,84 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  ago: "ago"
+  minute: "minute"
+  just_now: "just now"
+  minutes: "minutes"
+  minutes_5: "minutes"
+  yesterday: "Yesterday"
+
+  about: "about"
+  all: "all"
+  futher_reading: "futher reading"
+  last_update: "Last update"
+  more_stories: "more stories"
+  not_found: "Page not found"
+  please_wait: "please wait"
+  posts_before: "Posts before"
+  recent_posts: "Recent posts"
+  search: "search"
+  search_for: "search for"
+  something_goes_wrong: "something goes wrong"
+  too_many_requests: "Too many requests. We will be back in a few momnets."
+  trending: "trending"
+
+  featured: "Featured"
+  popular_for_a_day: "Popular for a Day"
+  for_a_week: "For a Week"
+  for_all_time: "For All Time"
+  top_blogs: "Top Blogs"
+  blog: "Blog"
+  rating: "Rating"
+
+  original: "Original"
+  loading: "Loading"
+  archive: "Archive"
+
+  whats_popular: "What's Popular"
+  whats_new: "What's New"
+  whats_featured: "What's Featured"
+  popular_posts: "Popular posts"
+
+  previously_similar: "Previously Similar"
+
+  subscribe: "Subscribe"
+  unsubscribe: "Unsubscribe"
+  my_subscriptions: "My subscriptions"
+  login: "Sign In"
+  logout: "Logout"
+  updates: "Updates"
+  settings: "Settings"
+  activity: "Activity"
+  post: "Post"
+  posts: "Posts"
+  too_rarely: "Too rarely"
+  per_hour: "per hour"
+  per_day: "per day"
+  per_week: "per week"
+  per_month: "per month"
+
+  posts:
+    comments:
+      comments: "Responses"
+      leave_comment: "Leave Your Feedback"
+      your_name: "Your name"
+      email: "Email (hidden from users)"
+      send: "Publish"
+
+  comments:
+    thank_you: "Thank you for response!"
+
+  redirects:
+    bye:
+      read_full: "Read more"
+
+  recent_comments: "Recent Comments"
+
+  security:
+    robot_atack: "Robot atack detected. Please verify your humanity"
+  discussion: "Discussion"
+  most_discussed: "Most Discussed"
+
+  post_is_blocked: "Post has been blocked"
+  going_to_be_redirected: "You are going to be redirected in 3 seconds"
