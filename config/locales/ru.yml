@@ -1,0 +1,82 @@
+ru:
+  ago: "назад"
+  minute: "минуту"
+  minutes: "минуты"
+  minutes_5: "минут"
+  just_now: "только сейчас"
+  yesterday: "Вчера"
+
+  about: "О сайте"
+  all: "все"
+  futher_reading: "Далее"
+  last_update: "Последнее обновление"
+  more_stories: "ещё статьи"
+  not_found: "Страница не найдена"
+  please_wait: "пожалуйста, подождите"
+  posts_before: "Статьи до"
+  recent_posts: "Новые статьи"
+  search: "поиск"
+  search_for: "поиск"
+  something_goes_wrong: "Что-то пошло не так"
+  too_many_requests: "Слишком много запросов. Страница будет доступна через несколько мгновений."
+  trending: "в тренде"
+
+  featured: "Рекомендуем"
+  popular_for_a_day: "Популярное за сутки"
+  for_a_week: "За неделю"
+  for_all_time: "За все время"
+  top_blogs: "Лучшие блоги"
+  blog: "Блог"
+  rating: "Рейтинг"
+
+  original: "Источник"
+  loading: "Загрузка"
+  archive: "Архив"
+
+  whats_popular: "Что популярно"
+  whats_new: "Что нового"
+  whats_featured: "Что рекомендуем"
+  popular_posts: "Популярные статьи"
+
+  previously_similar: "Ранее на эту тему"
+
+  subscribe: "Подписаться"
+  unsubscribe: "Отписаться"
+  my_subscriptions: "Мои подписки"
+  login: "Войти"
+  logout: "Выйти"
+  updates: "Обнолвения"
+  settings: "Настройки"
+  activity: "Активность"
+  post: "Запись"
+  posts: "Записи"
+  too_rarely: "Очень редко"
+  per_hour: "в час"
+  per_day: "в день"
+  per_week: "в неделю"
+  per_month: "в месяц"
+
+  posts:
+    comments:
+      leave_comment: "Что Вы думаете?"
+      comments: "Отзывы"
+      your_name: "Ваше имя"
+      email: "Email (скрыто от посетителей)"
+      send: "Опубликовать"
+
+  comments:
+    thank_you: "Спасибо за Ваш отзыв!"
+
+  redirects:
+    bye:
+      read_full: "Читать полностью"
+
+  recent_comments: "Свежие комментарии"
+
+  security:
+    robot_atack: "Атака роботом. Пожалуйста, подтвердите свою человечность"
+  discussion: "Обсуждение"
+  most_discussed: "Самое обсуждаемое"
+
+  post_is_blocked: "Эта статья была заблокирована"
+  going_to_be_redirected: "Вы будете перенаправлены через 3 секунды"

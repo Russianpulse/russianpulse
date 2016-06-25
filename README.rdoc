@@ -1,28 +1,68 @@
-== README
+== Mazavr Blog System
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Blogging system.
 
-Things you may want to cover:
+=== Install
 
-* Ruby version
+Create heroku app:
 
-* System dependencies
+   $ heroku create [APP-NAME] --region eu
+   
 
-* Configuration
+Clone  source code from main repo:
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+   $ git clone git@heroku.com:mazavr.git [APP-NAME]
+   $ cd [APP-NAME]
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+Add new repo
+
+   $ git remote add heroku git@heroku.com:[APP-NAME].git
+
+
+Push new app to Heroku
+   
+   $ git push heroku master
+
+
+==== Config
+
+Set domain name:
+
+   $ heroku config:set --app [APP-NAME] DOMAIN_NAME=app-name.herokuapp.com
+   
+
+Set Newrelic license:
+
+   $ heroku config:set --app [APP-NAME] NEWRELIC_LICENSE_KEY=123abc
+
+
+
+Add Redis instance:
+
+   $ heroku addons:add rediscloud --app [APP-NAME]
+
+
+Configure sidekiq redis connection:
+
+   $ heroku config:set --app [APP-NAME] REDIS_PROVIDER=REDISCLOUD_URL
+
+
+Admin access for /admin panel and /sidekiq:
+
+   $ heroku config:set --app [APP-NAME] ADMIN_PASSWORD=secret123 ADMIN_USERNAME=admin
+
+==== Database
+
+Create database:
+
+    $ heroku run rake db:migrate --app [APP-NAME]
+
+
+Init seed data
+
+    $ heroku run rake db:seed --app [APP-NAME]
+
+
+READY!
+

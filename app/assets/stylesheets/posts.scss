@@ -1,0 +1,77 @@
+// Place all the styles related to the posts controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.posts-list {
+  .post {
+
+    h2, h3 {
+      margin-bottom: 8px;
+      font-size: 19pt;
+      a {
+        color: #333
+      }
+    }
+    .blog {
+    }
+    .tag {
+    }
+  }
+}
+
+.action-posts-show {
+  a.blog_link {
+    color: #333;
+    font-weight: bold;
+  }
+
+  .body {
+    a {
+      text-decoration: underline;
+    }
+
+    p:last {
+      padding-bottom: 0px;
+    }
+  }
+
+
+  .tags {
+    color: grey;
+    a { 
+      color: grey;
+    }
+  }
+
+  .posts-compact {
+    .post {
+      border-bottom: 1px solid #eee; margin-bottom: 10px; padding-bottom: 10px;
+      line-height: 1.2;
+
+      .title { font-weight: bold; font-style: italic; font-size: 16pt; }
+      .description { font-size: 11pt; }
+    }
+
+    .post-with-picture {
+
+      .preview { background-size: cover; width: 78px; height: 78px; float: left; margin-right: 15px }
+
+      .title { font-weight: bold; font-style: normal; font-size: 12pt; }
+
+      min-height: 80px;
+      border-bottom: none; margin-bottom: 10px; padding-bottom: 10px;
+
+    }
+  }
+
+  .comments {
+    .comment {
+      padding-top: 30px;
+    }
+  }
+}
+
+
+a.no-decoration:hover {
+  text-decoration: none;
+}

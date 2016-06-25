@@ -1,0 +1,15 @@
+<% if params[:before].present? %>
+  <% content_for(:meta_title, strip_tags("#{t(:posts_before)} #{format_date Time.at(params[:before].to_f)}")) %>
+  <%= content_tag :h1, raw("#{t(:posts_before)} #{format_date Time.at(params[:before].to_f)}") %>
+  <hr />
+<% else %>
+  <%= snippet :main_page_teaser %>
+<% end %>
+
+<%= render :partial => "posts/list", :locals => { :posts => @posts } %>
+
+<% if Post.older_than(@posts.last.try(:created_at)).exists? %>
+  <%= link_to("#{t(:more_stories).mb_chars.capitalize} →", url_for(:before => @posts.last.created_at.to_f, :top => params[:top]), :class => "btn btn-default")  %>
+<% else %>
+  <%= link_to("#{t(:more_stories).mb_chars.capitalize} →", "#", :class => "btn btn-default disabled")  %>
+<% end %>

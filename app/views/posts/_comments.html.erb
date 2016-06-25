@@ -1,0 +1,44 @@
+<a href="#comments" name="comments"></a>
+
+<% if comments.present? %>
+  <h2><%= t ".comments" %></h2>
+
+  <div class="comments">
+    <% for comment in comments %>
+      <a href="#comment_<%= comment.id %>" name="comment_<%= comment.id %>"></a>
+      <div class="media comment">
+        <div class="media-left">
+          <%= image_tag gravatar_url(comment.user.email, size: 35), class: "media-object", width: 35, height: 35 %>
+        </div>
+        <div class="media-body">
+          <h4 class="media-heading">
+            <%= comment.user.name %>
+            <%= link_to "#", "#comment_#{comment.id}" %>
+            <small><%= smart_date comment.created_at %></small>
+          </h4>
+
+          <%= simple_format comment.comment %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<h2><%= t ".leave_comment" %></h2>
+
+<%= simple_form_for Comment.new, html: { id: "comments_form" } do |f| %>
+  <%= hidden_field_tag :post_id, @post.id %>
+  <%= f.input :comment, label: false, input_html: { rows: 8 } %>
+
+  <%= f.simple_fields_for :user_attributes do |f| %>
+    <%= f.input :name, label: t(".your_name"), input_html: { class: "name memorized-field" } %>
+    <%= f.input :email, as: :email, label: t(".email"), input_html: { class: "name memorized-field" } %>
+  <% end %>
+
+  <div style='margin-bottom: 12px'>
+    <%= recaptcha_tags rescue "Can't render captcha widget" %>
+  </div>
+
+  <%= f.button :submit, t(".send"), class: "btn-primary btn-lg" %>
+<% end %>
+

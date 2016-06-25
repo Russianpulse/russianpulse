@@ -1,0 +1,36 @@
+<div class="row">
+  <% @posts_top.take(3).each do |post| %>
+    <div class="col-sm-4">
+      <%= cell("posts/high", post) %>
+    </div>
+  <% end %>
+</div>
+
+<div class="row">
+  <% @posts_most_discussed.in_groups_of(2, false) do |posts| %>
+    <div class="col-sm-4">
+      <%= cell("posts/text_block", posts) %>
+    </div>
+  <% end %>
+</div>
+
+<div class="row">
+  <div class="col-sm-4">
+    <%= cell("posts/text_block", @posts_recent[0..5]) %>
+  </div>
+  <% @posts_featured.in_groups(2, false) do |posts| %>
+    <div class="col-sm-4">
+      <%= cell("posts/triple", posts) if posts.size == 3 %>
+      <hr />
+    </div>
+  <% end %>
+</div>
+
+<div class="row">
+  <% (@posts_recent[6..-1] || []).in_groups(3, false) do |posts| %>
+    <div class="col-sm-4">
+      <%= cell("posts/text_block", posts) %>
+    </div>
+  <% end %>
+</div>
+

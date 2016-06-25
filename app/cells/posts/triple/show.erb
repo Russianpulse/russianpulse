@@ -1,0 +1,16 @@
+<div class="cells-post cells-post-triple">
+  <%= link_to smart_post_path(@post1) do %>
+    <div class="picture" style="background-image: url('<%= @post1.picture_url %>')">
+      
+    </div>
+  <% end %>
+
+  <% [@post1, @post2, @post3].each do |post| %>
+    <h3>
+      <%= link_to post.title, smart_post_path(post) %>
+      <%= comments_link post %>
+    </h3>
+
+    <%= cycle('<hr />', '<hr />', '') -%>
+  <% end %>
+</div>

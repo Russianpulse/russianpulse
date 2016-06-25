@@ -1,0 +1,15 @@
+<meta content="<%= strip_tags(typography(@post.title)) %>" itemprop="name"></meta>
+<%= content_tag :meta, nil, :itemprop => :headline, :content => strip_tags(@post.body.to_s).gsub(/\s+/, " ").mb_chars.truncate(160) %>
+
+<%= content_tag :meta, nil, :itemprop => :dateCreated, :content => @post.created_at.iso8601 %>
+<%= content_tag :meta, nil, :itemprop => :dateModified, :content => @post.updated_at.iso8601 %>
+<%= content_tag :meta, nil, :itemprop => :datePublished, :content => @post.created_at.iso8601 %>
+
+<%= content_tag :meta, nil, :itemprop => :url, :content => smart_post_url(@post) %>
+<%= content_tag :meta, nil, :itemprop => :mainEntityOfPage, :content => smart_post_url(@post) %>
+
+<%= content_tag :meta, nil, :itemprop => :author, :content => @post.blog.title %>
+<%= content_tag :meta, nil, :itemprop => :name, :content => @post.blog.title %>
+<%= content_tag :meta, nil, :itemprop => :publisher, :content => @post.blog.title %>
+
+<%= content_tag :meta, nil, :itemprop => :image, :content => @post.picture_url %>

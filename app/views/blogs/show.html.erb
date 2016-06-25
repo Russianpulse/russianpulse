@@ -1,0 +1,55 @@
+<% content_for :head_include do %>
+  <%= auto_discovery_link_tag :atom, url_for(:format => :atom), :title => @blog.title %>
+<% end %>
+
+<% if params[:before].present? %>
+  <% content_for(:meta_title, strip_tags("#{@blog.title}: #{t(:posts_before)} #{format_date Time.at(params[:before].to_f)}")) %>
+<% else %>
+  <% content_for(:meta_title, @blog.title) %>
+<% end %>
+
+<h1><%= @blog.title %></h1>
+
+<% if params[:before].blank? %>
+  <p><%= raw @blog.description %></p>
+<% end %>
+
+<ol class="breadcrumb">
+  <li>
+    <%= link_to(t(:all).mb_chars.capitalize, posts_path)  %>
+  </li>
+  <% if params[:before].present? %>
+    <li>
+      <%= link_to(@blog.title, blog_path(@blog.slug))  %>
+    </li>
+    <li class="active"><%= raw "#{t(:posts_before)} #{format_date Time.at(params[:before].to_f)}" %></li>
+  <% else %>
+    <li class="active"><%= @blog.title %></li>
+  <% end %>
+</ol>
+
+<% if params[:before].blank? %>
+  <% if ab_variant? %>
+    <div class="row">
+      <% @blog.posts.newer_than(2.weeks.ago).popular.with_picture.limit(3).each do |post| %>
+        <div class="col-sm-4">
+          <%= cell("posts/high", post) %>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <% if @blog.posts.newer_than(1.week.ago).exists? %>
+      <%= render :partial => 'popular', locals: { posts: @blog.posts.newer_than(1.week.ago).popular.limit(4) } %>
+    <% end %>
+  <% end %>
+<% end %>
+
+
+
+<%= render :partial => "posts/list", :locals => { :posts => @posts } %>
+
+<% if Post.older_than(@posts.last.try(:created_at)).exists? %>
+  <%= link_to("#{t(:more_stories).mb_chars.capitalize} →", url_for(:before => @posts.last.created_at.to_f ), :class => "btn btn-default")  %>
+<% else %>
+  <%= link_to("#{t(:more_stories).mb_chars.capitalize} →", "#", :class => "btn btn-default disabled")  %>
+<% end %>

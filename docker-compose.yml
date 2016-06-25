@@ -1,0 +1,19 @@
+db:
+  image: postgres:9.4.5
+
+memcached:
+  image: memcached:1.4.25
+
+web:
+  build: .
+  command: bundle exec rails server --binding 0.0.0.0 --port 3000
+  ports:
+    - "3000:3000"
+  links: 
+    - db
+    - memcached
+  env_file:
+    - .env
+
+backup-service:
+  build: docker/backup-service

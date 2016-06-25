@@ -1,0 +1,5 @@
+<div class="widget widget-recent-comments">
+  <% comments.each do |comment| %>
+    <%= render partial: "shared/comment_preview", locals: { comment: comment } %>
+  <% end %>
+</div>

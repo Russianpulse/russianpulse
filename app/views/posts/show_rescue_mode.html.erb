@@ -1,0 +1,15 @@
+<a class="embedly-card" href="http://goo.gl/<%= @slug_id %>"><%= t(:loading) %></a>
+<script async src="//cdn.embedly.com/widgets/platform.js" charset="UTF-8"></script>
+
+<br />
+<br />
+
+<a href="#comments" name="comments"></a>
+<%= snippet :comments, :url => post_permalink_url(@slug_id) %>
+
+
+<%= render :partial => 'futher_reading', :locals => { post: Post.order(:created_at).last } %>
+
+<%= javascript_tag do %>
+    ga('send', 'event', 'Posts', 'Posts Rescue view', <%= @slug_id %>, {'nonInteraction': 1});
+<% end %>

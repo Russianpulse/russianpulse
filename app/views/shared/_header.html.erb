@@ -1,0 +1,39 @@
+<% if @full_header %>
+  <div class="row">
+
+    <div class="col-md-12">
+      <span id="logo"><%= link_to snippet(:logo) || snippet(:site_name) || "Mazavr", root_path %></span>
+      <br />
+      <span id="time_now" title="<%= t(:last_update) %>: <%= format_date Post.order("created_at DESC").first.created_at rescue nil %>"><%= l Post.order("created_at DESC").first.created_at, format: "%e %b %Y" rescue nil  %></span>
+    </div>
+    <div class="col-md-9 visible-md visible-lg" style="padding-top: 10px">
+    </div>
+  </div>
+
+  <hr />
+
+<% else %>
+  <center>
+    <%= snippet :above_header do %>
+      <div width="100%" style="overflow: hidden">
+        <div style="background: grey; width: 780px; height: 90px">
+          <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+          <!-- РП: Шапка -->
+          <ins class="adsbygoogle"
+               style="display:inline-block;width:728px;height:90px"
+               data-ad-client="ca-pub-2182128721324958"
+               data-ad-slot="5044807084"></ins>
+          <script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
+        </div>
+      </div>
+    <% end %>
+  </center>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div id="logo" style="font-size: 100%; font-style: italic; padding-top: 15px"><%= link_to "← #{snippet(:site_name) || "Mazavr"}", root_path, :style => "" %></div>
+    </div>
+  </div>
+<% end %>

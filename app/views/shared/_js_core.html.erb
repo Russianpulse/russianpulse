@@ -1,0 +1,14 @@
+<script>
+  function waitFor(obj, prop, func, self,  count) {
+    if (obj[prop]) {       
+      func.apply(self);    
+    } else {               
+      count = count || 0;  
+      if (count < 1000) setTimeout(function() { 
+          waitFor(obj, prop, func, self, count + 1)
+          }, 0);
+    }
+  }
+
+
+</script>

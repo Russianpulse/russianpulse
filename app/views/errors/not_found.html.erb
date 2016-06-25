@@ -1,0 +1,14 @@
+<% content_for(:meta_title, t(:not_found).mb_chars.capitalize) %>
+
+<h1><%= raw t(:not_found).mb_chars.capitalize %></h1>
+<hr />
+
+<%= format_post snippet(:not_found).to_s %>
+
+<%= javascript_tag do %> 
+  ga('send', 'event', 'Errors', 'Page not found', {'nonInteraction': 1});
+<% end %>
+
+<%= render partial: "shared/top_posts", locals: {
+  posts: Post.recent.top.limit(20),
+} %>
