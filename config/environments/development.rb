@@ -40,5 +40,4 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
-  config.cache_store = :memory_store, { size: 64.megabytes }
 end

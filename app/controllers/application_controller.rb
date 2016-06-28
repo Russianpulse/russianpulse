@@ -59,7 +59,7 @@ class ApplicationController < ActionController::Base
   end
 
   def check_subdomain
-    if Rails.configuration.x.domain && !Rails.env.test? && request.host != Rails.configuration.x.domain
+    if Rails.configuration.x.domain && Rails.env.production? && request.host != Rails.configuration.x.domain
       redirect_to request.url.sub(request.host, Rails.configuration.x.domain)
     end
   end

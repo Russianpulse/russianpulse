@@ -79,14 +79,21 @@ task :deploy => :environment do
     #invoke :'rails:assets_precompile'
     #invoke :'deploy:cleanup'
 
-    queue! %[docker-compose build]
-
     to :launch do
-      queue! %[docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d]
+      queue! %[docker-compose -p mazavr build]
+      queue! %[docker-compose -p mazavr stop web]
+      queue! %[docker-compose -f docker-compose.yml -f docker-compose.prod.yml -p mazavr up -d]
+      queue! %[docker-compose -f docker-compose.yml -f docker-compose.prod.yml -p mazavr exec web rake db:create db:migrate]
+      queue! %[docker-compose -f docker-compose.yml -f docker-compose.prod.yml -p mazavr restart web]
+
       #queue "mkdir -p #{deploy_to}/#{current_path}/tmp/"
       #queue "touch #{deploy_to}/#{current_path}/tmp/restart.txt"
     end
   end
+end
+
+task :restart do
+  queue! %[docker-compose -f docker-compose.yml -f docker-compose.prod.yml -p mazavr restart]
 end
 
 # For help in making your deploy script, see the Mina documentation:
