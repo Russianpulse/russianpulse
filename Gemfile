@@ -51,7 +51,7 @@ gem 'actionpack-action_caching'
 gem 'fastimage'
 #gem 'jwt'
 gem 'ejs'
-gem 'sucker_punch', '~> 2.0'
+gem 'sidekiq'
 gem 'simple_form'
 gem 'acts_as_commentable'
 gem 'devise'
@@ -98,7 +98,6 @@ group :development, :test do
   gem 'factory_girl'
   gem 'factory_girl_rails', '~> 4.0'
   gem 'vcr'
-  gem 'mina'
 end
 
 group :test do

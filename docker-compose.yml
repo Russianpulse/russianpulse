@@ -2,18 +2,37 @@ db:
   image: postgres:9.4.5
 
 memcached:
-  image: memcached:1.4.25
+  image: memcached:1.4.27-alpine
+
+redis:
+  image: redis:3.2.1-alpine
 
 web:
   build: .
-  command: bundle exec rails server --binding 0.0.0.0 --port 3000
   ports:
     - "3000:3000"
   links: 
     - db
     - memcached
+    - redis
   env_file:
     - .env
 
+worker:
+  build: .
+  links: 
+    - db
+    - memcached
+    - redis
+  command: bundle exec sidekiq
+  env_file:
+    - .env
+  volumes_from:
+    - web
+
 backup-service:
   build: docker/backup-service
+  links: 
+    - db
+  env_file:
+    - .env

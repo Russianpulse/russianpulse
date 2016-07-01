@@ -25,8 +25,10 @@ class CleanupJob < ActiveJob::Base
     # потенциальная мощность
     posts_per_day_max = Blog.sum(:posts_per_hour) * 24
 
+    recent_created_at = Post.maximum(:created_at) || Time.zone.now
+
     # сколько было фактически за последние сутки
-    posts_per_day_actual = Post.newer_than(Post.order("created_at").maximum(:created_at) - 1.day).count
+    posts_per_day_actual = Post.newer_than(recent_created_at - 1.day).count
 
     (posts_per_day_max + posts_per_day_actual) / 2
   end

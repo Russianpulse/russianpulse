@@ -10,7 +10,8 @@ class TopPostsSpiderJob < ActiveJob::Base
         set_top_between(from, to)
       end
     when "recent"
-      to = Post.maximum(:created_at)
+      to = Post.maximum(:created_at) || Time.zone.now
+
       from = to - 1.day
 
       set_top_between(from, to)

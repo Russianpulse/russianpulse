@@ -1,7 +1,14 @@
-FROM busybox:glibc
+FROM debian:jessie
 
-RUN mkdir -p /var/spool/cron/crontabs
+RUN apt-get update && apt-get install -y \
+  cron \
+  postgresql-client \
+  duplicity \
+  ncftp
 
-ADD ./crontab /var/spool/cron/crontabs/root
+RUN mkdir /backup
+RUN touch /var/log/backup.log
+ADD ./backup.sh /etc/cron.daily/
+RUN chmod +x /etc/cron.daily/backup.sh
 
-CMD crond -f
+CMD tail -f /var/log/backup.log

@@ -3,9 +3,10 @@
 .env*
 .vagrant/
 backup
+build
 coverage
 log/*
-public/sitemap.*
+public/sitemap*
 tags
 tmp
 vendor/cache

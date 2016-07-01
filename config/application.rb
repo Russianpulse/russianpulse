@@ -43,12 +43,10 @@ module Mazavr
 
     ENV['CACHE_REVALIDATE_SECRET_COOKIE'] ||= "wEYfgbwfhg8239FBwhejFNO4fbg8ebfkwgbg"
 
-    config.active_job.queue_adapter = :sucker_punch
-
     config.cache_store = :dalli_store,
-      (ENV["MEMCACHED_SERVERS"] || "").split(","),
-      {:username => ENV["MEMCACHED_USERNAME"],
-       :password => ENV["MEMCACHED_PASSWORD"],
+      'memcached',
+      {:username => nil,
+       :password => nil,
        :failover => true,
        :socket_timeout => 1.5,
        :socket_failure_delay => 0.2,

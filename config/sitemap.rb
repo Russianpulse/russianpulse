@@ -1,6 +1,7 @@
 # Set the host name for URL creation
 SitemapGenerator::Sitemap.default_host = "http://#{Rails.configuration.x.domain}"
 SitemapGenerator::Interpreter.send :include, PostsHelper
+SitemapGenerator::Sitemap.sitemaps_path = 'sitemaps/'
 
 SitemapGenerator::Sitemap.create do
   # Put links creation logic here.
