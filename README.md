@@ -1,6 +1,6 @@
 # Mazavr News site engine
 
-[ ![Codeship Status for sergio-fry/mazavr](https://codeship.com/projects/c5de7060-1cf6-0134-851c-220e900c5efe/status?branch=master)](https://codeship.com/projects/159964)
+[ ![Codeship Status for Russianpulse/mazavr-engine](https://codeship.com/projects/1255bcc0-2427-0134-09ef-76d3d72b136a/status?branch=master)](https://codeship.com/projects/161378)
 
 Written on Rube on Rails. Blogging system.
 
