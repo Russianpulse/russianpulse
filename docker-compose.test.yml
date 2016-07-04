@@ -17,7 +17,7 @@ test:
   environment:
     - RAILS_ENV=test
   env_file:
-    - .env
+    - .env.test
   volumes:
     - ./:/app
   command:
