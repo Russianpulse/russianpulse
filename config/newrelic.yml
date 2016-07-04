@@ -12,11 +12,11 @@
 
 common: &default_settings
   # Required license key associated with your New Relic account.
-  license_key: <%= ENV['NEWRELIC_LICENSE_KEY'] || "dff49d3e458c74b9a361a23d222f4b769262e226" %>
+  license_key: <%= ENV['NEWRELIC_LICENSE_KEY'] %>
 
   # Your application name. Renaming here affects where data displays in New
   # Relic.  For more details, see https://docs.newrelic.com/docs/apm/new-relic-apm/maintenance/renaming-applications
-  app_name: <%= ENV['APP_NAME'] || 'Mazavr Default' %>
+  app_name: <%= ENV['NEWRELIC_APP_NAME'] %>
 
   # To disable the agent regardless of other settings, uncomment the following:
   # agent_enabled: false
@@ -30,7 +30,7 @@ common: &default_settings
 # If your application has other named environments, configure them here.
 development:
   <<: *default_settings
-  app_name: <%= ENV['APP_NAME'] || 'Mazavr Default' %> (Development)
+  app_name: <%= ENV['NEWRELIC_APP_NAME'] %> (Development)
 
   # NOTE: There is substantial overhead when running in developer mode.
   # Do not use for production or load testing.
@@ -43,7 +43,7 @@ test:
 
 staging:
   <<: *default_settings
-  app_name: <%= ENV['APP_NAME'] || 'Mazavr Default' %> My Application (Staging)
+  app_name: <%= ENV['NEWRELIC_APP_NAME'] %> (Staging)
 
 production:
   <<: *default_settings

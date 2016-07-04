@@ -1,7 +1,9 @@
-.bundle
-log/*
 !log/.keep
-tmp
-tags
+.bundle
 .env*
-
+coverage
+log/*
+tags
+tmp
+.git*
+vendor/cache/

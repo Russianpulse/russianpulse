@@ -2,8 +2,6 @@ source 'https://rubygems.org'
 
 ruby '2.2.3'
 
-gem 'dotenv-rails', :require => 'dotenv/rails-now'
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 4.2.5'
 # Use postgresql as the database for Active Record
@@ -35,9 +33,6 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'rails_admin'
 
 gem 'feedjira'
-# gem 'sidekiq'
-# gem 'sidekiq-scheduler'
-# gem 'sinatra', :require => nil
 gem 'typogruby'
 gem 'redcarpet'
 gem "ruby-readability", :require => 'readability'
@@ -94,7 +89,6 @@ group :development, :test do
   #gem 'benchmark-ips'
   gem 'bullet'
   gem 'database_cleaner'
-  gem 'mina'
   gem 'factory_girl'
   gem 'factory_girl_rails', '~> 4.0'
   gem 'vcr'
