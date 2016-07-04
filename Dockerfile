@@ -19,4 +19,4 @@ ADD . /app
 VOLUME /app/public/sitemaps/
 
 EXPOSE 3000
-CMD rm -f /app/tmp/pids/*; bundle exec rails server --binding 0.0.0.0 --port 3000
+CMD bin/run

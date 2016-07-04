@@ -1,8 +1,8 @@
 !log/.keep
 .bundle
-.env*
+.env
+.env.pg-backup
 .vagrant/
-backup
 build
 coverage
 log/*

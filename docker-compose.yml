@@ -18,6 +18,10 @@ web:
     - backup-service
   env_file:
     - .env
+  environment:
+    - RAILS_ENV=development
+  volumes:
+    - ./:/app
 
 worker:
   build: .
@@ -25,9 +29,11 @@ worker:
     - db
     - memcached
     - redis
-  command: bundle exec sidekiq
+  command: bin/worker
   env_file:
     - .env
+  environment:
+    - RAILS_ENV=development
   volumes_from:
     - web
 

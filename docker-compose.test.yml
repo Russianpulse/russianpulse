@@ -1,9 +1,24 @@
-web:
+db:
+  image: postgres:9.4.5
+
+memcached:
+  image: memcached:1.4.27-alpine
+
+redis:
+  image: redis:3.2.1-alpine
+
+# Docker test service
+test:
+  build: .
+  links: 
+    - db
+    - memcached
+    - redis
   environment:
     - RAILS_ENV=test
+  env_file:
+    - .env
   volumes:
     - ./:/app
-
-worker:
-  environment:
-    - RAILS_ENV=test
+  command:
+    bundle exec rake db:create db:migrate spec

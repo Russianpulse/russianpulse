@@ -1,0 +1,4 @@
+#!/bin/sh
+
+rm -f /app/tmp/pids/*
+bundle exec rake db:create db:migrate

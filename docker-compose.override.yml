@@ -1,9 +1,0 @@
-web:
-  environment:
-    - RAILS_ENV=development
-  volumes:
-    - ./:/app
-
-worker:
-  environment:
-    - RAILS_ENV=development
