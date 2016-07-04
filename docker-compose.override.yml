@@ -1,11 +1,9 @@
 web:
-  build: .
   environment:
     - RAILS_ENV=development
   volumes:
     - ./:/app
 
 worker:
-  build: .
   environment:
     - RAILS_ENV=development

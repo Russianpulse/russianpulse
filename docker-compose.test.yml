@@ -1,11 +1,9 @@
 web:
-  build: .
   environment:
     - RAILS_ENV=test
   volumes:
     - ./:/app
 
 worker:
-  build: .
   environment:
     - RAILS_ENV=test

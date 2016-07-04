@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_filter :check_subdomain
-  before_filter :schedule_jobs
+  before_filter :schedule_jobs unless lambda { Rails.env.test? }
   before_action :set_locale
 
   helper_method :ab_variant?
