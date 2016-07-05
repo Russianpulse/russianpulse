@@ -61,6 +61,7 @@ gem 'cells', '~> 4.0.0'
 gem 'cells-erb'
 
 gem 'pundit'
+gem 'puma'
 
 group :production do
   gem 'newrelic_rpm'

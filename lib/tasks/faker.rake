@@ -13,16 +13,16 @@ end
 namespace :faker do
   desc "Fake db data"
   task database: :environment do
-    #[Post, Tag, Blog].each(&:delete_all)
+    [Post, Tag, Blog].each(&:delete_all)
 
     50.times do |n|
-      #Tag.create! title: fake_word
+      Tag.create! title: fake_word
     end
 
     tags = Tag.all
 
     50.times do |n|
-      #Blog.create! title: fake_word, slug: "blog-#{n}", featured: n == 1
+      Blog.create! title: fake_word, slug: "blog-#{n}", featured: n == 1
     end
 
     Blog.find_each do |b|

@@ -1,4 +1,5 @@
 #!/bin/sh
 
 ./bin/bootstrap
-bundle exec rails server --binding 0.0.0.0 --port 3000
+
+bundle exec rails server Puma --binding 0.0.0.0 --port 3000

@@ -171,6 +171,7 @@ GEM
       ast (~> 2.2)
     pg (0.18.4)
     powerpack (0.1.1)
+    puma (3.4.0)
     pundit (1.1.0)
       activesupport (>= 3.0.0)
     rack (1.6.4)
@@ -385,6 +386,7 @@ DEPENDENCIES
   js_cookie_rails
   newrelic_rpm
   pg
+  puma
   pundit
   rack-mini-profiler
   rails (~> 4.2.5)
