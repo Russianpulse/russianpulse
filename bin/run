@@ -1,4 +1,10 @@
 #!/bin/sh
 
 ./bin/bootstrap
-bundle exec rails server --binding 0.0.0.0 --port 3000
+
+if [ $RAILS_ENV == "production" ]
+then
+  bundle exec rails server Puma --binding 0.0.0.0 --port 3000
+else
+  bundle exec rails server --binding 0.0.0.0 --port 3000
+fi
