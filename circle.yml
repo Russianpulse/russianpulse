@@ -2,11 +2,6 @@ machine:
   services:
     - docker
 
-dependencies:
-  pre:
-    - pip install --upgrade pip
-    - pip install docker-compose
-
 test:
   pre:
     - docker-compose pull
