@@ -18,6 +18,8 @@ RUN bundle install
 
 ADD . /app
 
+RUN bundle exec rake assets:precompile
+
 VOLUME /app/public/sitemaps/
 
 EXPOSE 3000
