@@ -7,6 +7,8 @@ RUN apt-get update -qq && apt-get install -y build-essential \
   # Nokogiri \
   libxml2-dev libxslt1-dev nodejs
 
+RUN gem install bundler
+
 WORKDIR /app
 
 # build bundle first to install all gems 
