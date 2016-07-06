@@ -15,7 +15,6 @@ web:
     - db
     - memcached
     - redis
-    - backup-service
   env_file:
     - .env
   environment:
