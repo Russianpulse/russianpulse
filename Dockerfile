@@ -8,6 +8,7 @@ RUN apt-get update -qq && apt-get install -y build-essential \
   libxml2-dev libxslt1-dev nodejs
 
 RUN gem install bundler
+RUN gem install bundler-audit
 
 WORKDIR /app
 
