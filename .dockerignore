@@ -7,3 +7,4 @@ tags
 tmp
 .git*
 vendor/cache/
+public/assets/
