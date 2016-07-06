@@ -1,0 +1,13 @@
+machine:
+  services:
+    - docker
+
+dependencies:
+  pre:
+    - pip install docker-compose
+
+test:
+  pre:
+    - docker-compose pull
+  override:
+    - docker-compose -f docker-compose.yml run sut bundle exec rake db:create db:migrate spec
