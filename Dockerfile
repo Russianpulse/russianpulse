@@ -1,4 +1,4 @@
-FROM ruby:2.2.3
+FROM ruby:2.3.1
 MAINTAINER Sergei O. Udalov <sergei.udalov@gmail.com>
 
 RUN apt-get update -qq && apt-get install -y build-essential \
@@ -6,6 +6,8 @@ RUN apt-get update -qq && apt-get install -y build-essential \
   libpq-dev \
   # Nokogiri \
   libxml2-dev libxslt1-dev nodejs
+
+RUN gem install bundler
 
 WORKDIR /app
 
@@ -15,6 +17,8 @@ ADD Gemfile* /app/
 RUN bundle install
 
 ADD . /app
+
+RUN bundle exec rake assets:precompile
 
 VOLUME /app/public/sitemaps/
 
