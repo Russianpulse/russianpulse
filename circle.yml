@@ -1,3 +1,7 @@
+database:
+  override:
+    - echo 'do nothing'
+
 machine:
   services:
     - docker
