@@ -47,7 +47,7 @@ gem 'ejs'
 gem 'sidekiq'
 gem 'simple_form'
 gem 'acts_as_commentable'
-gem 'devise'
+gem 'devise', '~> 3.5.4'
 gem 'devise-i18n'
 gem 'devise-i18n-views'
 
