@@ -3,8 +3,8 @@ class TopPostsSpiderJob < ActiveJob::Base
 
   def perform(mode="recent")
     case mode.to_s
-    when "all"
-      (Post.minimum(:created_at).to_i..Time.now.to_i).step(1.day).each do |from| 
+    when "month"
+      (1.month.ago.to_i..Time.now.to_i).step(1.day).each do |from| 
         from = Time.at(from).beginning_of_day
         to = from.end_of_day
         set_top_between(from, to)

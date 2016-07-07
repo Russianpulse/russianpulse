@@ -276,6 +276,7 @@ GEM
     ruby_parser (3.7.3)
       sexp_processor (~> 4.1)
     rubypants (0.2.0)
+    rufus-scheduler (3.1.10)
     russian (0.6.0)
       i18n (>= 0.5.0)
     safe_yaml (1.0.4)
@@ -298,6 +299,12 @@ GEM
       connection_pool (~> 2.2, >= 2.2.0)
       redis (~> 3.2, >= 3.2.1)
       sinatra (>= 1.4.7)
+    sidekiq-scheduler (2.0.8)
+      multi_json (~> 1)
+      redis (~> 3)
+      rufus-scheduler (~> 3.1.8)
+      sidekiq (>= 3)
+      tilt (>= 1.4.0)
     simple_form (3.1.0)
       actionpack (~> 4.0)
       activemodel (~> 4.0)
@@ -405,6 +412,7 @@ DEPENDENCIES
   sdoc (~> 0.4.0)
   session_off
   sidekiq
+  sidekiq-scheduler
   simple_form
   simplecov
   sitemap_generator

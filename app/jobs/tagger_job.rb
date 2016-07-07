@@ -1,5 +1,5 @@
 class TaggerJob < ActiveJob::Base
-  queue_as :slow
+  queue_as :default
 
   class WordsCollection
     def initialize(text)
