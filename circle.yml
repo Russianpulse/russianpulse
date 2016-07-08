@@ -12,7 +12,7 @@ test:
     - docker-compose -f docker-compose.test.yml build
   override:
     - docker-compose -f docker-compose.test.yml run sut bundle-audit check --update
-    - docker-compose -f docker-compose.test.yml run sut bundle exec rake db:create db:migrate spec
+    - docker-compose -f docker-compose.test.yml run sut ./bin/test
 
 deployment:
   hub:
