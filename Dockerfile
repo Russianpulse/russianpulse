@@ -7,8 +7,9 @@ RUN apt-get update -qq && apt-get install -y build-essential \
   # Nokogiri \
   libxml2-dev libxslt1-dev nodejs
 
-RUN gem install bundler
-RUN gem install bundler-audit
+RUN gem install bundler -v '1.12.5' && \
+    gem install bundler-audit -v '0.5.0' && \
+    gem install rubocop -v '0.41.2'
 
 WORKDIR /app
 
