@@ -96,5 +96,5 @@ end
 group :test do
   gem 'webmock'
   gem 'capybara'
-  gem 'simplecov', require: false
+  gem 'codeclimate-test-reporter', require: nil
 end
