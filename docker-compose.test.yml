@@ -16,7 +16,7 @@ sut:
     - redis
   environment:
     - RAILS_ENV=test
-    - CODECLIMATE_REPO_TOKEN={$CODECLIMATE_REPO_TOKEN}
+    - CODECLIMATE_REPO_TOKEN=$CODECLIMATE_REPO_TOKEN
   env_file:
     - .env.test
   volumes:

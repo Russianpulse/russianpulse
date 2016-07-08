@@ -1,5 +1,4 @@
 #!/bin/sh
 
 ./bin/bootstrap
-
-bundle exec spring rspec
+bundle exec rspec

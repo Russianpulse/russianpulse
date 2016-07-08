@@ -25,4 +25,4 @@ RUN bundle exec rake assets:precompile
 RUN mkdir -p tmp/pids
 
 EXPOSE 3000
-CMD bin/run
+CMD bin/web
