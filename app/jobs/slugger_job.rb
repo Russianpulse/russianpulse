@@ -1,5 +1,5 @@
 class SluggerJob < ActiveJob::Base
-  queue_as :slow
+  queue_as :default
 
   # Запоминаем короткую ссылку на источник, откуда будем восстанвливать
   def perform(*args)

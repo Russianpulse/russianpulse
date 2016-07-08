@@ -1,4 +1,4 @@
 #!/bin/sh
 
 ./bin/bootstrap
-bundle exec sidekiq
+bundle exec sidekiq --config config/sidekiq.yml

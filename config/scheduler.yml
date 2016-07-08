@@ -1,0 +1,26 @@
+UpdateBlogJob:
+  cron: "* * * * *"
+
+UpdateRatingJob:
+  cron: "*/15 * * * *"
+
+UpdatePostsPerHourJob:
+  cron: "22 * * * *"
+
+TopPostsSpiderJob:
+  cron: "12 * * * *"
+
+CleanupJob:
+  cron: "45 */3 * * *"
+
+TagsCleanupJob:
+  cron: "33 */3 * * *"
+
+TopPostsSpiderJob:
+  cron: "25 2 * * *"
+  args: month
+
+RefreshSitemapJob:
+  cron: "15 3 * * *"
+
+

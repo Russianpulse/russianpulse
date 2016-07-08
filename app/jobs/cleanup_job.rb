@@ -1,5 +1,5 @@
 class CleanupJob < ActiveJob::Base
-  queue_as :slow
+  queue_as :default
 
   def perform(*args)
     smart_cleanup if need_cleanup?
