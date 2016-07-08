@@ -22,7 +22,7 @@ ADD . /app
 
 RUN bundle exec rake assets:precompile
 
-VOLUME /app/public/sitemaps/
+RUN mkdir -p tmp/pids
 
 EXPOSE 3000
 CMD bin/run

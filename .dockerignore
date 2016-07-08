@@ -2,6 +2,7 @@
 .bundle
 .env*
 .git*
+Dockerfile
 coverage
 docker-compose.*
 log/*
@@ -9,3 +10,4 @@ public/assets/
 tags
 tmp
 vendor/cache/
+public/sitemap*
