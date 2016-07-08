@@ -21,4 +21,4 @@ sut:
   volumes:
     - ./:/app
   command:
-    bundle exec rake db:create db:migrate spec
+    ./bin/test

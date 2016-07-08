@@ -1,20 +1,7 @@
+# helpers for posts
 module PostsHelper
-
   def typography(html)
-    raw Typogruby.improve(html)
-  end
-
-  def only_one_post_per_blog(posts)
-    blogs = []
-
-    posts.reject do |post|
-      if blogs.include?(post.blog_id)
-        true
-      else
-        blogs << post.blog_id
-        false
-      end
-    end
+    safe_join [Typogruby.improve(html)]
   end
 
   def permalink_url(post)
@@ -28,11 +15,11 @@ module PostsHelper
       controller: :posts, action: :show,
       blog: blog_slug,
       year: post.created_at.year,
-      month: post.created_at.strftime("%m"),
-      day: post.created_at.strftime("%d"),
+      month: post.created_at.strftime('%m'),
+      day: post.created_at.strftime('%d'),
     }.merge(options)
 
-    options.merge! :id => post.to_param
+    options[:id] = post.to_param
     post_url options.merge( :only_path => true )
   end
 
@@ -62,11 +49,11 @@ module PostsHelper
 
     doc = Nokogiri::HTML::DocumentFragment.parse(html)
 
-    doc.css("br").each do |br|
+    doc.css('br').each do |br|
       br.add_next_sibling("\n\n")
     end
 
-    doc.css("p,div").each do |el|
+    doc.css('p,div').each do |el|
       el.replace "\n\n<br /><br />#{el.inner_html}<br /><br />\n\n"
     end
 

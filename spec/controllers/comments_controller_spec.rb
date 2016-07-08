@@ -90,7 +90,6 @@ RSpec.describe CommentsController, type: :controller do
 
         it { should be_a(User) }
         its(:email) { should eq(user_attributes[:email]) }
-
       end
     end
 
