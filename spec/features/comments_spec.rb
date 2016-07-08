@@ -6,7 +6,7 @@ RSpec.feature "Comments", type: :feature do
   scenario "Guest creates new comment for a post" do
     visit "/posts/#{post.id}"
 
-    expect(page).to have_text("Post title")
+    expect(page).to have_text("Post&nbsp;title")
 
     VCR.use_cassette :google_recaptcha do
       within("#comments_form") do

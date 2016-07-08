@@ -147,6 +147,7 @@ GEM
     mime-types-data (3.2016.0521)
     mini_portile2 (2.1.0)
     minitest (5.9.0)
+    multi_json (1.12.1)
     multipart-post (2.0.0)
     nested_form (0.3.2)
     newrelic_rpm (3.14.1.311)
@@ -304,7 +305,7 @@ GEM
       ref
     thor (0.19.1)
     thread_safe (0.3.5)
-    tilt (2.0.2)
+    tilt (2.0.5)
     typogruby (1.0.18)
       rubypants
     tzinfo (1.2.2)
