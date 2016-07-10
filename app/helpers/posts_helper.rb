@@ -1,7 +1,7 @@
 # helpers for posts
 module PostsHelper
   def typography(html)
-    safe_join [Typogruby.improve(html)]
+    raw Typogruby.improve(html)
   end
 
   def permalink_url(post)
