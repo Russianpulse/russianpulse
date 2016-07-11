@@ -21,6 +21,7 @@ web:
     - RAILS_ENV=development
   volumes:
     - ./:/app
+  command: bin/webrick
 
 worker:
   build: .

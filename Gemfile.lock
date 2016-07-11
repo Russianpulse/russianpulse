@@ -157,7 +157,6 @@ GEM
     orm_adapter (0.5.0)
     pg (0.18.4)
     pkg-config (1.1.7)
-    puma (3.4.0)
     pundit (1.1.0)
       activesupport (>= 3.0.0)
     rack (1.6.4)
@@ -359,7 +358,6 @@ DEPENDENCIES
   js_cookie_rails
   newrelic_rpm
   pg
-  puma
   pundit
   rack-mini-profiler
   rails (= 4.2.6)
