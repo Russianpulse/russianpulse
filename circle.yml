@@ -21,4 +21,4 @@ deployment:
       - docker build -t russianpulse/mazavr-engine .
       - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
       - docker push russianpulse/mazavr-engine
-      - ssh deployer@$DEPLOY_HOST "cd russianpulse && git pull && make"
+      - ssh deployer@$DEPLOY_HOST "cd mazavr && git pull && make"
