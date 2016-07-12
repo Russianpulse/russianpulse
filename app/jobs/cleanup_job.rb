@@ -2,11 +2,16 @@ class CleanupJob < ActiveJob::Base
   queue_as :default
 
   def perform(*args)
+    cleanup_blocked if need_cleanup?
     smart_cleanup if need_cleanup?
     cleanup_hard if need_cleanup?
   end
 
   private
+
+  def cleanup_blocked
+    Post.where('blocked_at < ?', 6.hours.ago)
+  end
 
   def cleanup_hard
     obj = Post.unpopular.limit(space_needed - space_available).destroy_all.size
