@@ -9,6 +9,7 @@ FactoryGirl.define do
     end
 
     trait :blocked do
+      stream :trash
       blocked_at { 5.minutes.ago }
     end
 
