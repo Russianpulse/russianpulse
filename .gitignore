@@ -4,11 +4,12 @@
 .env.pg-backup
 .vagrant/
 build
+circle.yml
 coverage
+docker-compose.override.yml
 log/*
-public/sitemap*
 public/assets/
+public/sitemap*
 tags
 tmp
 vendor/cache
-docker-compose.override.yml
