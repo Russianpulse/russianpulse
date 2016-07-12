@@ -19,8 +19,9 @@ web:
     - .env
   environment:
     - RAILS_ENV=development
+    - PASSENGER_APP_ENV=development
   volumes:
-    - ./:/app
+    - ./:/home/app/mazavr
   command: bin/webrick
 
 worker:
