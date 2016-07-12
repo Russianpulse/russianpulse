@@ -4,8 +4,8 @@ class WelcomeController < ApplicationController
   def index
     ids = []
 
-    @posts_recent = stream_scope.recent.limit(30)
-    ids += @posts_recent.pluck(:id)
+    @posts_top = posts_top(ids).limit(3)
+    ids += @posts_top.pluck(:id)
 
     @posts_most_discussed = Post.published.where.not(id: ids).most_discussed.newer_than(1.week.ago).limit(6)
     ids += @posts_most_discussed.pluck(:id)
@@ -13,8 +13,8 @@ class WelcomeController < ApplicationController
     @posts_featured = Post.published.where('blogs.featured = ?', true).joins(:blog).where.not("posts.id IN (?)", ids).joins(:blog).recent.limit(6)
     ids += @posts_featured.pluck(:id)
 
-    @posts_top = posts_top(ids).limit(3)
-    ids += @posts_top.pluck(:id)
+    @posts_recent = stream_scope.recent.limit(30)
+    ids += @posts_recent.pluck(:id)
 
     @full_header = true
     expires_in(5.minutes, public: true)

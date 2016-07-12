@@ -73,14 +73,12 @@
     </div>
   </div>
   <div class="col-sm-6">
-    <%= snippet :right_tower_below_article, :url => smart_post_url(@post) %>
+    <%= render partial: 'most_discussed_vertical', locals: { posts: Post.newer_than(1.week.ago).where.not(id: @post).most_discussed.limit(9) } %>
   </div>
 </div>
 
 <br />
 <br />
-
-<%= render partial: 'most_discussed', locals: { posts: Post.newer_than(1.week.ago).where.not(id: @post).most_discussed.limit(9) } %>
 
 <h2><%= t(:recent_comments) %></h2>
 
