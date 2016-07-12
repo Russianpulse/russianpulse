@@ -110,6 +110,8 @@ class Post < ActiveRecord::Base
   def block_if_trashed
     if stream == 'trash'
       self.blocked_at ||= Time.now
+    else
+      self.blocked_at = nil
     end
   end
 end
