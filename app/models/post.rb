@@ -3,6 +3,8 @@ class Post < ActiveRecord::Base
   belongs_to :blog
   serialize :related_ids, JSON
 
+  delegate :title, to: :blog, prefix: true, allow_nil: true
+
   validates :title, :presence => true
   validates :body, :presence => true
 
@@ -20,6 +22,7 @@ class Post < ActiveRecord::Base
   before_create :set_accessed_at
 
   before_save :nilify_slug_if_blank
+  before_save :block_if_trashed
   after_save :set_friendly_param
 
   def blocked?
@@ -102,5 +105,11 @@ class Post < ActiveRecord::Base
 
   def set_friendly_param
     self.friendly_param = to_param if friendly_param.blank?
+  end
+
+  def block_if_trashed
+    if stream == 'trash'
+      self.blocked_at ||= Time.now
+    end
   end
 end

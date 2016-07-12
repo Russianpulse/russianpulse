@@ -11,9 +11,17 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery-timeago
+//= require jquery-ui
 //= require js.cookie
 //= require jquery_ujs
+//= require underscore
+//= require backbone
+//-----------------------------------------------------------------------------
+//= require ./core
 //= require_tree ./utils
+//= require_tree ./templates
+//= require ./views/news_dashboard
 
 mrk.markUserOnce("first_visit_at", Math.floor(Date.now() / 1000));
 mrk.markUserOnce("first_visit_url", window.location.href);
@@ -52,3 +60,8 @@ $(".memorized-field").each(function() {
   new MemorizedField($(this));
 });
 
+
+$(".js-news-dashboard").each(function() {
+  var widget = new Views.NewsDashboard({ el: $(this) });
+  widget.render();
+});

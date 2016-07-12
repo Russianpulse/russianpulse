@@ -6,4 +6,12 @@ class PostPolicy < ApplicationPolicy
       scope
     end
   end
+
+  def update?
+    user.admin?
+  end
+
+  def dashboard?
+    update?
+  end
 end

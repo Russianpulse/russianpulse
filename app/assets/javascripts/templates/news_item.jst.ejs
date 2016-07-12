@@ -1,0 +1,11 @@
+<div class="news-item <%= item.get("top") ? "news-item_top" : "" %>">
+  <time class="news-item__time"><%= $.timeago(item.createdAt()) %></time>
+  <span class="news-item_blog"><%= item.get("blog_title") %></span>
+
+  <br />
+  <a href="<%= item.url() %>"><%= item.get('title') %></a>
+
+  <%= item.get("top") ? "<i class='glyphicon glyphicon-fire'></i>" : ""  %>
+  <%= parseInt(item.get("comments_count")) > 0 ? "<i class='glyphicon glyphicon-comment'></i>" : ""  %>
+</div>
+

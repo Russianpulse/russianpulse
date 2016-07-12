@@ -31,7 +31,7 @@ class CommentsController < ApplicationController
 
     @comment = @post.comments.new(comment_params.merge(user: @user))
 
-    if verify_recaptcha 
+    if verify_recaptcha
       if @user.save && @comment.save
         ga_event category: :comments, action: :create, label: @post.title, interaction: 1, value: 1
         sign_in @user rescue nil

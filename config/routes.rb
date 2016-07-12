@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'dashboard' => 'dashboard#index'
+  put 'dashboard/update_post' => 'dashboard#update_post'
+
   get 'goto' => 'redirects#bye', as: :goto
 
   get 'ratings/posts'

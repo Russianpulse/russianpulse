@@ -1,0 +1,38 @@
+.news-dashboard {
+  &__stream {
+    float: left;
+    padding-right: 30px;
+  }
+}
+
+.news-stream {
+  &__list {
+    border: 1px solid #efefef;
+    width: 270px;
+    padding: 10px;
+  }
+}
+
+.news-item {
+  width: 246px;
+  font-size: 10px;
+  background: #efefef;
+  margin: 0px 0px 0px 0px;
+  border: 5px solid white;
+  padding: 5px;
+  cursor: pointer;
+
+  &__time {
+    font-style: italic;
+    font-size: 8px;
+    color: grey;
+  }
+
+  &_top {
+    font-weight: bold;
+
+    .glyphicon-fire {
+      color: red;
+    }
+  }
+}

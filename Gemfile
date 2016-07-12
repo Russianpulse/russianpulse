@@ -11,7 +11,6 @@ gem 'jquery-rails'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'js_cookie_rails'
 
-gem 'ruby-readability', :require => 'readability'
 gem 'actionpack-action_caching'
 gem 'acts_as_commentable'
 gem 'cells', '~> 4.0.0'
@@ -22,11 +21,13 @@ gem 'devise-i18n-views'
 gem 'ejs'
 gem 'fastimage'
 gem 'feedjira'
+gem 'gon'
 gem 'httpclient'
 gem 'pg'
 gem 'pundit'
 gem 'rails_admin'
 gem 'redcarpet'
+gem 'ruby-readability', :require => 'readability'
 gem 'ruby-stemmer', :require => 'lingua/stemmer'
 gem 'russian'
 gem 'session_off'
@@ -74,3 +75,10 @@ group :test do
 end
 
 gem 'sdoc', '~> 0.4.0', group: :doc
+
+source 'https://rails-assets.org' do
+  gem 'rails-assets-jquery-ui'
+  gem 'rails-assets-underscore'
+  gem 'rails-assets-backbone'
+  gem 'rails-assets-jquery-timeago'
+end
