@@ -6,11 +6,6 @@
 
   var PostsCollection = Backbone.Collection.extend({
     model: Models.Post,
-    /*
-    comparator: function(item) {
-      // most recent first
-      return -item.createdAt().getTime();
-    }*/
   })
 
   var NewsDashboard = Backbone.View.extend({

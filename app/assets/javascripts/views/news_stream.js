@@ -6,11 +6,18 @@
   var NewsStream = Backbone.View.extend({
     template: JST["templates/news_stream"],
 
+    initialize: function() {
+      this.count = 0;
+
+      setInterval(_.bind(function() {
+        this.updateCounter();
+      }, this), 3000);
+    },
+
     render: function() {
       var that = this;
 
-      this.$el.html(this.template({ title: this.title, count: null }));
-
+      this.$el.html(this.template({ title: this.title, count: this.count }));
       this.updateCounter();
 
       this.collection.each(function(item) {
@@ -25,16 +32,18 @@
     },
 
     activateDragAndDrop: function(lists) {
-      var self = this;
+      var that = this;
 
       this.$(".news-stream__list").sortable({
         connectWith: lists,
         receive: function(ev, ui) {
-          self.acceptNewItem(ui.item.data("view").model);
-          self.updateCounter();
+          that.acceptNewItem(ui.item.data("view").model);
+          that.count++;
+          that.renderCounter();
         },
         remove: function(ev, ui) {
-          self.updateCounter();
+          that.count--;
+          that.renderCounter();
         }
       }).disableSelection();
     },
@@ -42,7 +51,6 @@
     acceptNewItem: function(model) {
       model.collection.remove(model);
       this.collection.add(model);
-      //this.render();
       model.setStream(this.stream);
     },
 
@@ -52,8 +60,13 @@
       return $.ajax("/dashboard/stream_count/"+this.stream, {
         method: "GET",
       }).done(function(data) {
-        that.$(".news-stream__counter").html(data.count);
+        that.count = data.count;
+        that.renderCounter();
       });
+    },
+
+    renderCounter: function() {
+      this.$(".news-stream__counter").html(this.count);
     }
   })
 
