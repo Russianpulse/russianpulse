@@ -9,7 +9,9 @@
     render: function() {
       var that = this;
 
-      this.$el.html(this.template({ title: this.title }));
+      this.$el.html(this.template({ title: this.title, count: null }));
+
+      this.updateCounter();
 
       this.collection.each(function(item) {
         var view = new NewsItem({ model: item });
@@ -29,6 +31,10 @@
         connectWith: lists,
         receive: function(ev, ui) {
           self.acceptNewItem(ui.item.data("view").model);
+          self.updateCounter();
+        },
+        remove: function(ev, ui) {
+          self.updateCounter();
         }
       }).disableSelection();
     },
@@ -38,6 +44,16 @@
       this.collection.add(model);
       //this.render();
       model.setStream(this.stream);
+    },
+
+    updateCounter: function() {
+      var that = this;
+
+      return $.ajax("/dashboard/stream_count/"+this.stream, {
+        method: "GET",
+      }).done(function(data) {
+        that.$(".news-stream__counter").html(data.count);
+      });
     }
   })
 
