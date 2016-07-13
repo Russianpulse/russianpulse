@@ -38,7 +38,7 @@ module ApplicationHelper
 
   def time_or_date(date)
     if date > Time.now.yesterday.beginning_of_day
-      date.strftime("%H:%m")
+      date.strftime("%H:%M")
     else
       l date, format: "%e %b %Y"
     end
