@@ -48,7 +48,7 @@ class ApplicationController < ActionController::Base
 
   def load_ab_test
     AbTest.find_each do |ab_test|
-      if request.path.match(ab_test.path)
+      if ab_test.match? request.path
         @ab_test = ab_test
         break
       end
