@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
-  get 'dashboard' => 'dashboard#index'
-  put 'dashboard/update_post' => 'dashboard#update_post'
+  scope :dashboard do
+    get '/' => 'dashboard#index'
+    get 'stream_count/:stream' => 'dashboard#stream_count'
+    put 'update_post' => 'dashboard#update_post'
+  end
 
   get 'goto' => 'redirects#bye', as: :goto
 

@@ -1,15 +1,22 @@
 class DashboardController < ApplicationController
   def index
     authorize Post, :dashboard?
-    posts = Post.select(:id, :title, :created_at, :blog_id, :top, :comments_count).includes(:blog).recent
 
     gon.push({
       posts: {
-        trash: posts.where(stream: :trash).limit(50).as_json(methods: [:blog_title]),
-        inbox: posts.where(stream: :inbox).limit(50).as_json(methods: [:blog_title]),
-        pulse: posts.where(stream: :pulse).limit(50).as_json(methods: [:blog_title]),
+        trash: stream_as_json(:trash),
+        inbox: stream_as_json(:inbox),
+        pulse: stream_as_json(:pulse),
       }
     })
+  end
+
+  def stream_count
+    count = Post.where(stream: params[:stream]).count
+
+    respond_to do |format|
+      format.json { render json: { count: count } }
+    end
   end
 
   def update_post
@@ -20,5 +27,14 @@ class DashboardController < ApplicationController
     respond_to do |format|
       format.json { render json: @post }
     end
+  end
+
+  private
+
+  def stream_as_json(stream)
+    posts = Post.select(:id, :title, :created_at, :blog_id, :top, :comments_count, :picture_url)
+    posts = posts.includes(:blog).recent.where(stream: stream)
+
+    posts.as_json(methods: [:blog_title])
   end
 end
