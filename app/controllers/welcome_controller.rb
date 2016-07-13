@@ -1,6 +1,4 @@
 class WelcomeController < ApplicationController
-  caches_action :index, expires_in: 5.minutes
-
   def index
     ids = []
 
@@ -17,7 +15,6 @@ class WelcomeController < ApplicationController
     ids += @posts_recent.pluck(:id)
 
     @full_header = true
-    expires_in(5.minutes, public: true)
   end
 
   private
