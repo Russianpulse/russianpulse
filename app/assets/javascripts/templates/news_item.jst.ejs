@@ -7,5 +7,6 @@
 
   <%= item.get("top") ? "<i class='glyphicon glyphicon-fire'></i>" : ""  %>
   <%= parseInt(item.get("comments_count")) > 0 ? "<i class='glyphicon glyphicon-comment'></i>" : ""  %>
+  <%= item.get("has_picture?") ? "<i class='glyphicon glyphicon-picture'></i>" : ""  %>
 </div>
 
