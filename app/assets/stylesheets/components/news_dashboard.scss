@@ -8,19 +8,30 @@
 .news-stream {
   &__list {
     border: 1px solid #efefef;
-    width: 270px;
+    border-radius: 5px;
+    width: 276px;
     padding: 10px;
+    background: #efefef;
   }
 }
 
 .news-item {
-  width: 246px;
+  width: 254px;
   font-size: 10px;
-  background: #efefef;
-  margin: 0px 0px 0px 0px;
-  border: 5px solid white;
-  padding: 5px;
+  background: white;
+  margin: 0px 0px 8px 0px;
+  border-radius: 5px;
+  box-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+  padding: 10px;
   cursor: pointer;
+
+  &__title {
+    font-size: 14px;
+  }
+
+  &__icons {
+    font-size: 14px;
+  }
 
   &__time {
     font-style: italic;
@@ -31,8 +42,9 @@
   &_top {
     font-weight: bold;
 
-    .glyphicon-fire {
-      color: red;
-    }
+  }
+
+  .glyphicon-fire {
+    color: red;
   }
 }

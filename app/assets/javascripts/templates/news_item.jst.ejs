@@ -3,10 +3,13 @@
   <span class="news-item_blog"><%= item.get("blog_title") %></span>
 
   <br />
-  <a href="<%= item.url() %>"><%= item.get('title') %></a>
 
-  <%= item.get("top") ? "<i class='glyphicon glyphicon-fire'></i>" : ""  %>
-  <%= parseInt(item.get("comments_count")) > 0 ? "<i class='glyphicon glyphicon-comment'></i>" : ""  %>
-  <%= item.get("has_picture?") ? "<i class='glyphicon glyphicon-picture'></i>" : ""  %>
+  <a class="news-item__title" href="<%= item.url() %>"><%= item.get('title') %></a>
+
+  <span class="news-item__icons">
+    <%= item.get("top") ? "<i class='glyphicon glyphicon-fire'></i>" : ""  %>
+    <%= parseInt(item.get("comments_count")) > 0 ? "<i class='glyphicon glyphicon-comment'></i>" : ""  %>
+    <%= item.get("has_picture?") ? "<i class='glyphicon glyphicon-picture'></i>" : ""  %>
+  </span>
 </div>
 
