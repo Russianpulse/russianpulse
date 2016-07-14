@@ -28,6 +28,8 @@ class PostsController < ApplicationController
         
       @slug_id = params[:slug_id]
       redirect_to goto_path(url: "http://goo.gl/#{@slug_id}")
+
+      expires_in(1.hour, public: true)
     else
       unless request.path == URI(smart_post_path(@post)).path
         redirect_to smart_post_path(@post)

@@ -11,7 +11,6 @@ gem 'jquery-rails'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'js_cookie_rails'
 
-gem 'actionpack-action_caching'
 gem 'acts_as_commentable'
 gem 'cells', '~> 4.0.0'
 gem 'cells-erb'

@@ -3,5 +3,6 @@ class RobotsController < ApplicationController
 
   def index
     render template: "robots/index.txt.erb"
+    expires_in(30.minutes, public: true)
   end
 end
