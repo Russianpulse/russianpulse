@@ -11,7 +11,7 @@
 
       setInterval(_.bind(function() {
         this.updateCounter();
-      }, this), 3000);
+      }, this), 10000);
     },
 
     render: function() {
@@ -59,6 +59,7 @@
 
       return $.ajax("/dashboard/stream_count/"+this.stream, {
         method: "GET",
+        cache: false
       }).done(function(data) {
         that.count = data.count;
         that.renderCounter();
