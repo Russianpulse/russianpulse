@@ -6,7 +6,7 @@ class HtmlCleanup
   end
 
   def cleanup
-    format_html @html
+    Typogruby.improve format_html(@html)
   end
 
   private

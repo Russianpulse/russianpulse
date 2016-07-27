@@ -37,10 +37,12 @@ RSpec.describe HtmlCleanup do
     let(:source_html) { '<p>Small text</p>' }
     it { is_expected.to match(/class=\"tiny\"/) }
   end
+
   context do
     let(:source_html) { '<div>Text</div>' }
     it { is_expected.not_to match('<div>') }
   end
+
   context do
     let(:source_html) { 'Text<br /><br>Next line' }
     it { is_expected.not_to match('br') }
@@ -63,8 +65,8 @@ RSpec.describe HtmlCleanup do
       it { is_expected.to match('<h2>Header</h2>') }
     end
     context do
-      let(:source_html) { '<h3>Header Big</h3><h4>Header Small</h4>' }
-      it { is_expected.to match('<h3>Header Small</h3>') }
+      let(:source_html) { '<h3>Big</h3><h4>Small</h4>' }
+      it { is_expected.to match('<h3>Small</h3>') }
     end
   end
 end

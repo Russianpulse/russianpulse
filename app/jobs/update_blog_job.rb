@@ -70,7 +70,15 @@ class UpdateBlogJob < ActiveJob::Base
           title = title.mb_chars.capitalize.to_s
         end
 
-        post = blog.posts.new(:title  => title, :source_html => post_body, :body => blog.cleanup_html(post_body), :source_url => entry_url, :created_at => pub_date)
+        post = blog.posts.new({
+          body: blog.cleanup_html(post_body),
+          body_precompiled: HtmlCleanup.new(blog.cleanup_html(post_body)).cleanup,
+          created_at: pub_date,
+          source_html: post_body,
+          source_url: entry_url,
+          title: title
+        })
+
         if post.valid?
           post.save!
           EventTracker.track "Blogs", "Created post via Feed", blog.title
