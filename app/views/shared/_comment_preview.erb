@@ -1,14 +1,16 @@
-<div class="media comment">
-  <div class="media-left">
-    <%= image_tag gravatar_url(comment.user.email, size: 35), class: "media-object", width: 35, height: 35 %>
-  </div>
-  <div class="media-body">
-    <h4 class="media-heading">
-      <%= comment.user.name %>
-      <%= link_to "#", "#comment_#{comment.id}" %>
-      <small><%= smart_date comment.created_at %></small>
-    </h4>
+<% cache comment do %>
+  <div class="media comment">
+    <div class="media-left">
+      <%= image_tag gravatar_url(comment.user.email, size: 35), class: "media-object", width: 35, height: 35 %>
+    </div>
+    <div class="media-body">
+      <h4 class="media-heading">
+        <%= comment.user.name %>
+        <%= link_to "#", "#comment_#{comment.id}" %>
+        <small><%= smart_date comment.created_at %></small>
+      </h4>
 
-    <em><%= link_to typography("\"#{comment.commentable.title}\""), comment_path(comment) %></em>
+      <em><%= link_to typography("\"#{comment.commentable.title}\""), comment_path(comment) %></em>
+    </div>
   </div>
-</div>
+<% end %>
