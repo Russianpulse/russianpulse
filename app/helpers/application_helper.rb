@@ -126,4 +126,14 @@ module ApplicationHelper
       )
     end
   end
+
+  def benchmark(name)
+    t0 = Time.now
+    
+    yield
+
+    t1 = Time.now
+
+    Rails.logger.debug "TEMPLATE BENCHMARK '#{name}': #{t1 - t0}"
+  end
 end
