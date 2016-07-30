@@ -71,10 +71,8 @@ class UpdateBlogJob < ActiveJob::Base
         end
 
         post = blog.posts.new({
-          body: blog.cleanup_html(post_body),
-          body_precompiled: HtmlCleanup.new(blog.cleanup_html(post_body)).cleanup,
+          body: HtmlCleanup.new(blog.cleanup_html(post_body)).cleanup,
           created_at: pub_date,
-          source_html: post_body,
           source_url: entry_url,
           title: title
         })
