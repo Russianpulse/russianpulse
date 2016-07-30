@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160727190714) do
+ActiveRecord::Schema.define(version: 20160730065647) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -82,24 +82,22 @@ ActiveRecord::Schema.define(version: 20160727190714) do
   create_table "posts", force: :cascade do |t|
     t.integer  "blog_id"
     t.text     "title"
-    t.text     "body"
-    t.integer  "views",            default: 0,       null: false
+    t.integer  "views",          default: 0,       null: false
     t.text     "source_url"
     t.datetime "accessed_at"
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
-    t.text     "source_html"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.text     "tags_list"
     t.string   "slug_id"
-    t.boolean  "top",              default: false
+    t.boolean  "top",            default: false
     t.text     "picture_url"
     t.text     "related_ids"
     t.string   "friendly_param"
-    t.integer  "comments_count",   default: 0,       null: false
+    t.integer  "comments_count", default: 0,       null: false
     t.datetime "blocked_at"
     t.text     "block_reason"
-    t.string   "stream",           default: "inbox"
-    t.text     "body_precompiled"
+    t.string   "stream",         default: "inbox"
+    t.text     "body"
   end
 
   add_index "posts", ["comments_count"], name: "index_posts_on_comments_count", using: :btree

@@ -27,12 +27,6 @@ module PostsHelper
     "http://#{Rails.configuration.x.domain}#{smart_post_path(post, options)}"
   end
 
-  def format_post(html)
-    Rails.cache.fetch("format_post##{Digest::SHA256.hexdigest(html.to_s)}") do
-      HtmlCleanup.new(html).cleanup
-    end
-  end
-
   def post_descritpion_has_image?(post)
     Nokogiri::HTML(post_description_with_cut(post)).css('img').size > 0
   end
