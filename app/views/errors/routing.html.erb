@@ -3,7 +3,7 @@
 <h1><%= raw t(:routing_error).mb_chars.capitalize %></h1>
 <hr />
 
-<%= format_post snippet(:routing_error).to_s %>
+<%= simple_format snippet(:routing_error).to_s %>
 
 <%= render partial: "shared/top_posts", locals: {
   posts: Post.recent.top.limit(20),
