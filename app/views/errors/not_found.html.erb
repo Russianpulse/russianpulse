@@ -3,7 +3,7 @@
 <h1><%= raw t(:not_found).mb_chars.capitalize %></h1>
 <hr />
 
-<%= format_post snippet(:not_found).to_s %>
+<%= simple_format snippet(:not_found).to_s %>
 
 <%= javascript_tag do %> 
   ga('send', 'event', 'Errors', 'Page not found', {'nonInteraction': 1});

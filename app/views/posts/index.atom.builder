@@ -17,7 +17,7 @@ atom_feed(:root_url => url_for(:controller => :posts, :action => :index, only_pa
           entry.content(text_short(post.body, params[:short].to_i), type: 'html')
         end
       else
-        entry.content(format_post(post.body), type: 'html')
+        entry.content(post.body, type: 'html')
       end
 
       entry.author do |author|

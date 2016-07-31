@@ -3,7 +3,7 @@
 <h1><%= raw t(:something_goes_wrong).mb_chars.capitalize %></h1>
 <hr />
 
-<%= format_post snippet(:something_goes_wrong).to_s %>
+<%= simple_format snippet(:something_goes_wrong).to_s %>
 
 <%= render partial: "shared/top_posts", locals: {
   posts: Post.recent.top.limit(20),

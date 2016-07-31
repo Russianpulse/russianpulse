@@ -26,6 +26,11 @@ RSpec.describe "Posts", type: :request do
     let!(:post) { FactoryGirl.create :post }
     before { get posts_path }
     it { expect(response).to have_http_status(200) }
+
+    context 'atom' do
+      before { get posts_path(format: :atom) }
+      it { expect(response).to have_http_status(200) }
+    end
   end
 
   describe "GET smart_post_path" do
