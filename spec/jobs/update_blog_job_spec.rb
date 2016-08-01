@@ -35,6 +35,16 @@ RSpec.describe UpdateBlogJob, :type => :job do
         job.perform(blog)
       end.to change(blog.posts, :count).by(3)
     end
+
+    it 'should update blog fetch status' do
+      feed_body = File.read(File.join(Rails.root, "spec/jobs/fixtures/feed.xml"))
+      stub_request(:get, "http://www.example.com/rss.xml").
+        to_return(:status => 200, :body => feed_body, :headers => {})
+
+      expect do
+        job.perform(blog)
+      end.to change{ blog.recent_fetches.size }.by(1)
+    end
   end
 
   describe "#need_check?" do

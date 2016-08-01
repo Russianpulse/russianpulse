@@ -1,4 +1,9 @@
 class Blog < ActiveRecord::Base
+  FETCH_SUCCESS = 0
+  FETCH_FAILED = 1
+  MAX_FETCHES_STORED = 10
+  serialize :recent_fetches, Array
+
   has_many :posts, :dependent => :destroy
 
   validates :title, :presence => true
@@ -89,5 +94,23 @@ class Blog < ActiveRecord::Base
     Rails.cache.fetch("BlogView##{id}#home_url", expires_in: 1.hour) do
       "http://#{URI(posts.first.try(:source_url) || "http://#{Rails.configuration.x.domain}").host}"
     end
+  end
+
+  def checked!
+    self.recent_fetches.push [FETCH_SUCCESS, nil]
+    self.checked_at = Time.now
+    save!
+  end
+
+  def failed_to_check!(exception=nil)
+    self.recent_fetches.push [FETCH_FAILED, exception.try(:to_s)] 
+    self.checked_at = Time.now
+    save!
+  end
+
+  private
+
+  def truncate_recent_fetches
+    self.recent_fetches.slice!(-MAX_FETCHES_STORED..-1)
   end
 end

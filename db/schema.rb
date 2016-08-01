@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160730065647) do
+ActiveRecord::Schema.define(version: 20160801120032) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 20160730065647) do
     t.float    "rating",             default: 0.0,   null: false
     t.boolean  "hide_source_url",    default: false, null: false
     t.string   "category"
+    t.text     "recent_fetches"
   end
 
   add_index "blogs", ["featured"], name: "index_blogs_on_featured", using: :btree
