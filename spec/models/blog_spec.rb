@@ -69,4 +69,20 @@ RSpec.describe Blog, :type => :model do
       it { is_expected.to include('Some text') }
     end
   end
+
+  describe 'health_status' do
+    subject { blog.health_status }
+    let(:blog) { FactoryGirl.create :blog }
+
+    it { is_expected.to eq 0 }
+
+    context 'when 3 times failed and 7 times succeded' do
+      before do
+        3.times { blog.failed_to_check! }
+        7.times { blog.checked! }
+      end
+
+      it { is_expected.to eq 3 }
+    end
+  end
 end

@@ -99,16 +99,26 @@ class Blog < ActiveRecord::Base
   def checked!
     self.recent_fetches.push [FETCH_SUCCESS, nil]
     self.checked_at = Time.now
+    refresh_health_status
     save!
   end
 
   def failed_to_check!(exception=nil)
     self.recent_fetches.push [FETCH_FAILED, exception.try(:to_s)] 
     self.checked_at = Time.now
+    refresh_health_status
     save!
   end
 
   private
+
+  def refresh_health_status
+    new_status = recent_fetches.map do |fetch|
+      fetch[0] == FETCH_SUCCESS ? 0 : 1
+    end.sum
+
+    self.health_status = new_status
+  end
 
   def truncate_recent_fetches
     self.recent_fetches.slice!(-MAX_FETCHES_STORED..-1)
