@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Blog, :type => :model do
+  let(:blog) { FactoryGirl.create :blog }
+
   describe '#cleanup_html' do
     subject { blog.cleanup_html(source_html) }
 
@@ -72,7 +74,6 @@ RSpec.describe Blog, :type => :model do
 
   describe 'health_status' do
     subject { blog.health_status }
-    let(:blog) { FactoryGirl.create :blog }
 
     it { is_expected.to eq 0 }
 
@@ -84,5 +85,12 @@ RSpec.describe Blog, :type => :model do
 
       it { is_expected.to eq 3 }
     end
+  end
+
+  describe 'recent_fetches' do
+    subject { blog.recent_fetches }
+    before { 10.times { blog.checked! } }
+
+    its(:size) { is_expected.to eq 10 }
   end
 end

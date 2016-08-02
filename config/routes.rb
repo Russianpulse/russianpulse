@@ -1,10 +1,4 @@
 Rails.application.routes.draw do
-  scope :dashboard do
-    get '/' => 'dashboard#index'
-    get 'stream_count/:stream' => 'dashboard#stream_count'
-    put 'update_post' => 'dashboard#update_post'
-  end
-
   get 'goto' => 'redirects#bye', as: :goto
 
   get 'ratings/posts'
@@ -49,7 +43,20 @@ Rails.application.routes.draw do
 
   get 'recent' => "posts#index", :as => :posts
 
-  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+  scope path: '/admin' do
+    mount RailsAdmin::Engine => '/rails_admin', as: 'rails_admin'
+
+    scope :dashboard do
+      get '/' => 'dashboard#index'
+      get 'stream_count/:stream' => 'dashboard#stream_count'
+      put 'update_post' => 'dashboard#update_post'
+    end
+
+    scope :health, module: :admin do
+      get '/' => 'health#index'
+    end
+  end
+  
 
   get "/main" => "posts#index" # legacy
   get ':slug' => "blogs#show", :as => :blog
