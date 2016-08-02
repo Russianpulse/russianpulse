@@ -92,7 +92,10 @@ class UpdateBlogJob < ActiveJob::Base
       end
     end
 
-    blog.touch(:checked_at)
+    blog.checked!
+  rescue StandardError => ex
+    blog.failed_to_check!(ex)
+    raise
   end
 
   def need_check?(blog)

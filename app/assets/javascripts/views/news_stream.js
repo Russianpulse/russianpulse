@@ -57,7 +57,7 @@
     updateCounter: function() {
       var that = this;
 
-      return $.ajax("/dashboard/stream_count/"+this.stream, {
+      return $.ajax("/admin/dashboard/stream_count/"+this.stream, {
         method: "GET",
         cache: false
       }).done(function(data) {

@@ -4,7 +4,7 @@
       return new Date(Date.parse(this.get("created_at")));
     },
     setStream: function(stream) {
-      return $.ajax("/dashboard/update_post", {
+      return $.ajax("/admin/dashboard/update_post", {
         data: {
           id: this.get("id"),
           post: { stream: stream },
