@@ -13,8 +13,20 @@ Rails.application.configure do
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
 
-  # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+  config.action_mailer.smtp_settings = {
+    address: ENV['SMTP_SERVER'],
+    port: ENV['SMTP_SERVER_PORT'],
+    user_name: ENV['SMTP_USER_NAME'],
+    password: ENV['SMTP_PASSWORD'],
+  }
+
+  config.action_mailer.default_options = {
+    from: 'robot-dev@mg.russianpulse.ru'
+  }
+
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
@@ -39,6 +51,5 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
   config.active_job.queue_adapter = :sidekiq
 end
