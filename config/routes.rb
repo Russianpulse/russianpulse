@@ -17,9 +17,6 @@ Rails.application.routes.draw do
   get 'errors/exception'
 
   root 'welcome#index'
-  get ':blog/:year/:month/:day/:id' => "posts#show", :as => :post
-  get ':blog/:year/:month/:day/:slug_id/:title' => "posts#show", :as => :post_with_slug
-  get 'posts/:slug_id' => "posts#show", as: :post_permalink
 
   get 'widgets' => 'widgets#index'
   get 'w/p/:id' => 'widgets#post'
@@ -56,7 +53,10 @@ Rails.application.routes.draw do
       get '/' => 'health#index'
     end
   end
-  
+
+  get ':blog/:year/:month/:day/:id' => "posts#show", :as => :post
+  get ':blog/:year/:month/:day/:slug_id/:title' => "posts#show", :as => :post_with_slug
+  get 'posts/:slug_id' => "posts#show", as: :post_permalink
 
   get "/main" => "posts#index" # legacy
   get ':slug' => "blogs#show", :as => :blog
