@@ -124,7 +124,7 @@ class Blog < ActiveRecord::Base
 
   def truncate_recent_fetches
     while recent_fetches.size > MAX_FETCHES_STORED
-      self.recent_fetches.shift!
+      self.recent_fetches.shift
     end
   end
 end

@@ -89,7 +89,7 @@ RSpec.describe Blog, :type => :model do
 
   describe 'recent_fetches' do
     subject { blog.recent_fetches }
-    before { 10.times { blog.checked! } }
+    before { 15.times { blog.checked! } }
 
     its(:size) { is_expected.to eq 10 }
   end
