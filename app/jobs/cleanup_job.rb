@@ -15,7 +15,7 @@ class CleanupJob < ActiveJob::Base
 
   def cleanup_hard
     obj = Post.unpopular.limit(space_needed - space_available).destroy_all.size
-    EventTracker.track("Jobs", "Cleanup hard", nil, obj.size)
+    EventTracker.track_and_notify("Jobs", "Cleanup hard", nil, obj.size)
   end
 
   def need_cleanup?

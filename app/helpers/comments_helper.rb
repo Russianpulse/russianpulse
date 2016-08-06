@@ -3,6 +3,10 @@ module CommentsHelper
     smart_post_path(comment.commentable, anchor: "comment_#{comment.id}")
   end
 
+  def comment_url(comment)
+    smart_post_url(comment.commentable, anchor: "comment_#{comment.id}")
+  end
+
   def comments_link(commentable, options={})
     return if (commentable.comments_count <= 0) && !options[:without_comments]
 
