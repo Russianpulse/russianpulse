@@ -3,6 +3,10 @@ require 'timeout'
 class UpdateBlogJob < ActiveJob::Base
   queue_as :default
 
+  rescue_from(Timeout::Error) do
+    retry_job queue: :low
+  end
+
   def perform(blog=nil, force=false)
     if blog.nil?
       Blog.with_feed.find_each do |blog|
