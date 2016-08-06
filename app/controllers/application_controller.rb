@@ -15,10 +15,7 @@ class ApplicationController < ActionController::Base
     logger.error ex
     NewRelic::Agent.notice_error(ex)
 
-    ExceptionNotifier.notify_exception(
-      ex,
-      env: request.env,
-    )
+    ExceptionNotifier.notify_exception ex, env: request.env
 
     render "errors/exception", :status => 500
   end if Rails.env.production?
