@@ -10,7 +10,7 @@
   <h1><%= typography(@post.title) %></h1>
 
   <% if policy(@post).update? %>
-    <%= link_to "Edit", "/admin/post/#{@post.id}/edit", :class => "btn btn-default" %>
+    <%= link_to "Edit", "/admin/rails_admin/post/#{@post.id}/edit", :class => "btn btn-default" %>
   <% end %>
 
   <%= render :partial => 'tags' %>
