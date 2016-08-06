@@ -93,4 +93,18 @@ RSpec.describe Blog, :type => :model do
 
     its(:size) { is_expected.to eq 10 }
   end
+
+  describe '#failed_to_check!' do
+    context 'when blog has invalid post' do
+      let(:invalid_post_attributes) { { title: ''} }
+
+      before do
+        blog.posts.build invalid_post_attributes
+      end
+
+      it 'should not raise' do
+        blog.failed_to_check!
+      end
+    end
+  end
 end

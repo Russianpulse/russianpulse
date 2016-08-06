@@ -4,7 +4,7 @@ class Blog < ActiveRecord::Base
   MAX_FETCHES_STORED = 10
   serialize :recent_fetches, Array
 
-  has_many :posts, :dependent => :destroy
+  has_many :posts, dependent: :destroy
 
   validates :title, :presence => true
   validates :slug, :presence => true
@@ -98,21 +98,26 @@ class Blog < ActiveRecord::Base
 
   def checked!
     self.recent_fetches.push [FETCH_SUCCESS, nil]
-    self.checked_at = Time.now
-    truncate_recent_fetches
-    refresh_health_status
-    save!
+    update_health_status
   end
 
   def failed_to_check!(exception=nil)
     self.recent_fetches.push [FETCH_FAILED, exception.try(:to_s)] 
-    self.checked_at = Time.now
-    truncate_recent_fetches
-    refresh_health_status
-    save!
+    update_health_status
   end
 
   private
+
+  def update_health_status
+    truncate_recent_fetches
+    refresh_health_status
+
+    update_columns(
+      recent_fetches: recent_fetches,
+      checked_at: Time.now,
+      updated_at: Time.now
+    )
+  end
 
   def refresh_health_status
     new_status = recent_fetches.map do |fetch|
