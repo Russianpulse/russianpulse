@@ -24,7 +24,10 @@ class ApplicationController < ActionController::Base
   end if Rails.env.production?
 
   rescue_from ActiveRecord::RecordNotFound do
-    render "errors/not_found", :status => 404
+    respond_to do |format|
+      format.html { render 'errors/not_found', status: 404 }
+      format.any { render text: 'not found', status: 404 }
+    end
   end
 
   before_filter :load_ab_test
