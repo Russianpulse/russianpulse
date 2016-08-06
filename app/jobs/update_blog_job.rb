@@ -3,10 +3,6 @@ require 'timeout'
 class UpdateBlogJob < ActiveJob::Base
   queue_as :default
 
-  rescue_from(Timeout::Error) do
-    retry_job queue: :low
-  end
-
   def perform(blog=nil, force=false)
     if blog.nil?
       Blog.with_feed.find_each do |blog|
@@ -97,6 +93,8 @@ class UpdateBlogJob < ActiveJob::Base
     end
 
     blog.checked!
+  rescue Feedjira::FetchFailure, Timeout::Error => ex
+    blog.failed_to_check!(ex)
   rescue StandardError => ex
     blog.failed_to_check!(ex)
     raise
