@@ -34,6 +34,13 @@ class CommentsController < ApplicationController
     if verify_recaptcha
       if @user.save && @comment.save
         ga_event category: :comments, action: :create, label: @post.title, interaction: 1, value: 1
+
+        EventTracker.notify 'comments', 'create', <<-MSG
+        #{@user.name}:
+        #{@comment.comment}
+        [#{@post.title}](#{comment_url(@comment)})
+        MSG
+
         sign_in @user rescue nil
 
         redirect_to comment_path(@comment), notice: t("comments.thank_you")
