@@ -17,11 +17,13 @@ class EventTracker
   end
 
   def track(category, action, label=nil, value=nil)
+    return if Rails.env.test?
     Rails.logger.warn 'EventTracker.track is deprocated'
     event(category: category, action: action, label: label, value: value, non_interactive: true)
   end
 
   def notify(category, action, label=nil, value=nil)
+    return if Rails.env.test?
     slack_notifier.ping "#{category.to_s.titleize} #{action} #{label} #{value}"
   end
 
