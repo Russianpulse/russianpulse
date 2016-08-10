@@ -11,15 +11,6 @@ class ApplicationController < ActionController::Base
 
   helper_method :ab_variant?
 
-  rescue_from StandardError do |ex|
-    logger.error ex
-    NewRelic::Agent.notice_error(ex)
-
-    ExceptionNotifier.notify_exception ex, env: request.env
-
-    render "errors/exception", :status => 500
-  end if Rails.env.production?
-
   rescue_from ActiveRecord::RecordNotFound do
     respond_to do |format|
       format.html { render 'errors/not_found', status: 404 }

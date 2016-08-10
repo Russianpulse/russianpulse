@@ -36,13 +36,11 @@ class CommentsController < ApplicationController
         ga_event category: :comments, action: :create, label: @post.title, interaction: 1, value: 1
 
 
-=begin
         EventTracker.notify 'comments', 'create', <<-MSG
         #{@user.name}:
         #{@comment.comment}
         [#{@post.title}](#{comment_url(@comment)})
         MSG
-=end
 
         sign_in @user rescue nil
 
