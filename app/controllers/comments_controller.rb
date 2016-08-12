@@ -31,15 +31,14 @@ class CommentsController < ApplicationController
 
     @comment = @post.comments.new(comment_params.merge(user: @user))
 
-    if verify_recaptcha
+    if !Rails.env.production? || verify_recaptcha
       if @user.save && @comment.save
         ga_event category: :comments, action: :create, label: @post.title, interaction: 1, value: 1
-
 
         EventTracker.notify 'comments', 'create', <<-MSG
         #{@user.name}:
         #{@comment.comment}
-        [#{@post.title}](#{comment_url(@comment)})
+        #{@post.title} #{(comment_url(@comment) rescue :cant_get_comment_url)}
         MSG
 
         sign_in @user rescue nil
