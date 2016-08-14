@@ -1,23 +1,9 @@
-database:
-  override:
-    - echo 'do nothing'
-
 machine:
-  services:
-    - docker
-
-test:
-  pre:
-    - docker-compose -f docker-compose.test.yml pull
-    - docker-compose -f docker-compose.test.yml build
-  override:
-    - docker-compose -f docker-compose.test.yml run sut ./bin/test
+  ruby:
+    - 2.3.1
 
 deployment:
   hub:
     branch: master
     commands:
-      - docker build -t russianpulse/mazavr-engine .
-      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
-      - docker push russianpulse/mazavr-engine
-      - ssh deployer@$DEPLOY_HOST "cd mazavr && git pull && make"
+      - ssh deployer@$DEPLOY_HOST "cd mazavr && git pull && make run"
