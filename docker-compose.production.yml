@@ -1,5 +1,4 @@
 db:
-  image: postgres:9.4.5
   restart: always
   log_driver: "json-file"
   log_opt:
@@ -8,7 +7,6 @@ db:
   mem_limit: 250000000 # 250 Mb
 
 memcached:
-  image: memcached:1.4.27-alpine
   restart: always
   log_driver: "json-file"
   log_opt:
@@ -16,7 +14,6 @@ memcached:
     max-file: "7"
 
 redis:
-  image: redis:3.2.1-alpine
   restart: always
   log_driver: "json-file"
   log_opt:
@@ -24,15 +21,8 @@ redis:
     max-file: "7"
 
 web:
-  image: russianpulse/mazavr-engine
   ports:
     - "80:3000"
-  links: 
-    - db
-    - memcached
-    - redis
-  env_file:
-    - .env
   environment:
     - RAILS_ENV=production
     - PASSENGER_APP_ENV=production
@@ -45,27 +35,11 @@ web:
 
 worker:
   image: russianpulse/mazavr-engine
-  links: 
-    - db
-    - memcached
-    - redis
-  command: ./bin/worker
-  env_file:
-    - .env
   environment:
     - RAILS_ENV=production
-  volumes_from:
-    - web
   restart: always
   log_driver: "json-file"
   log_opt:
     max-size: "50m"
     max-file: "7"
   mem_limit: 250000000 # 250 Mb
-
-pg-backup:
-  image: russianpulse/pg-backup
-  links: 
-    - db
-  env_file:
-    - .env.pg-backup
