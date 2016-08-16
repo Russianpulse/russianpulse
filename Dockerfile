@@ -29,7 +29,8 @@ RUN bundle install
 ADD . ./
 RUN mkdir -p tmp/pids
 
-RUN bundle exec rake assets:precompile
+# NOTE: disabled because of bad production config
+# RUN bundle exec rake assets:precompile
 
 RUN chown -R app: log
 
