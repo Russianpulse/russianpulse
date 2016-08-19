@@ -21,6 +21,10 @@ RUN gem install bundler -v '1.12.5' && \
 RUN mkdir /home/app/mazavr
 WORKDIR /home/app/mazavr
 
+# Base gems layer
+ADD .gemfiles_base/Gemfile* ./
+RUN bundle install
+
 # build bundle first to install all gems 
 # on each code update
 ADD Gemfile* ./
