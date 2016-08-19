@@ -260,6 +260,9 @@ GEM
       rspec-mocks (~> 3.5.0)
       rspec-support (~> 3.5.0)
     rspec-support (3.5.0)
+    rspec_junit_formatter (0.2.2)
+      builder (< 4)
+      rspec-core (>= 2, < 4, != 2.12.0)
     ruby-readability (0.7.0)
       guess_html_encoding (>= 0.0.4)
       nokogiri (>= 1.6.0)
@@ -392,6 +395,7 @@ DEPENDENCIES
   redcarpet
   rspec-its
   rspec-rails
+  rspec_junit_formatter (= 0.2.2)
   ruby-readability
   ruby-stemmer
   russian

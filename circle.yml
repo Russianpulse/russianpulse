@@ -5,6 +5,9 @@ machine:
 test:
   pre:
     - bundle exec bundle-audit check --update
+  override:
+    - RAILS_ENV=test bundle exec rspec -r rspec_junit_formatter --format RspecJunitFormatter -o $CIRCLE_TEST_REPORTS/rspec/junit.xml
+
 
 deployment:
   hub:

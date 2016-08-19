@@ -61,6 +61,7 @@ group :development, :test do
   gem 'spring'
   gem 'rspec-rails'
   gem 'rspec-its'
+  gem 'rspec_junit_formatter', '0.2.2'
   gem 'rack-mini-profiler', require: false
   #gem 'benchmark-ips'
   gem 'bullet'
