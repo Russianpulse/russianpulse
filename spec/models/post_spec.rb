@@ -23,4 +23,12 @@ RSpec.describe Post, :type => :model do
     it { is_expected.to include @top_post }
     it { is_expected.to include @commented_post }
   end
+
+  let(:post) { FactoryGirl.build :post }
+
+  describe '#picture_url' do
+    subject { post.picture_url }
+    before { post.picture_url = 'http://example.com/pic.jpeg' }
+    it { is_expected.to eq '//example.com/pic.jpeg' }
+  end
 end

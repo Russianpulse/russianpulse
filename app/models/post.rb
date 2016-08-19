@@ -15,7 +15,7 @@ class Post < ActiveRecord::Base
   scope :popular, lambda { order("views DESC NULLS LAST") }
   scope :unpopular, lambda { order("views, accessed_at DESC NULLS FIRST") }
   scope :top, lambda { where('top = ? OR comments_count > 0', true) }
-  scope :with_picture, lambda { where("picture_url LIKE 'http%'") }
+  scope :with_picture, lambda { where("picture_url LIKE '%//%'") }
   scope :most_discussed, lambda { where('comments_count > 0').order('comments_count DESC') }
   scope :published, lambda { where(blocked_at: nil) }
 
@@ -34,7 +34,11 @@ class Post < ActiveRecord::Base
   end
 
   def has_picture?
-    !!picture_url.to_s.match("http")
+    picture_url.present?
+  end
+
+  def picture_url
+    self[:picture_url].to_s.gsub(/^http:/, '')
   end
 
   def tags
