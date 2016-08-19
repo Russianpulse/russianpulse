@@ -89,7 +89,7 @@ module ApplicationHelper
     hash = Digest::MD5.hexdigest(email.downcase)
 
     # compile URL which can be used in <img src="RIGHT_HERE"...
-    "http://www.gravatar.com/avatar/#{hash}?s=#{args[:size] || 35}"
+    "//www.gravatar.com/avatar/#{hash}?s=#{args[:size] || 35}"
   end
 
   def send_ga_events
