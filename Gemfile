@@ -12,6 +12,7 @@ gem 'bootstrap-sass', '~> 3.3.6'
 gem 'js_cookie_rails'
 
 gem 'acts_as_commentable'
+gem 'acts_as_follower'
 gem 'cells', '~> 4.0.0'
 gem 'cells-erb'
 gem 'devise', '~> 3.5.4'

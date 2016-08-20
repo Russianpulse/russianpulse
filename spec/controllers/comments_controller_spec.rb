@@ -76,6 +76,18 @@ RSpec.describe CommentsController, type: :controller do
         expect { request }.to change(User, :count).by(1)
       end
 
+      context 'when *subscribe* box is checked' do
+        before do
+          valid_attributes.merge!(subscribe: 1)
+        end
+
+        it 'should subscribe user on a conversation' do
+          request
+          user = User.last
+          expect(current_post.followers).to include user
+        end
+      end
+
       context "when user already registered" do
         let!(:user) { FactoryGirl.create :user, user_attributes }
         it { expect{ request }.not_to change(User, :count) }

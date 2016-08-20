@@ -4,5 +4,6 @@
 :queues:
   - urgent
   - high
+  - mailers
   - default
   - low

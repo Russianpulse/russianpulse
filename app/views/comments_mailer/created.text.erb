@@ -1,0 +1,8 @@
+Здравствуйте, <%= @user.name %>!
+
+Автор: <%= @author.name %>
+Статья: "<%= @post_title %>"
+Комментарий: <%= strip_tags  @comment.comment %>
+
+<%= @comment.created_at %>
+Ответить: <%= comment_url @comment %>

@@ -1,5 +1,6 @@
 class Post < ActiveRecord::Base
   acts_as_commentable
+  acts_as_followable
   belongs_to :blog
   serialize :related_ids, JSON
 

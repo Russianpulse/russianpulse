@@ -36,6 +36,11 @@
     <%= recaptcha_tags rescue "Can't render captcha widget" %>
   </div>
 
+  <p>
+  <%= check_box_tag :subscribe, 1, true %>
+  <%= label_tag :subscribe, t('.subscribe') %>
+  </p>
+
   <%= f.button :submit, t(".send"), class: "btn-primary btn-lg" %>
 <% end %>
 

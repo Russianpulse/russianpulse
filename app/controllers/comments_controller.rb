@@ -45,6 +45,12 @@ class CommentsController < ApplicationController
 
         sign_in @user rescue nil
 
+        if params[:subscribe] == '1'
+          @user.follow(@post)
+        end
+
+        notify_post_subscribers
+
         redirect_to comment_path(@comment), notice: t("comments.thank_you")
       else
         redirect_to smart_post_path(@post)
@@ -83,5 +89,12 @@ class CommentsController < ApplicationController
 
     def user_params
       (params[:comment] || {}).require(:user_attributes).permit(:name, :email)
+    end
+
+    def notify_post_subscribers
+      @post.followers.each do |follower|
+        next if follower == current_user
+        CommentsMailer.created(@comment, follower).deliver_later
+      end
     end
 end

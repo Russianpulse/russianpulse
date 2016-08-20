@@ -1,0 +1,27 @@
+Здравствуйте, <%= @user.name %>!
+<br />
+<br />
+<br />
+
+<table cellspacing=10>
+  <tr>
+    <th align='right'>Автор:</th>
+    <td><%= @author.name %></td>
+  </tr>
+  <tr>
+    <th align='right'>Статья:</th>
+    <td>"<%= @post_title %>"</td>
+  </tr>
+
+  <tr>
+    <th valign='top' align='right'>Комментарий:</th>
+    <td>
+      <%= simple_format  @comment.comment %>
+      <%= @comment.created_at %>
+      <br />
+      <%= link_to 'Ответить', comment_url(@comment) %>
+    </td>
+  </tr>
+</table>
+
+

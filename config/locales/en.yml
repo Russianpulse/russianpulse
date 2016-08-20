@@ -84,6 +84,7 @@ en:
       your_name: "Your name"
       email: "Email (hidden from users)"
       send: "Publish"
+      subscribe: "Subscribe on this conversation"
 
   comments:
     thank_you: "Thank you for response!"

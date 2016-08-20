@@ -61,7 +61,12 @@ Rails.application.routes.draw do
   get "/main" => "posts#index" # legacy
   get ':slug' => "blogs#show", :as => :blog
 
-  get '*a', :to => 'errors#not_found'
+
+  if Rails.env.development?
+    get '/rails/mailers' => 'rails/mailers#index'
+  else
+    get '*a', :to => 'errors#not_found'
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

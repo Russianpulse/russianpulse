@@ -2,4 +2,5 @@
 
 ./bin/bootstrap
 rm tmp/pids/*
-bundle exec rails server --binding 0.0.0.0 --port 3000
+bundle exec spring rspec -v # spring preload
+bundle exec spring rails server --binding 0.0.0.0 --port 3000
