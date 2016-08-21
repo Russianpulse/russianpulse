@@ -28,9 +28,11 @@ Rails.application.routes.draw do
 
   get 'search' => 'search#index', :as => :search
 
-  get 'tools/:action', :controller => :tools
-  post 'tools/:action', :controller => :tools
-  get 'tools' => "tools#index"
+  namespace :tools do
+    get '/' => 'tools#index'
+    get 'cleanup' => 'tools#cleanup'
+    post 'cleanup' => 'tools#cleanup'
+  end
 
   get 'tags/:tag' => "tags#show", :as => :tag
 
