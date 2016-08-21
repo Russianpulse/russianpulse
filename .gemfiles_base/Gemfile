@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.6'
+gem 'rails', '~> 4.2.7.1'
 
 # Assets & JS & CSS
 gem 'sass-rails', '~> 5.0'
@@ -12,6 +12,7 @@ gem 'bootstrap-sass', '~> 3.3.6'
 gem 'js_cookie_rails'
 
 gem 'acts_as_commentable'
+gem 'acts_as_follower'
 gem 'cells', '~> 4.0.0'
 gem 'cells-erb'
 gem 'devise', '~> 3.5.4'
@@ -46,20 +47,22 @@ group :production do
 end
 
 group :development do
-  gem 'spring-commands-rspec'
-end
-
-group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
 
+  gem 'spring-commands-rspec'
+  gem 'bundler-audit', '0.5.0'
+end
+
+group :development, :test do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'rspec-rails'
   gem 'rspec-its'
+  gem 'rspec_junit_formatter', '0.2.2'
   gem 'rack-mini-profiler', require: false
   #gem 'benchmark-ips'
   gem 'bullet'
