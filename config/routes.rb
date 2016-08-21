@@ -18,10 +18,6 @@ Rails.application.routes.draw do
 
   root 'welcome#index'
 
-  get 'widgets' => 'widgets#index'
-  get 'w/p/:id' => 'widgets#post'
-  get 'w/:action', controller: 'widgets'
-
   get '/p/views/:id' => 'posts#counter'
 
 
