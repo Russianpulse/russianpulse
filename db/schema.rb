@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -43,11 +42,10 @@ ActiveRecord::Schema.define(version: 20160803202818) do
     t.string   "category"
     t.text     "recent_fetches"
     t.integer  "health_status",      default: 0
+    t.index ["featured"], name: "index_blogs_on_featured", using: :btree
+    t.index ["rating"], name: "index_blogs_on_rating", using: :btree
+    t.index ["slug"], name: "index_blogs_on_slug", unique: true, using: :btree
   end
-
-  add_index "blogs", ["featured"], name: "index_blogs_on_featured", using: :btree
-  add_index "blogs", ["rating"], name: "index_blogs_on_rating", using: :btree
-  add_index "blogs", ["slug"], name: "index_blogs_on_slug", unique: true, using: :btree
 
   create_table "comments", force: :cascade do |t|
     t.string   "title",            limit: 50, default: ""
@@ -58,11 +56,10 @@ ActiveRecord::Schema.define(version: 20160803202818) do
     t.string   "role",                        default: "comments"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["commentable_id"], name: "index_comments_on_commentable_id", using: :btree
+    t.index ["commentable_type"], name: "index_comments_on_commentable_type", using: :btree
+    t.index ["user_id"], name: "index_comments_on_user_id", using: :btree
   end
-
-  add_index "comments", ["commentable_id"], name: "index_comments_on_commentable_id", using: :btree
-  add_index "comments", ["commentable_type"], name: "index_comments_on_commentable_type", using: :btree
-  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
   create_table "follows", force: :cascade do |t|
     t.integer  "followable_id",                   null: false
@@ -72,10 +69,9 @@ ActiveRecord::Schema.define(version: 20160803202818) do
     t.boolean  "blocked",         default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["followable_id", "followable_type"], name: "fk_followables", using: :btree
+    t.index ["follower_id", "follower_type"], name: "fk_follows", using: :btree
   end
-
-  add_index "follows", ["followable_id", "followable_type"], name: "fk_followables", using: :btree
-  add_index "follows", ["follower_id", "follower_type"], name: "fk_follows", using: :btree
 
   create_table "post_digests", force: :cascade do |t|
     t.string   "title"
@@ -84,9 +80,8 @@ ActiveRecord::Schema.define(version: 20160803202818) do
     t.text     "post_ids"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.index ["slug"], name: "index_post_digests_on_slug", unique: true, using: :btree
   end
-
-  add_index "post_digests", ["slug"], name: "index_post_digests_on_slug", unique: true, using: :btree
 
   create_table "post_teasers", force: :cascade do |t|
     t.text     "body"
@@ -113,13 +108,12 @@ ActiveRecord::Schema.define(version: 20160803202818) do
     t.text     "block_reason"
     t.string   "stream",         default: "inbox"
     t.text     "body"
+    t.index ["comments_count"], name: "index_posts_on_comments_count", using: :btree
+    t.index ["created_at"], name: "index_posts_on_created_at", using: :btree
+    t.index ["slug_id"], name: "index_posts_on_slug_id", unique: true, using: :btree
+    t.index ["top"], name: "index_posts_on_top", using: :btree
+    t.index ["views"], name: "index_posts_on_views", using: :btree
   end
-
-  add_index "posts", ["comments_count"], name: "index_posts_on_comments_count", using: :btree
-  add_index "posts", ["created_at"], name: "index_posts_on_created_at", using: :btree
-  add_index "posts", ["slug_id"], name: "index_posts_on_slug_id", unique: true, using: :btree
-  add_index "posts", ["top"], name: "index_posts_on_top", using: :btree
-  add_index "posts", ["views"], name: "index_posts_on_views", using: :btree
 
   create_table "snippets", force: :cascade do |t|
     t.string   "key",        null: false
@@ -127,9 +121,8 @@ ActiveRecord::Schema.define(version: 20160803202818) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text     "v2"
+    t.index ["key"], name: "index_snippets_on_key", unique: true, using: :btree
   end
-
-  add_index "snippets", ["key"], name: "index_snippets_on_key", unique: true, using: :btree
 
   create_table "tags", force: :cascade do |t|
     t.string   "title"
@@ -138,9 +131,8 @@ ActiveRecord::Schema.define(version: 20160803202818) do
     t.datetime "updated_at", null: false
     t.text     "post_ids"
     t.text     "aliases"
+    t.index ["slug"], name: "index_tags_on_slug", unique: true, using: :btree
   end
-
-  add_index "tags", ["slug"], name: "index_tags_on_slug", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",     null: false
@@ -157,10 +149,9 @@ ActiveRecord::Schema.define(version: 20160803202818) do
     t.datetime "updated_at",                              null: false
     t.string   "name"
     t.string   "role",                   default: "user", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
-
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "posts", "blogs"
 end

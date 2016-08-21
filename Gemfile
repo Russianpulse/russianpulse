@@ -1,6 +1,10 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.2.7.1'
+gem 'rails', '~> 5.0'
+
+# Rails Admin
+gem 'remotipart', github: 'mshibuya/remotipart'
+gem 'rails_admin', '>= 1.0.0.rc'
 
 # Assets & JS & CSS
 gem 'sass-rails', '~> 5.0'
@@ -10,12 +14,11 @@ gem 'therubyracer', platforms: :ruby
 gem 'jquery-rails'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'js_cookie_rails'
-
 gem 'acts_as_commentable'
 gem 'acts_as_follower'
-gem 'cells', '~> 4.0.0'
+gem 'cells-rails'
 gem 'cells-erb'
-gem 'devise', '~> 3.5.4'
+gem 'devise'
 gem 'devise-i18n'
 gem 'devise-i18n-views'
 gem 'ejs'
@@ -26,7 +29,6 @@ gem 'gon'
 gem 'httpclient'
 gem 'pg'
 gem 'pundit'
-gem 'rails_admin'
 gem 'redcarpet'
 gem 'ruby-readability', :require => 'readability'
 gem 'ruby-stemmer', :require => 'lingua/stemmer'
@@ -39,6 +41,8 @@ gem 'sitemap_generator'
 gem 'slack-notifier'
 gem 'staccato'
 gem 'typogruby'
+
+
 
 group :production do
   gem 'newrelic_rpm'
@@ -76,6 +80,9 @@ group :test do
   gem 'webmock'
   gem 'capybara'
   gem 'codeclimate-test-reporter', require: nil
+
+  # TODO: remove it
+  gem 'rails-controller-testing'
 end
 
 gem 'sdoc', '~> 0.4.0', group: :doc
