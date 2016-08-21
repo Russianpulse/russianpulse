@@ -385,7 +385,7 @@ DEPENDENCIES
   pg
   pundit
   rack-mini-profiler
-  rails (~> 4.2.6)
+  rails (~> 4.2.7.1)
   rails-assets-backbone!
   rails-assets-jquery-timeago!
   rails-assets-jquery-ui!
