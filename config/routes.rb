@@ -18,10 +18,6 @@ Rails.application.routes.draw do
 
   root 'welcome#index'
 
-  get 'widgets' => 'widgets#index'
-  get 'w/p/:id' => 'widgets#post'
-  get 'w/:action', controller: 'widgets'
-
   get '/p/views/:id' => 'posts#counter'
 
 
@@ -32,9 +28,11 @@ Rails.application.routes.draw do
 
   get 'search' => 'search#index', :as => :search
 
-  get 'tools/:action', :controller => :tools
-  post 'tools/:action', :controller => :tools
-  get 'tools' => "tools#index"
+  scope path: '/tools', controller: 'tools' do
+    get '/', action: :index
+    get 'cleanup', action: :cleanup
+    post 'cleanup', action: :cleanup
+  end
 
   get 'tags/:tag' => "tags#show", :as => :tag
 

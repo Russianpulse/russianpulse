@@ -22,7 +22,6 @@ RSpec.describe CommentsController, type: :controller do
   include ApplicationHelper
   include PostsHelper
 
-
   let(:user_attributes) { FactoryGirl.attributes_for(:user) }
 
   # This should return the minimal set of attributes required to create a valid
@@ -54,7 +53,7 @@ RSpec.describe CommentsController, type: :controller do
 
     context "with valid params" do
       subject(:request) do
-        post :create, valid_attributes, valid_session
+        post :create, params: valid_attributes, session: valid_session
       end
 
       it "creates a new Comment" do
@@ -96,7 +95,7 @@ RSpec.describe CommentsController, type: :controller do
 
       describe "user" do
         before do
-          post :create, valid_attributes, valid_session
+          post :create, params: valid_attributes, session: valid_session
         end
         subject { assigns(:user) }
 
@@ -107,7 +106,7 @@ RSpec.describe CommentsController, type: :controller do
 
     context "with invalid params" do
       subject(:request) do
-        post :create, invalid_attributes, valid_session
+        post :create, params: invalid_attributes, session: valid_session
       end
 
       it "should not create a new Comment" do

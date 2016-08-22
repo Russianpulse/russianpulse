@@ -5,8 +5,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  before_filter :check_subdomain
-  before_filter :schedule_jobs unless lambda { Rails.env.test? }
+  before_action :check_subdomain
   before_action :set_locale
 
   helper_method :ab_variant?
@@ -18,7 +17,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  before_filter :load_ab_test
+  before_action :load_ab_test
 
   private
    
@@ -59,10 +58,6 @@ class ApplicationController < ActionController::Base
     if Rails.configuration.x.domain && Rails.env.production? && request.host != Rails.configuration.x.domain
       redirect_to request.url.sub(request.host, Rails.configuration.x.domain)
     end
-  end
-
-  def schedule_jobs
-    SchedulerJob.perform_later
   end
 
   def ga_event(args)

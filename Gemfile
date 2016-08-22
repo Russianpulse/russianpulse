@@ -1,21 +1,26 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.2.6'
+gem 'rails', '~> 5.0'
+gem 'puma', '~> 3.0'
+
+# Rails Admin
+gem 'remotipart', github: 'mshibuya/remotipart', ref: '88d9a7'
+gem 'rails_admin', '>= 1.0.0.rc'
 
 # Assets & JS & CSS
 gem 'sass-rails', '~> 5.0'
-gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.1.0'
+gem 'uglifier', '~> 1.3'
+gem 'coffee-rails', '~> 4.2'
 gem 'therubyracer', platforms: :ruby
 gem 'jquery-rails'
-gem 'bootstrap-sass', '~> 3.3.6'
+gem 'jbuilder', '~> 2.5'
+gem 'bootstrap-sass'
 gem 'js_cookie_rails'
-
 gem 'acts_as_commentable'
 gem 'acts_as_follower'
-gem 'cells', '~> 4.0.0'
+gem 'cells-rails'
 gem 'cells-erb'
-gem 'devise', '~> 3.5.4'
+gem 'devise'
 gem 'devise-i18n'
 gem 'devise-i18n-views'
 gem 'ejs'
@@ -26,7 +31,6 @@ gem 'gon'
 gem 'httpclient'
 gem 'pg'
 gem 'pundit'
-gem 'rails_admin'
 gem 'redcarpet'
 gem 'ruby-readability', :require => 'readability'
 gem 'ruby-stemmer', :require => 'lingua/stemmer'
@@ -40,6 +44,8 @@ gem 'slack-notifier'
 gem 'staccato'
 gem 'typogruby'
 
+
+
 group :production do
   gem 'newrelic_rpm'
   gem 'rails_12factor'
@@ -47,19 +53,22 @@ group :production do
 end
 
 group :development do
-  gem 'spring-commands-rspec'
-  gem 'bundler-audit', '0.5.0'
-end
-
-group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
 
+  gem 'listen', '~> 3.0.5'
+  gem 'bundler-audit'
+
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'spring-commands-rspec'
+end
+
+group :development, :test do
   gem 'rspec-rails'
   gem 'rspec-its'
   gem 'rspec_junit_formatter', '0.2.2'
@@ -67,8 +76,7 @@ group :development, :test do
   #gem 'benchmark-ips'
   gem 'bullet'
   gem 'database_cleaner'
-  gem 'factory_girl'
-  gem 'factory_girl_rails', '~> 4.0'
+  gem 'factory_girl_rails'
   gem 'vcr'
 end
 
@@ -76,6 +84,9 @@ group :test do
   gem 'webmock'
   gem 'capybara'
   gem 'codeclimate-test-reporter', require: nil
+
+  # TODO: remove it
+  gem 'rails-controller-testing'
 end
 
 gem 'sdoc', '~> 0.4.0', group: :doc
