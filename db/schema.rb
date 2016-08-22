@@ -50,8 +50,8 @@ ActiveRecord::Schema.define(version: 20160803202818) do
   create_table "comments", force: :cascade do |t|
     t.string   "title",            limit: 50, default: ""
     t.text     "comment"
-    t.integer  "commentable_id"
     t.string   "commentable_type"
+    t.integer  "commentable_id"
     t.integer  "user_id"
     t.string   "role",                        default: "comments"
     t.datetime "created_at"
@@ -62,10 +62,10 @@ ActiveRecord::Schema.define(version: 20160803202818) do
   end
 
   create_table "follows", force: :cascade do |t|
-    t.integer  "followable_id",                   null: false
     t.string   "followable_type",                 null: false
-    t.integer  "follower_id",                     null: false
+    t.integer  "followable_id",                   null: false
     t.string   "follower_type",                   null: false
+    t.integer  "follower_id",                     null: false
     t.boolean  "blocked",         default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
