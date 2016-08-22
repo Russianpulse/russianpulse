@@ -32,6 +32,7 @@ web:
     max-size: "50m"
     max-file: "7"
   mem_limit: 500000000 # 500 Mb
+  command: bin/web
 
 worker:
   environment:
