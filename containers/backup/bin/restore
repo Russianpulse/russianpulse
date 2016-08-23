@@ -1,0 +1,37 @@
+#!/bin/sh
+
+###############################################################################
+# Set Defaults
+if [ -z "${PG_USER}" ]; then
+  export PG_USER=postgres
+fi
+
+if [ -z "${PG_PASSWORD}" ]; then
+  export PG_PASSWORD=
+fi
+
+if [ -z "${PG_PORT}" ]; then
+  export PG_PORT=5432
+fi
+
+if [ -z "${PG_HOST}" ]; then
+  export PG_HOST=db
+fi
+
+###############################################################################
+# Restore
+
+echo 'Restore'
+
+echo "`date`: Downloading from FTP.." >> /var/log/backup.log
+
+rm /restore/database.dump
+duplicity $FTP_URL /restore/database.dump --no-encryption
+
+echo "`date`: Restore DB.." >> /var/log/backup.log
+
+export PGPASSWORD=$PG_PASSWORD
+pg_restore --verbose --clean --no-acl --no-owner -U $PG_USER -h $PG_HOST -d $PG_DBNAME /restore/database.dump
+
+
+echo "`date`: Done!" >> /var/log/backup.log
