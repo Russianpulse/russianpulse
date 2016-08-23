@@ -38,8 +38,8 @@ worker:
   volumes:
     - ./:/home/app/mazavr
 
-backup-service:
-  image: russianpulse/pg-backup
+backup:
+  build: containers/backup
   links: 
     - db
   env_file:
