@@ -7,6 +7,7 @@
 <span id="time_now" title="<%= t(:last_update) %>: <%= format_date Post.order("created_at DESC").first.created_at rescue nil %>"><%= l Post.order("created_at DESC").first.created_at, format: "%e %b %Y" rescue nil  %></span>
 
 <ul class="nav nav-pills pull-right">
+  <li role="presentation"><%= link_to 'Новое', posts_path %></li>
   <li role="presentation"><%= link_to 'Блоги', blogs_path %></li>
 </ul>
 
