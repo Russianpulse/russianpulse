@@ -1,25 +1,23 @@
 <h1><%= t(:search).mb_chars.capitalize %></h1>
 
-<%= snippet(:search) || capture do %>
-<style>
-  /* http://www.am22tech.com/google-custom-search-input-box-conflicting-bootstrap-css/ */
-  .controller-search input.gsc-input, .controller-search .gsc-input-box, .controller-search .gsc-input-box-hover, .controller-search .gsc-input-box-focus, .controller-search .gsc-search-button {
-    box-sizing: content-box;
-    line-height: normal;
-  }
-</style>
+<br />
 
-<script>
-  (function() {
-  var cx = '014615858198930633076:ulqrmv-dbbk';
-  var gcse = document.createElement('script');
-  gcse.type = 'text/javascript';
-  gcse.async = true;
-  gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
-  '//www.google.com/cse/cse.js?cx=' + cx;
-  var s = document.getElementsByTagName('script')[0];
-  s.parentNode.insertBefore(gcse, s);
-  })();
-</script>
-<gcse:search></gcse:search>
+<%= form_tag '/search', method: :get do %>
+  <div class="input-group">
+    <%= text_field_tag :q, params[:q], class: 'form-control', placeholder: 'Что будем искать?' %>
+    <span class="input-group-btn">
+    <%= submit_tag 'Найти!', class: 'form-control' %>
+    </span>
+  </div>
 <% end %>
+
+<% if params[:q].present? %>
+  <hr />
+
+  <% if @posts.present? %>
+    <%= cell("posts/text_block", @posts) %>
+  <% else %>
+    По запросу '<%= params[:q] %>' ничего не найдено
+  <% end %>
+<% end %>
+
