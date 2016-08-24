@@ -16,6 +16,7 @@ gem 'jquery-rails'
 gem 'jbuilder', '~> 2.5'
 gem 'bootstrap-sass'
 gem 'js_cookie_rails'
+
 gem 'acts_as_commentable'
 gem 'acts_as_follower'
 gem 'cells-rails'
@@ -44,8 +45,6 @@ gem 'slack-notifier'
 gem 'staccato'
 gem 'typogruby'
 
-
-
 group :production do
   gem 'newrelic_rpm'
   gem 'rails_12factor'
@@ -66,6 +65,9 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'spring-commands-rspec'
+
+  gem 'letter_opener'
+  gem 'letter_opener_web', '~> 1.2.0'
 end
 
 group :development, :test do

@@ -62,6 +62,7 @@ Rails.application.routes.draw do
 
   if Rails.env.development?
     get '/rails/mailers' => 'rails/mailers#index'
+    mount LetterOpenerWeb::Engine, at: '/rails/inbox'
   else
     get '*a', :to => 'errors#not_found'
   end
