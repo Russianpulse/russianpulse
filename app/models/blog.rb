@@ -11,6 +11,7 @@ class Blog < ActiveRecord::Base
   validates :fetch_type, :inclusion => { :in => %w(net_http), :allow_blank => true }
 
   scope :with_feed, lambda { where("feed_url LIKE 'http%'") }
+  scope :popular, -> { order('rating DESC') }
 
   def text_cleanup_rules_auto
     rules = text_cleanup_rules || ""

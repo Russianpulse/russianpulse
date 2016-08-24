@@ -52,6 +52,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :blogs, only: :index
+
   get ':blog/:year/:month/:day/:id' => "posts#show", :as => :post
   get ':blog/:year/:month/:day/:slug_id/:title' => "posts#show", :as => :post_with_slug
   get 'posts/:slug_id' => "posts#show", as: :post_permalink
