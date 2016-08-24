@@ -29,7 +29,7 @@ pg_dump -Fc --no-acl --no-owner -U $PG_USER -h $PG_HOST $PG_DBNAME > /backup/dat
 echo "`date`: Uploading to FTP.." >> /var/log/backup.log
 
 duplicity /backup/database.dump $FTP_URL --no-encryption --allow-source-mismatch --full-if-older-than=7D
-duplicity remove-older-than 30D $FTP_URL --no-encryption
+duplicity remove-older-than 30D --force $FTP_URL --no-encryption
 
 echo "`date`: Done!" >> /var/log/backup.log
 
