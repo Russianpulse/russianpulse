@@ -2,10 +2,10 @@ FROM debian:jessie
 
 RUN apt-get update && apt-get install -y \
   cron \
-  rsyslog \
   postgresql-client \
   duplicity \
-  ncftp
+  ncftp \
+  curl
 
 RUN mkdir /backup
 RUN mkdir /restore
@@ -16,4 +16,4 @@ ADD crontab /etc/crontab
 ADD ./bin/backup /bin/backup
 ADD ./bin/restore /bin/restore
 
-CMD rsyslogd && cron && tail -f /var/log/backup.log
+CMD cron && tail -f /var/log/backup.log
