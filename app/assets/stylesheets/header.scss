@@ -1,0 +1,20 @@
+.top-nav-bar {
+  margin-top: 10px;
+  &__item {
+    font-size: 17px;
+    padding: 0px 10px 0px 10px;
+    border-right: 1px solid #efefef;
+
+    &:last-child{
+      border-right: 0px;
+    }
+
+    a {
+      color: #333;
+    }
+
+    a:visited {
+      color: #333;
+    }
+  }
+}
