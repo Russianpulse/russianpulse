@@ -10,10 +10,7 @@ class SearchController < ApplicationController
   private
 
   def find_posts(q)
-    Post
-      .where("title ILIKE ?", "%#{q}%")
-      .where("body ILIKE ?", "%#{q}%")
-      .where("tags_list ILIKE ?", "%#{q}%")
-      .limit(30).recent
+    Post.where("title ILIKE ? OR body ILIKE ? OR tags_list ILIKE ?", "%#{q}%", "%#{q}%", "%#{q}%")
+        .limit(30).recent
   end
 end
