@@ -27,7 +27,20 @@ SitemapGenerator::Sitemap.create do
   #     add article_path(article), :lastmod => article.updated_at
   #   end
 
-  Post.find_each do |post|
-    add smart_post_path(post), lastmod: post.updated_at
+  add about_path, changefreq: 'monthly', priority: 0.8
+  add search_path, changefreq: 'monthly', priority: 0.8
+
+  add posts_path, lastmod: Post.published.maximum(:created_at), changefreq: 'always', priority: 1
+  add posts_path(top: 1), lastmod: Post.published.top.maximum(:created_at), changefreq: 'daily', priority: 1
+  add rating_path, priority: 0.2
+  add archive_path, lastmod: 1.day.ago, changefreq: 'monthly', priority: 0.5
+
+
+  Blog.find_each do |blog|
+    add blog_path(blog.slug), lastmod: blog.updated_at, changefreq: 'hourly', priority: 1
+  end
+
+  Post.published.find_each do |post|
+    add smart_post_path(post), lastmod: post.updated_at, priority: 0.1, changefreq: 'monthly'
   end
 end

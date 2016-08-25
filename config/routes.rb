@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   get 'goto' => 'redirects#bye', as: :goto
 
-  get 'ratings/posts'
+  get 'ratings/posts', as: :rating
 
   devise_for :users
   resources :comments, only: [:create]
