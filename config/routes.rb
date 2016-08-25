@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  scope path: '/archive', controller: :archive do
+    get '/', action: :index, as: :archive
+    get '/:year/:month/:day', action: :day, as: :archive_day
+  end
+
   get 'goto' => 'redirects#bye', as: :goto
 
   get 'ratings/posts'

@@ -1,20 +1,22 @@
 <div class="posts-list">
   <% for post in posts %>
-    <div class="post">
-      <h2>
-        <%= link_to typography(post.title), smart_post_path(post) %>
+    <% cache post do %>
+      <div class="post">
+        <h2>
+          <%= link_to typography(post.title), smart_post_path(post) %>
 
-        <% if post.comments.exists? %>
-          <small>
-            &nbsp;
-          <%= comments_link post, class: '' %>
-          </small>
-        <% end %>
-      </h2>
-      <span class="date"><%= l  post.created_at, format: "%e %b %Y" %></span>
-      •
-      <span class="blog"><%= post.blog.title %></span>
-    </div>
-    <hr />
+          <% if post.comments.exists? %>
+            <small>
+              &nbsp;
+            <%= comments_link post, class: '' %>
+            </small>
+          <% end %>
+        </h2>
+        <span class="date"><%= l  post.created_at, format: "%e %b %Y" %></span>
+        •
+        <span class="blog"><%= post.blog.title %></span>
+      </div>
+      <hr />
+    <% end %>
   <% end %>
 </div>

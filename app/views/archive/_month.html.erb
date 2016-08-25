@@ -1,0 +1,24 @@
+<h3>
+  <%= localize(cursor, format: '%b').mb_chars.titleize %>
+</h3>
+
+<table class='table'>
+  <tr>
+    <% (cursor.beginning_of_month.beginning_of_week..cursor.beginning_of_month.end_of_week).each do |date| %>
+      <%= content_tag :th, class: archive_date_classes(date) do %>
+        <%= l date, format: '%a' %>
+      <% end %>
+    <% end %>
+  </tr>
+  <% (cursor.beginning_of_month.beginning_of_week..cursor.end_of_month).to_a.in_groups_of(7, false).each do |week| %>
+    <tr>
+      <% week.each do |date| %>
+        <%= content_tag :td, class: archive_date_classes(date) do %>
+          <% if date.month == cursor.month %>
+            <%= link_to_unless date.future?, date.day, archive_day_path(date.year, date.month, date.day) %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
