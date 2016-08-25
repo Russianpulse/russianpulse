@@ -1,0 +1,20 @@
+.top-nav-bar {
+  margin-top: 11px;
+  &__item {
+    font-size: 13px;
+    padding-left: 30px;
+    text-transform: uppercase;
+
+    &:last-child{
+      border-right: 0px;
+    }
+
+    a {
+      color: #333;
+    }
+
+    a:visited {
+      color: #333;
+    }
+  }
+}

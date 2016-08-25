@@ -1,0 +1,26 @@
+<% content_for :meta_title, 'Блоги' %>
+
+<h1>Блоги</h1>
+
+<table class='table'>
+  <tr>
+    <th></th>
+    <th>Блог</th>
+    <th>Статьи</th>
+    <th>Рейтинг</th>
+  </tr>
+
+  <% @blogs.each_with_index do |blog, index| %>
+    <%= cache blog do %>
+      <tr>
+        <td><%= index + 1 %></td>
+        <th>
+          <%= link_to blog.title, blog_path(blog.slug) %>
+        </th>
+        <td><%= number_with_delimiter blog.posts.count %></td>
+        <td><%= number_with_delimiter blog.rating.round %></td>
+      </tr>
+    <% end %>
+  <% end %>
+  
+</table>

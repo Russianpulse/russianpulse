@@ -1,4 +1,8 @@
 class BlogsController < ApplicationController
+  def index
+    @blogs = Blog.popular
+  end
+
   def show
     @blog = Blog.find_by!(slug: params[:slug])
 

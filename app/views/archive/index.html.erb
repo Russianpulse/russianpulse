@@ -1,0 +1,19 @@
+<%= content_for :meta_title, 'Архив' %>
+<h1>Архив</h1>
+
+
+<% start = (Post.minimum(:created_at) || Date.today).to_date %>
+
+<% (start.year..Date.today.year).to_a.reverse.each do |year| %>
+  <h2><%= year %> год</h2>
+  <div class='row archive'>
+    <% (1..12).to_a.reverse.map { |month| Date.new(year, month) }.each do |cursor| %>
+      <% next if cursor < start %>
+      <% next if cursor.future? %>
+
+      <div class="col-md-4 col-sm-6">
+        <%= render partial: 'month', locals: { cursor: cursor } %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

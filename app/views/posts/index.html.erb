@@ -1,10 +1,10 @@
 <% if params[:before].present? %>
-  <% content_for(:meta_title, strip_tags("#{t(:posts_before)} #{format_date Time.at(params[:before].to_f)}")) %>
-  <%= content_tag :h1, raw("#{t(:posts_before)} #{format_date Time.at(params[:before].to_f)}") %>
-  <hr />
+  <%= render partial: 'title_with_date', locals: { title: raw("#{params[:top] ? 'Популярное' : 'Новое'} до #{format_date Time.at(params[:before].to_f)}") } %>
 <% else %>
-  <%= snippet :main_page_teaser %>
+  <%= render partial: 'title', locals: { title: params[:top] ? 'Популярное' : 'Новое' } %>
 <% end %>
+
+<hr />
 
 <%= render :partial => "posts/list", :locals => { :posts => @posts } %>
 

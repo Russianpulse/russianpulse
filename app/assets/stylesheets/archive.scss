@@ -1,0 +1,25 @@
+// Place all the styles related to the archive controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.archive {
+  .date {
+    text-align: center;
+  }
+
+  .holiday {
+    background: #EEEEEE;
+  }
+  .disabled {
+    color: #AAAAAA;
+  }
+
+  .today {
+    background: #398dc9;
+
+    a {
+      color: white;
+      font-weight: bold;
+    }
+  }
+}

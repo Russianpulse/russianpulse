@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  scope path: '/archive', controller: :archive do
+    get '/', action: :index, as: :archive
+    get '/:year/:month/:day', action: :day, as: :archive_day
+  end
+
   get 'goto' => 'redirects#bye', as: :goto
 
   get 'ratings/posts'
@@ -51,6 +56,8 @@ Rails.application.routes.draw do
       get '/' => 'health#index'
     end
   end
+
+  resources :blogs, only: :index
 
   get ':blog/:year/:month/:day/:id' => "posts#show", :as => :post
   get ':blog/:year/:month/:day/:slug_id/:title' => "posts#show", :as => :post_with_slug
