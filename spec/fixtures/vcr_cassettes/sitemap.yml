@@ -1,0 +1,136 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://www.google.com/webmasters/tools/ping?sitemap=https://local.russianpulse.ru/sitemaps/sitemap.xml.gz
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/html; charset=UTF-8
+      Expires:
+      - Thu, 25 Aug 2016 10:51:36 GMT
+      Date:
+      - Thu, 25 Aug 2016 10:51:36 GMT
+      Cache-Control:
+      - private, max-age=0
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Length:
+      - '528'
+      Server:
+      - GSE
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        <html><meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <head><title>Google Webmaster Tools
+        -
+        Sitemap Notification Received</title>
+        <meta name="robots" content="noindex, noodp">
+        <script src="https://ssl.google-analytics.com/urchin.js" type="text/javascript">
+            </script>
+        <script type="text/javascript">
+              _uacct="UA-18009-2";
+              _utcp="/webmasters/";
+              _uanchor=1;
+              urchinTracker();
+            </script></head>
+        <body><h2>Sitemap Notification Received</h2>
+        <br>
+        Your Sitemap has been successfully added to our list of Sitemaps to crawl. If this is the first time you are notifying Google about this Sitemap, please add it via  <a href="http://www.google.com/webmasters/tools/">http://www.google.com/webmasters/tools/</a>  so you can track its status. Please note that we do not add all submitted URLs to our index, and we cannot make any predictions or guarantees about when or if they will appear.</body></html>
+    http_version: 
+  recorded_at: Thu, 25 Aug 2016 10:51:36 GMT
+- request:
+    method: get
+    uri: http://www.bing.com/webmaster/ping.aspx?siteMap=https://local.russianpulse.ru/sitemaps/sitemap.xml.gz
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Length:
+      - '982'
+      Content-Type:
+      - text/html; charset=utf-8
+      Expires:
+      - "-1"
+      Vary:
+      - Accept-Encoding
+      Server:
+      - Microsoft-IIS/8.5
+      X-Machinename:
+      - BN2SCH020221136
+      X-Aspnet-Version:
+      - 4.0.30319
+      X-Powered-By:
+      - ASP.NET
+      X-Msedge-Ref:
+      - 'Ref A: 588EDE9A8D164ACAA344FFE49D4E47AB Ref B: EC864D2C47BAE80533F45CB7AA970E8D
+        Ref C: Thu Aug 25 03:51:35 2016 PST'
+      Date:
+      - Thu, 25 Aug 2016 10:51:35 GMT
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        PGh0bWw+PGJvZHk+0JHQu9Cw0LPQvtC00LDRgNC40Lwg0LfQsCDQvtGC0L/R
+        gNCw0LLQutGDIFNpdGVtYXAuINCS0L7RgdC/0L7Qu9GM0LfRg9C50YLQtdGB
+        0YwgPGEgaHJlZj0iL3dlYm1hc3RlciI+0YHRgNC10LTRgdGC0LLQsNC80Lgg
+        0LLQtdCxLdC80LDRgdGC0LXRgNCwIEJpbmc8L2E+LCDRh9GC0L7QsdGLINC/
+        0YDQvtCy0LXRgNC40YLRjCDRgdC+0YHRgtC+0Y/QvdC40LUgU2l0ZW1hcHMg
+        0Lgg0YPQstC40LTQtdGC0Ywg0L7RgtGH0LXRgtGLIEJpbmcuPCEtLSBTaXRl
+        Q2F0YWx5c3QgY29kZSB2ZXJzaW9uOiBILjEuIENvcHlyaWdodCAxOTk3LTIw
+        MDUgT21uaXR1cmUsIEluYy4gTW9yZSBpbmZvIGF2YWlsYWJsZSBhdCBodHRw
+        Oi8vd3d3Lm9tbml0dXJlLmNvbSAtLT48c2NyaXB0IGxhbmd1YWdlPSdKYXZh
+        U2NyaXB0Jz52YXIgc19hY2NvdW50PSdtc25wb3J0YWxiaW5nd2VibWFzdGVy
+        Jzs8L3NjcmlwdD48c2NyaXB0IGxhbmd1YWdlPSdKYXZhU2NyaXB0JyBzcmM9
+        Jy93ZWJtYXN0ZXIvY29udGVudC9zX2NvZGUuanMnPjwvc2NyaXB0PjxzY3Jp
+        cHQgbGFuZ3VhZ2U9J0phdmFTY3JpcHQnPnMubGlua0ludGVybmFsRmlsdGVy
+        cz0namF2YXNjcmlwdDosJztzLnRyYWNrRXh0ZXJuYWxMaW5rcz10cnVlO3Mu
+        cGFnZU5hbWU9J3Bpbmdfc2l0ZW1hcCc7cy5zZXJ2ZXI9J3d3dy5iaW5nLmNv
+        bSc7cy5jaGFubmVsID0gJ1dlYm1hc3Rlcic7cy5wcm9wMiA9ICdydS1SVSc7
+        cy5lVmFyMyA9ICdydS1SVSc7cy5wcm9wNSA9ICcnO3MuZVZhcjUgPSAnJztz
+        LnByb3AyMiA9ICcnOy8qKioqKioqKioqKioqIERPIE5PVCBBTFRFUiBBTllU
+        SElORyBCRUxPVyBUSElTIExJTkUgISAqKioqKioqKioqKioqKi92YXIgc19j
+        b2RlPXMudCgpO2lmKHNfY29kZSlkb2N1bWVudC53cml0ZShzX2NvZGUpPC9z
+        Y3JpcHQ+PHNjcmlwdCBsYW5ndWFnZT0nSmF2YVNjcmlwdCc+PCEtLWlmKG5h
+        dmlnYXRvci5hcHBWZXJzaW9uLmluZGV4T2YoJ01TSUUnKT49MClkb2N1bWVu
+        dC53cml0ZSh1bmVzY2FwZSgnJTNDJykrJ1whLScrJy0nKS8vLS0+PC9zY3Jp
+        cHQ+PG5vc2NyaXB0PjxpbWcgc3JjPSdodHRwczovLzEwMi4xMTIuMk83Lm5l
+        dC9iL3NzL21zbnBvcnRhbGRldi8xL0guMS0tTlMvMCcgaGVpZ2h0PScxJyB3
+        aWR0aD0nMScgYm9yZGVyPScwJyBhbHQ9JycgLz48L25vc2NyaXB0PjwhLS0v
+        RE8gTk9UIFJFTU9WRS8tLT48IS0tIEVuZCBTaXRlQ2F0YWx5c3QgY29kZSB2
+        ZXJzaW9uOiBILjEuIC0tPjwvYm9keT48L2h0bWw+
+    http_version: 
+  recorded_at: Thu, 25 Aug 2016 10:51:37 GMT
+recorded_with: VCR 3.0.3
