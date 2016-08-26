@@ -43,17 +43,7 @@
         <%= render :partial => 'body' %>
       </td>
       <td valign="top" class="visible-lg visible-md" style="padding-left: 15px">
-        <%= snippet :post_right_tower do %>
-          <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-          <!-- РП: Медиа небоскреб, комментарии -->
-          <ins class="adsbygoogle"
-               style="display:inline-block;width:300px;height:600px"
-               data-ad-client="ca-pub-2182128721324958"
-               data-ad-slot="4891970281"></ins>
-          <script>
-  (adsbygoogle = window.adsbygoogle || []).push({});
-          </script>
-        <% end %>
+        <%= snippet :post_right_tower, adult: @post.has_picture? %>
       </td>
     </tr>
   </table>
@@ -64,7 +54,7 @@
 
 <hr />
 
-<%= snippet :below_article, :url => smart_post_url(@post) %>
+<%= snippet :below_article, :url => smart_post_url(@post), adult: @post.has_picture? %>
 
 <div class="row">
   <div class="col-sm-6">
@@ -96,4 +86,4 @@
 
 <%= render "read_more" %>
 
-<%= snippet :below_comments, :url => smart_post_url(@post) %>
+<%= snippet :below_comments, :url => smart_post_url(@post), adult: @post.has_picture? %>
