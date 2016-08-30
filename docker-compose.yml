@@ -10,7 +10,7 @@ redis:
 web:
   build: .
   ports:
-    - "3000:3000"
+    - "80:3000"
   links: 
     - db
     - memcached
@@ -20,9 +20,6 @@ web:
   environment:
     - RAILS_ENV=development
     - PASSENGER_APP_ENV=development
-  volumes:
-    - ./:/home/app/mazavr
-  command: bin/webrick
 
 worker:
   build: .
@@ -31,12 +28,10 @@ worker:
     - memcached
     - redis
   command: bin/worker
-  env_file:
-    - .env
   environment:
     - RAILS_ENV=development
-  volumes:
-    - ./:/home/app/mazavr
+  env_file:
+    - .env
 
 backup:
   build: containers/backup

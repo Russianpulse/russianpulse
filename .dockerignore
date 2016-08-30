@@ -3,12 +3,12 @@
 .env*
 .git*
 Dockerfile
-containers/
+containers
 coverage
 docker-compose.*
 log/*
-public/assets/
+public/assets
 public/sitemap*
 tags
 tmp
-vendor/cache/
+vendor/cache
