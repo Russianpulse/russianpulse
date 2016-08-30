@@ -21,25 +21,22 @@ redis:
     max-file: "7"
 
 web:
-  ports:
-    - "80:3000"
-  environment:
-    - RAILS_ENV=production
-    - PASSENGER_APP_ENV=production
   restart: always
   log_driver: "json-file"
   log_opt:
     max-size: "50m"
     max-file: "7"
   mem_limit: 500000000 # 500 Mb
-  command: bin/web
-
-worker:
   environment:
     - RAILS_ENV=production
+    - PASSENGER_APP_ENV=production
+
+worker:
   restart: always
   log_driver: "json-file"
   log_opt:
     max-size: "50m"
     max-file: "7"
   mem_limit: 250000000 # 250 Mb
+  environment:
+    - RAILS_ENV=production
