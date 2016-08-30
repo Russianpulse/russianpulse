@@ -5,7 +5,7 @@
         <h2>
           <%= link_to typography(post.title), smart_post_path(post) %>
 
-          <% if post.comments.exists? %>
+          <% if post.has_comments? %>
             <small>
               &nbsp;
             <%= comments_link post, class: '' %>
