@@ -13,7 +13,7 @@ class BlogsController < ApplicationController
 
     @posts = @blog.posts
 
-    @posts = @posts.order("created_at DESC").limit(12)
+    @posts = @posts.includes(:blog).order("created_at DESC").limit(12)
     @posts = @posts.older_than(Time.at(params[:before].to_f)) if params[:before].present?
 
     respond_to do |format|
