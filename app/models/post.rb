@@ -31,6 +31,10 @@ class Post < ActiveRecord::Base
     blocked_at.present?
   end
 
+  def has_comments?
+    comments_count > 0
+  end
+
   def source_url
     self[:source_url] unless blog.hide_source_url? 
   end
