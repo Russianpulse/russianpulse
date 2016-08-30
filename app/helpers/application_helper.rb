@@ -62,11 +62,8 @@ module ApplicationHelper
       if snippet_body.present?
         html = snippet_body.to_s
 
-        variables.each do |k, v|
-          html.gsub!("{{#{k}}}", v.to_s)
-        end
-
-        raw(html)
+        template = Liquid::Template.parse(html) # Parses and compiles the template
+        raw template.render(variables.stringify_keys)
       end
     elsif block_given?
       html = capture(&block)
