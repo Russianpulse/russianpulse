@@ -162,7 +162,15 @@ GEM
     kaminari (0.17.0)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
+    launchy (2.4.3)
+      addressable (~> 2.3)
+    letter_opener (1.4.1)
+      launchy (~> 2.2)
+    letter_opener_web (1.2.3)
+      letter_opener (~> 1.0)
+      rails (>= 3.2)
     libv8 (3.16.14.15)
+    liquid (3.0.6)
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -406,6 +414,9 @@ DEPENDENCIES
   jbuilder (~> 2.5)
   jquery-rails
   js_cookie_rails
+  letter_opener
+  letter_opener_web (~> 1.2.0)
+  liquid
   listen (~> 3.0.5)
   newrelic_rpm
   pg

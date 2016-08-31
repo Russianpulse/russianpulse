@@ -1,4 +1,4 @@
-FROM phusion/passenger-ruby23
+FROM ruby:2.3.1
 
 MAINTAINER Sergei O. Udalov <sergei.udalov@gmail.com>
 
@@ -18,7 +18,7 @@ RUN gem install bundler -v '1.12.5' && \
     gem install bundler-audit -v '0.5.0' && \
     gem install rubocop -v '0.41.2'
 
-RUN mkdir /home/app/mazavr
+RUN mkdir -p /home/app/mazavr
 WORKDIR /home/app/mazavr
 
 # Base gems layer
@@ -35,17 +35,8 @@ RUN mkdir -p tmp/pids
 
 RUN bundle exec rake assets:precompile
 
-RUN chown -R app: log
-
-RUN rm /etc/nginx/sites-enabled/default
-ADD config/passenger_app.conf /etc/nginx/sites-enabled/mazavr.conf
-ADD config/passenger_env.conf /etc/nginx/main.d/mazavr_env.conf
-
-##############################################################################
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-RUN rm -f /etc/service/nginx/down
 
 EXPOSE 3000
 
