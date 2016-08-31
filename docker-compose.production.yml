@@ -29,7 +29,6 @@ web:
   mem_limit: 500000000 # 500 Mb
   environment:
     - RAILS_ENV=production
-    - PASSENGER_APP_ENV=production
 
 worker:
   restart: always

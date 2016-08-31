@@ -19,7 +19,8 @@ web:
     - .env
   environment:
     - RAILS_ENV=development
-    - PASSENGER_APP_ENV=development
+  volumes:
+    - /home/app/mazavr/public/sitemaps
 
 worker:
   build: .
@@ -32,6 +33,8 @@ worker:
     - RAILS_ENV=development
   env_file:
     - .env
+  volumes_from:
+    - web
 
 backup:
   build: containers/backup
