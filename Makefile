@@ -4,4 +4,5 @@ test:
 run:
 	docker-compose -f docker-compose.yml -f docker-compose.production.yml pull
 	docker-compose -f docker-compose.yml -f docker-compose.production.yml build
+	docker-compose -f docker-compose.yml -f docker-compose.production.yml run web bin/bootstrap
 	docker-compose -f docker-compose.yml -f docker-compose.production.yml up -d

@@ -8,7 +8,7 @@ coverage
 docker-compose.*
 log/*
 public/assets
-public/sitemap*
+public/sitemaps
 tags
 tmp
 vendor/cache
