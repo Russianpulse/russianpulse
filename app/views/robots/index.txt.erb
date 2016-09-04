@@ -10,4 +10,4 @@ Disallow: /admin/
 Disallow: /users/
 Disallow: /assets/
 
-Sitemap: <%= ENV['SSL'] ? 'https' : 'http' %>://<%= Rails.configuration.x.domain %>/sitemaps/sitemap.xml.gz
+Sitemap: <%= ENV['SSL'] == 'on' ? 'https' : 'http' %>://<%= Rails.configuration.x.domain %>/sitemaps/sitemap.xml.gz
