@@ -6,7 +6,6 @@
 build
 circle.yml
 coverage
-docker-compose.override.yml
 log/*
 public/assets/
 public/sitemap*

@@ -21,16 +21,16 @@ fi
 ###############################################################################
 # Backup
 
-echo "`date`: Dump DB.." >> /var/log/backup.log
+echo "Dump DB.."
 
 export PGPASSWORD=$PG_PASSWORD
 pg_dump -Fc --no-acl --no-owner -U $PG_USER -h $PG_HOST $PG_DBNAME > /backup/database.dump
 
-echo "`date`: Uploading to FTP.." >> /var/log/backup.log
+echo "Uploading to FTP.."
 
 duplicity /backup/database.dump $FTP_URL --no-encryption --allow-source-mismatch --full-if-older-than=7D
 duplicity remove-older-than 30D --force $FTP_URL --no-encryption
 
-echo "`date`: Done!" >> /var/log/backup.log
+echo "Done!"
 
 curl -X POST -H 'Content-type: application/json' --data '{"text":"Backup created"}' $SLACK_WEBHOOK_URL
