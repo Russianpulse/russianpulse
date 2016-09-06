@@ -5,6 +5,7 @@ db:
     max-size: "50m"
     max-file: "7"
   mem_limit: 250000000 # 250 Mb
+  memswap_limit: 250000000 # no swap
 
 memcached:
   restart: always
@@ -12,6 +13,8 @@ memcached:
   log_opt:
     max-size: "50m"
     max-file: "7"
+  mem_limit: 100000000 # 100 Mb
+  memswap_limit: 100000000 # no swap
 
 redis:
   restart: always
@@ -19,6 +22,8 @@ redis:
   log_opt:
     max-size: "50m"
     max-file: "7"
+  mem_limit: 100000000 # 100 Mb
+  memswap_limit: 100000000 # no swap
 
 web:
   restart: always
@@ -27,6 +32,7 @@ web:
     max-size: "50m"
     max-file: "7"
   mem_limit: 500000000 # 500 Mb
+  memswap_limit: 500000000 # no swap
   environment:
     - RAILS_ENV=production
   volumes:
@@ -39,5 +45,6 @@ worker:
     max-size: "50m"
     max-file: "7"
   mem_limit: 250000000 # 250 Mb
+  memswap_limit: 500000000 # + 250mb swap
   environment:
     - RAILS_ENV=production
