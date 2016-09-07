@@ -18,10 +18,16 @@ class TopPostsSpiderJob < ActiveJob::Base
     end
   end
 
+  private
+
   def set_top_between(from, to)
-    Post.created_between(from, to).update_all top: false
+    posts_scope.created_between(from, to).update_all top: false
 
     # только 5 самых популярных помечаем как top
-    Post.created_between(from, to).limit(ENV["MAX_TOP_POSTS"] || 5).order("views DESC").update_all top: true
+    posts_scope.created_between(from, to).limit(ENV["MAX_TOP_POSTS"] || 5).order("views DESC").update_all top: true
+  end
+
+  def posts_scope
+    Post.all.where(stream: [:inbox, :pulse])
   end
 end

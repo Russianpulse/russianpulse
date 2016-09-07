@@ -26,24 +26,43 @@ RSpec.describe UpdateBlogJob, :type => :job do
       end.to raise_error(Feedjira::NoParserAvailable)
     end
 
-    it "should add new posts" do
-      feed_body = File.read(File.join(Rails.root, "spec/jobs/fixtures/feed.xml"))
-      stub_request(:get, "http://www.example.com/rss.xml").
-        to_return(:status => 200, :body => feed_body, :headers => {})
 
-      expect do
-        job.perform(blog)
-      end.to change(blog.posts, :count).by(3)
-    end
+    context 'when feed has new item' do
+      before do
+        feed_body = File.read(File.join(Rails.root, "spec/jobs/fixtures/feed.xml"))
+        stub_request(:get, "http://www.example.com/rss.xml").
+          to_return(:status => 200, :body => feed_body, :headers => {})
+      end
 
-    it 'should update blog fetch status' do
-      feed_body = File.read(File.join(Rails.root, "spec/jobs/fixtures/feed.xml"))
-      stub_request(:get, "http://www.example.com/rss.xml").
-        to_return(:status => 200, :body => feed_body, :headers => {})
+      it "should add new posts" do
+        expect do
+          job.perform(blog)
+        end.to change(blog.posts, :count).by(3)
+      end
 
-      expect do
-        job.perform(blog)
-      end.to change{ blog.recent_fetches.size }.by(1)
+      it 'should update blog fetch status' do
+        expect do
+          job.perform(blog)
+        end.to change{ blog.recent_fetches.size }.by(1)
+      end
+
+      describe 'new post' do
+        subject do
+          job.perform(blog)
+          blog.posts.last
+        end
+
+        let(:default_stream) { :inbox }
+        let(:blog) { create :blog, default_stream: default_stream }
+
+        its(:stream) { is_expected.to eq 'inbox' }
+
+        context 'when blogs default_stream is "news"' do
+          let(:default_stream) { :news }
+          its(:stream) { is_expected.to eq 'news' }
+        end
+      end
+
     end
   end
 
