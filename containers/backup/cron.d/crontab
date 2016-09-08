@@ -8,4 +8,4 @@ SHELL=/bin/sh
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
 # m h dom mon dow user  command
-  * 4  *   *   *  root  backup  >> /var/log/cron.log 2>&1
+  * 0  *   *   *  root  backup  >> /var/log/cron.log 2>&1
