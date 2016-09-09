@@ -46,6 +46,7 @@ gem 'slack-notifier'
 gem 'staccato'
 gem 'typogruby'
 gem 'dotenv-rails'
+gem 'fog'
 
 group :production do
   gem 'newrelic_rpm'
