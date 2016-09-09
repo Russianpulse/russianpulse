@@ -1,8 +1,53 @@
 ---
 http_interactions:
 - request:
+    method: put
+    uri: https://russianpulsedev.s3-eu-central-1.amazonaws.com/sitemaps/sitemap.xml.gz
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fog/1.38.0 fog-core/1.42.0
+      Content-Type:
+      - application/gzip
+      X-Amz-Acl:
+      - public-read
+      X-Amz-Date:
+      - 20160909T101548Z
+      X-Amz-Content-Sha256:
+      - STREAMING-AWS4-HMAC-SHA256-PAYLOAD
+      X-Amz-Decoded-Content-Length:
+      - '484'
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AKIAIFDPDNQMENK4CT6A/20160909/eu-central-1/s3/aws4_request,
+        SignedHeaders=content-type;host;x-amz-acl;x-amz-content-sha256;x-amz-date;x-amz-decoded-content-length,
+        Signature=ef63559ef5d1a15e05244b9f9096af4deb1f3dbf3266222cc0aeb9da2998aa35
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Amz-Id-2:
+      - 30U2eB01n6zPW4Rr3n1hj2C6Unmga8OJCs8HnT35psHWQd7gQyw4YiDeFjALbBejlPGCtXRr6bQ=
+      X-Amz-Request-Id:
+      - 68094959AF536D5D
+      Date:
+      - Fri, 09 Sep 2016 10:15:49 GMT
+      Etag:
+      - '"c87a2b32ba318eab19d3262636cb1d30"'
+      Content-Length:
+      - '0'
+      Server:
+      - AmazonS3
+    body:
+      encoding: ASCII-8BIT
+      string: ''
+    http_version: 
+  recorded_at: Fri, 09 Sep 2016 10:15:49 GMT
+- request:
     method: get
-    uri: http://www.google.com/webmasters/tools/ping?sitemap=https://local.russianpulse.ru/sitemaps/sitemap.xml.gz
+    uri: http://www.google.com/webmasters/tools/ping?sitemap=http://russianpulsedev.s3.amazonaws.com/sitemaps/sitemap.xml.gz
     body:
       encoding: US-ASCII
       string: ''
@@ -21,9 +66,9 @@ http_interactions:
       Content-Type:
       - text/html; charset=UTF-8
       Expires:
-      - Thu, 25 Aug 2016 10:51:36 GMT
+      - Fri, 09 Sep 2016 10:15:49 GMT
       Date:
-      - Thu, 25 Aug 2016 10:51:36 GMT
+      - Fri, 09 Sep 2016 10:15:49 GMT
       Cache-Control:
       - private, max-age=0
       X-Content-Type-Options:
@@ -56,10 +101,10 @@ http_interactions:
         <br>
         Your Sitemap has been successfully added to our list of Sitemaps to crawl. If this is the first time you are notifying Google about this Sitemap, please add it via  <a href="http://www.google.com/webmasters/tools/">http://www.google.com/webmasters/tools/</a>  so you can track its status. Please note that we do not add all submitted URLs to our index, and we cannot make any predictions or guarantees about when or if they will appear.</body></html>
     http_version: 
-  recorded_at: Thu, 25 Aug 2016 10:51:36 GMT
+  recorded_at: Fri, 09 Sep 2016 10:15:49 GMT
 - request:
     method: get
-    uri: http://www.bing.com/webmaster/ping.aspx?siteMap=https://local.russianpulse.ru/sitemaps/sitemap.xml.gz
+    uri: http://www.bing.com/webmaster/ping.aspx?siteMap=http://russianpulsedev.s3.amazonaws.com/sitemaps/sitemap.xml.gz
     body:
       encoding: US-ASCII
       string: ''
@@ -90,16 +135,16 @@ http_interactions:
       Server:
       - Microsoft-IIS/8.5
       X-Machinename:
-      - BN2SCH020221136
+      - BN2SCH020220448
       X-Aspnet-Version:
       - 4.0.30319
       X-Powered-By:
       - ASP.NET
       X-Msedge-Ref:
-      - 'Ref A: 588EDE9A8D164ACAA344FFE49D4E47AB Ref B: EC864D2C47BAE80533F45CB7AA970E8D
-        Ref C: Thu Aug 25 03:51:35 2016 PST'
+      - 'Ref A: 00729B780F884C6096B2EDF0289DCD08 Ref B: B0A1E245B5A4AC9DBB24CEA2B07DACB0
+        Ref C: Fri Sep  9 03:15:49 2016 PST'
       Date:
-      - Thu, 25 Aug 2016 10:51:35 GMT
+      - Fri, 09 Sep 2016 10:15:48 GMT
     body:
       encoding: ASCII-8BIT
       string: !binary |-
@@ -132,5 +177,5 @@ http_interactions:
         RE8gTk9UIFJFTU9WRS8tLT48IS0tIEVuZCBTaXRlQ2F0YWx5c3QgY29kZSB2
         ZXJzaW9uOiBILjEuIC0tPjwvYm9keT48L2h0bWw+
     http_version: 
-  recorded_at: Thu, 25 Aug 2016 10:51:37 GMT
+  recorded_at: Fri, 09 Sep 2016 10:15:49 GMT
 recorded_with: VCR 3.0.3
