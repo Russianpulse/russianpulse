@@ -47,6 +47,7 @@ gem 'staccato'
 gem 'typogruby'
 gem 'dotenv-rails'
 gem 'fog'
+gem 'asset_sync'
 
 group :production do
   gem 'newrelic_rpm'

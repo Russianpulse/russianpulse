@@ -36,6 +36,7 @@ web:
     - RAILS_ENV=production
   volumes:
     - ./tmp/sitemaps:/sitemaps
+  command: bin/bootstrap_and_web
 
 worker:
   restart: always
