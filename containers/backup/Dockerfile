@@ -11,7 +11,9 @@ RUN mkdir /restore
 
 ADD ./bin/backup /bin/backup
 ADD ./bin/restore /bin/restore
+ADD ./bin/start-the-cron /bin/start-the-cron
 RUN chmod +x /bin/backup
 RUN chmod +x /bin/restore
+RUN chmod +x /bin/start-the-cron
 
-COPY cron.d /etc/cron.d
+CMD ["start-the-cron"]
