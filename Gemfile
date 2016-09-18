@@ -14,7 +14,6 @@ gem 'coffee-rails', '~> 4.2'
 gem 'therubyracer', platforms: :ruby
 gem 'jquery-rails'
 gem 'jbuilder', '~> 2.5'
-gem 'bootstrap-sass'
 gem 'js_cookie_rails'
 gem 'turbolinks', '~> 5.0.0'
 
@@ -105,4 +104,5 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-underscore'
   gem 'rails-assets-backbone'
   gem 'rails-assets-jquery-timeago'
+  gem 'rails-assets-material-design-lite'
 end

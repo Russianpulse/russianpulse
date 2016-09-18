@@ -1,30 +1,26 @@
-<center>
-  <%= snippet :above_header %>
-</center>
-
-
-<div class='row'>
-  <div class='col-xs-6'>
-    <span id="logo"><%= link_to snippet(:logo) || snippet(:site_name) || "Mazavr", root_path %></span>
-    <br />
-    <span id="time_now" title="<%= t(:last_update) %>: <%= format_date Post.order("created_at DESC").first.created_at rescue nil %>"><%= l Post.order("created_at DESC").first.created_at, format: "%e %b %Y" rescue nil  %></span>
-  </div>
-  <div class='col-xs-6'>
-    <div class="top-nav-bar pull-right">
-      <span class='top-nav-bar__item'>
-        <%= link_to 'Новое', posts_path %>
-      </span>
-      <span class='top-nav-bar__item'>
-        <%= link_to 'Популярное', posts_path(top: 1) %>
-      </span>
-      <span class='top-nav-bar__item'>
-        <%= link_to 'Рейтинг', rating_path %>
-      </span>
-      <span class='top-nav-bar__item'>
-        <%= link_to 'Блоги', blogs_path %>
-      </span>
+<header class="mdl-layout__header mdl-layout__header--waterfall">
+  <!-- Top row, always visible -->
+  <div class="mdl-layout__header-row">
+    <!-- Title -->
+    <span class="mdl-layout-title">Русский пульс</span>
+    <div class="mdl-layout-spacer"></div>
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable
+    mdl-textfield--floating-label mdl-textfield--align-right">
+      <label class="mdl-button mdl-js-button mdl-button--icon"
+             for="waterfall-exp">
+        <i class="material-icons">search</i>
+      </label>
+      <div class="mdl-textfield__expandable-holder">
+        <%= form_tag '/search', method: :get do %>
+          <%= text_field_tag :q, params[:q], class: 'mdl-textfield__input', placeholder: 'Что ищем?', id: 'waterfall-exp' %>
+        <% end %>
+      </div>
     </div>
   </div>
-</div>
-
-<hr />
+  <!-- Bottom row, not visible on scroll -->
+  <div class="mdl-layout__header-row">
+    <div class="mdl-layout-spacer"></div>
+    <!-- Navigation -->
+    <%= render partial: "shared/navigation" %>
+  </div>
+</header>
