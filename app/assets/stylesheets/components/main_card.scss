@@ -10,5 +10,14 @@
     h1 {
       margin-top: 0px;
     }
+
+    .mdl-chip-link {
+      a {
+        font-weight: normal;
+        color: rgba(0,0,0,.87);
+        text-decoration: none;
+      }
+    }
   }
+
 }

@@ -1,7 +1,5 @@
-<div class="tags">
-  <% @post.tags.each do |tag| %>
-    <span class="mdl-chip mdl-chip-link">
-      <span class="mdl-chip__text"><%= link_to tag.title, tag_path(tag.slug), class: 'mdl-chip__text' %></span>
-    </span>
-  <% end %>
-</div>
+<% @post.tags.each do |tag| %>
+  <span class="mdl-chip mdl-chip-link">
+    <%= link_to tag.title, tag_path(tag.slug), class: 'mdl-chip__text' %>
+  </span>
+<% end %>
