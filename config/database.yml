@@ -4,6 +4,8 @@ default: &default
   host: db
   user: <%= ENV['NO_DOCKER'] ? nil : :postgres %>
 
+  # user: postgres
+>>>>>>> card with header
   # For details on connection pooling, see rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: 10
@@ -16,7 +18,9 @@ development:
 test:
   <<: *default
   database: mazavr_test
+  user: postgres
 
 production:
   <<: *default
   database: mazavr_production
+  user: postgres

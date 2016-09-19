@@ -4,23 +4,21 @@
   <%= render :partial => "shared/share_description", :locals => { :title => strip_tags(@post.title), :url => smart_post_url(@post), :text => @post.body, :image => @post.picture_url } %>
 <% end %>
 
-<section class="section--center mdl-grid  mdl-shadow--2dp main-card">
-  <div class="mdl-card mdl-cell mdl-cell--12-col">
-    <div class="mdl-card__supporting-text">
-      <div itemscope itemtype="http://schema.org/BlogPosting">
-        <%= render :partial => 'meta_tags' %>
-        <h1 class='mdl-typography--display-1'><%= typography(@post.title) %></h1>
+<div itemscope itemtype="http://schema.org/BlogPosting">
+  <%= render :partial => 'meta_tags' %>
+<div class="mdl-grid">
+	<div class="main-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+		<div class="mdl-card__media main-card__header mdl-color-text--grey-50">
+			<h1 class='mdl-typography--display-1'><%= typography(@post.title) %></h1>
+		</div>
 
-
+		<div class="mdl-color-text--grey-700 mdl-card__supporting-text">
         <%= render :partial => 'tags' %>
         <% if policy(@post).update? %>
           <%= link_to "Edit", "/admin/rails_admin/post/#{@post.id}/edit", class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect' %>
         <% end %>
 
-        <hr />
-
         <%= link_to @post.blog.title, blog_path(@post.blog.slug), class: 'blog_link' %>,
-
         <%= content_tag(:span, format_date(@post.created_at, time: false), class: '') %>
 
         <% if @post.source_url.present? %>
@@ -34,27 +32,15 @@
         <% end %>
 
         <%= comments_link @post, without_comments: true %>
-
-        <br />
-        <br />
-        <br />
-
-        <table width="100%">
-          <tr>
-            <td width="100%" valign="top">
-              <%= render :partial => 'body' %>
-            </td>
-            <td valign="top" class="visible-lg visible-md" style="padding-left: 15px">
-              <%= snippet :post_right_tower, adult: @post.has_picture? %>
-            </td>
-          </tr>
-        </table>
-
-
-        <%= counter_tag @post.id %>
-      </div>
+		</div>
+		<div class="mdl-color-text--grey-700 mdl-card__supporting-text">
+      <%= render :partial => 'body' %>
     </div>
-</section>
+
+	</div>
+</div>
+
+<%= counter_tag @post.id %>
 
 <hr />
 
