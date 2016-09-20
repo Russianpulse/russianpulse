@@ -5,16 +5,35 @@
   img {
     max-width: 100%;
   }
+
+  header, section, footer {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
     
   &__header {
     padding: 0px 20px;
+
+    @media screen and (max-width: 765px){
+      h1 {
+        font-size: 22px;
+      }
+    }
   }
 
   &__body {
+    p,span,strong,b {
+      font-size: 16px;
+      font-weight: normal;
+      line-height: 1.7;
+    }
 
-    font-size: 16px;
-    p {
-    font-size: 16px;
+    padding-right: 150px !important;
+
+    @media screen and (min-width: 765px){
+      p,span,strong,b {
+        font-size: 19px;
+      }
     }
   }
 
