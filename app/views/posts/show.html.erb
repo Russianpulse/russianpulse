@@ -21,7 +21,7 @@
         <% end %>
 
         <span class="mdl-chip__text">
-          <%= link_to blog_path(@post.blog.slug), rel: 'nofollow' do %>
+          <%= link_to blog_path(@post.blog.slug) do %>
             <%= @post.blog.title %>
           <% end %>
         </span>

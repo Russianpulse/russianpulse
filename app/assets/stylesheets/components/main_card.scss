@@ -2,17 +2,17 @@
   max-width: 860px;
 	margin: auto;
 
-
   img {
     max-width: 100%;
   }
 
   .section {
     width: auto;
+    padding: 0px 50px;
   }
     
   &__header {
-    padding: 0px 20px;
+    padding-top: 10px;
   }
 
   &__body {
@@ -37,6 +37,9 @@
   }
 
   &__meta {
+    margin-top: 25px;
+    margin-bottom: 15px;
+
     .item {
       padding-left: 20px;
     }
@@ -61,12 +64,11 @@
 
   }
 
-
   @media screen and (max-width: 765px) {
     box-shadow: none;
     margin: 0px !important;
 
-    header, section, footer {
+    .section {
       padding-left: 20px;
       padding-right: 20px;
     }
@@ -79,6 +81,13 @@
     &__body {
       p,span,strong,b {
         font-size: 16px;
+      }
+    }
+  }
+  @media screen and (max-width: 550px) {
+    &__body {
+      p,span,strong,b {
+        font-size: 14px;
       }
     }
   }
