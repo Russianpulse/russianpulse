@@ -8,11 +8,11 @@
   <%= render :partial => 'meta_tags' %>
 <div class="mdl-grid">
 	<div class="main-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
-		<header class="mdl-card__media main-card__header mdl-color-text--grey-50">
+		<div class="section mdl-card__media main-card__header mdl-color-text--grey-50">
 			<h1 class='mdl-typography--display-1'><%= typography(@post.title) %></h1>
-		</header>
+		</div>
 
-    <section class="mdl-color-text--grey-700 mdl-card__supporting-text main-card__meta">
+    <div class="section mdl-color-text--grey-700 mdl-card__supporting-text main-card__meta">
       <span class="mdl-chip mdl-chip--contact item">
         <% if @post.blog.avatar_url.present? %>
           <%= image_tag(@post.blog.avatar_url, class: 'mdl-chip__contact')  %>
@@ -39,15 +39,13 @@
       <span class='item'>
         <%= comments_link @post, without_comments: true %>
       </span>
-    </section>
+    </div>
 
-		<section class="mdl-card__supporting-text main-card__body text--serif">
-      <div class="wrapper">
-        <%= render :partial => 'body' %>
-      </div>
-    </section>
+		<div class="section mdl-card__supporting-text main-card__body">
+      <%= render :partial => 'body' %>
+    </div>
 
-		<footer class="mdl-card__supporting-text main-card__footer">
+		<div class="section mdl-card__supporting-text main-card__footer">
       <%= render :partial => 'tags' %>
 
       <% if @post.source_url.present? %>
@@ -60,7 +58,7 @@
           </span>
         <% end %>
       <% end %>
-    </footer>
+    </div>
 
 	</div>
 </div>
