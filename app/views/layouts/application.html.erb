@@ -44,6 +44,18 @@
 
     <div class="mdl-layout__drawer">
       <span class="mdl-layout-title">Русский пульс</span>
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable
+    mdl-textfield--floating-label mdl-textfield--align-right">
+      <label class="mdl-button mdl-js-button mdl-button--icon"
+             for="search-sidebar">
+        <i class="material-icons">search</i>
+      </label>
+      <div class="mdl-textfield__expandable-holder">
+        <%= form_tag '/search', method: :get do %>
+          <%= text_field_tag :q, params[:q], class: 'mdl-textfield__input', placeholder: 'Что ищем?', id: 'search-sidebar' %>
+        <% end %>
+      </div>
+    </div>
       <%= render partial: "shared/navigation" %>
     </div>
 
