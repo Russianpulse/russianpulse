@@ -74,7 +74,7 @@ class UpdateBlogJob < ActiveJob::Base
           body: HtmlCleanup.new(blog.cleanup_html(post_body)).cleanup,
           created_at: pub_date,
           source_url: entry_url,
-          title: title,
+          title: Typogruby.improve(title),
           stream: blog.default_stream
         })
 
