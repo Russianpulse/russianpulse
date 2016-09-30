@@ -504,6 +504,9 @@ GEM
     thread_safe (0.3.5)
     tilt (2.0.5)
     trollop (2.1.2)
+    turbolinks (5.0.1)
+      turbolinks-source (~> 5)
+    turbolinks-source (5.0.0)
     typogruby (1.0.18)
       rubypants
     tzinfo (1.2.2)
@@ -606,6 +609,7 @@ DEPENDENCIES
   spring-watcher-listen (~> 2.0.0)
   staccato
   therubyracer
+  turbolinks (~> 5.0.0)
   typogruby
   uglifier (~> 1.3)
   vcr

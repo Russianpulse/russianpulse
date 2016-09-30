@@ -1,8 +1,6 @@
 module ApplicationHelper
   def counter_tag(post_id, options={})
-    javascript_tag <<-JS
-    document.write("<img src='/p/views/#{post_id}.png?r="+Math.random().toString().split(".")[1]+"' alt='' title='' width='1' height='1' />");
-    JS
+    image_tag "/p/views/#{post_id}.png", alt: '', title: '', width: 1, height: 1
   end
 
   def favicon_url(url)
