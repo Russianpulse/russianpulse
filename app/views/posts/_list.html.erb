@@ -3,7 +3,7 @@
     <% cache post do %>
       <div class="post">
         <h2>
-          <%= link_to typography(post.title), smart_post_path(post) %>
+          <%= link_to post.title, smart_post_path(post) %>
 
           <% if post.has_comments? %>
             <small>

@@ -1,4 +1,4 @@
-<meta content="<%= strip_tags(typography(@post.title)) %>" itemprop="name"></meta>
+<meta content="<%= strip_tags(@post.title) %>" itemprop="name"></meta>
 <%= content_tag :meta, nil, :itemprop => :headline, :content => strip_tags(@post.body.to_s).gsub(/\s+/, " ").mb_chars.truncate(160) %>
 
 <%= content_tag :meta, nil, :itemprop => :dateCreated, :content => @post.created_at.iso8601 %>

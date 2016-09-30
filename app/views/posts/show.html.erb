@@ -1,13 +1,13 @@
-<% content_for(:meta_title, strip_tags(typography(@post.title))) %>
+<% content_for(:meta_title, strip_tags(@post.title)) %>
 
 <% content_for :share_description do %>
-  <%= render :partial => "shared/share_description", :locals => { :title => strip_tags(typography(@post.title)), :url => smart_post_url(@post), :text => @post.body, :image => @post.picture_url } %>
+  <%= render :partial => "shared/share_description", :locals => { :title => strip_tags(@post.title), :url => smart_post_url(@post), :text => @post.body, :image => @post.picture_url } %>
 <% end %>
 
 <div itemscope itemtype="http://schema.org/BlogPosting">
   <%= render :partial => 'meta_tags' %>
 
-  <h1><%= typography(@post.title) %></h1>
+  <h1><%= @post.title %></h1>
 
   <% if policy(@post).update? %>
     <%= link_to "Edit", "/admin/rails_admin/post/#{@post.id}/edit", :class => "btn btn-default" %>

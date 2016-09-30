@@ -5,7 +5,7 @@
       <% for post in group %>
         <div style="" class="truncate">
           •
-          <%= link_to typography(post.title), smart_post_path(post), :title => post.title %>
+          <%= link_to post.title, smart_post_path(post), :title => post.title %>
         </div>
       <% end %>
     </div>
