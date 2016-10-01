@@ -3,6 +3,8 @@ require 'timeout'
 class UpdateBlogJob < ActiveJob::Base
   queue_as :default
 
+  include ActionView::Helpers::SanitizeHelper
+
   def perform(blog=nil, force=false)
     if blog.nil?
       Blog.with_feed.find_each do |blog|
@@ -74,7 +76,7 @@ class UpdateBlogJob < ActiveJob::Base
           body: HtmlCleanup.new(blog.cleanup_html(post_body)).cleanup,
           created_at: pub_date,
           source_url: entry_url,
-          title: Typogruby.improve(title),
+          title: Typogruby.improve(strip_tags(title)),
           stream: blog.default_stream
         })
 
