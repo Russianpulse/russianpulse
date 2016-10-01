@@ -39,6 +39,10 @@ class Post < ActiveRecord::Base
     self[:source_url] unless blog.hide_source_url? 
   end
 
+  def title
+    super.html_safe if super.present?
+  end
+
   def has_picture?
     picture_url.present?
   end
