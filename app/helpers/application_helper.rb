@@ -1,6 +1,6 @@
 module ApplicationHelper
   def counter_tag(post_id, options={})
-    image_tag "/p/views/#{post_id}.png", alt: '', title: '', width: 1, height: 1
+    raw "<img src='/p/views/#{post_id}.png' alt='' title='' width=1, height=1 />"
   end
 
   def favicon_url(url)
