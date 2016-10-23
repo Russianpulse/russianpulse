@@ -1,11 +1,10 @@
-image: docker:latest
+image: image: jonaskello/docker-and-compose:1.12.1-1.8.0
 
 services:
-  - docker:dind
+  - docker:1.12.1-dind
 
 before_script:
   - docker info
-  - pip install docker-compose
 
 build:
   stage: build
