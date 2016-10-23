@@ -9,4 +9,4 @@ before_script:
 build:
   stage: build
   script:
-  - docker-compose -f docker-compose.yml -f docker-compose.test.yml up sut
+  - docker-compose -f docker-compose.test.yml up sut
