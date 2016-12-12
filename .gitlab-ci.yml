@@ -14,17 +14,17 @@ before_script:
 build_image:
   stage: build
   script:
-  - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
-  - docker-compose -f docker-compose.test.yml pull
-  - docker-compose -f docker-compose.test.yml build sut
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
+    - docker-compose -f docker-compose.test.yml pull
+    - docker-compose -f docker-compose.test.yml build sut
 
 specs:
   stage: test
   script:
-  - docker-compose -f docker-compose.test.yml up sut
+    - docker-compose -f docker-compose.test.yml up sut
 
 push:
   stage: deploy
   script:
-	- docker build -f Dockerfile -t registry.gitlab.com/sergio-fry/mazavr-engine:latest .
-  - docker push registry.gitlab.com/sergio-fry/mazavr-engine:latest
+    - docker build -f Dockerfile -t registry.gitlab.com/sergio-fry/mazavr-engine:latest .
+    - docker push registry.gitlab.com/sergio-fry/mazavr-engine:latest
