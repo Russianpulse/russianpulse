@@ -1,10 +1,11 @@
-image: russianpulse/docker-compose:latest
+image: jonaskello/docker-and-compose:1.12.1-1.8.0
 
 services:
   - docker:1.12.1-dind
 
 before_script:
   - docker info
+  - apk add openssh-client
 
   # Install ssh-agent if not already installed, it is required by Docker.
   # (change apt-get to yum if you use a CentOS-based image)
