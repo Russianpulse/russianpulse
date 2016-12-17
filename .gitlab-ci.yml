@@ -23,8 +23,12 @@ before_script:
   # you will overwrite your user's SSH config.
   - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
 
+stages:
+  - build
+  - deploy
 
-build:
+testing:
+  stage: build
   script:
     #- docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
     - docker-compose -f docker-compose.test.yml pull
@@ -34,6 +38,7 @@ build:
     #- docker push registry.gitlab.com/sergio-fry/mazavr-engine:latest
 
 deploy:
+  stage: deploy
   script:
     - ssh deployer@$DEPLOY_HOST "cd mazavr && git pull && make run"
   only:
