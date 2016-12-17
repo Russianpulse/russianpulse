@@ -4,8 +4,6 @@ services:
   - docker:1.12.1-dind
 
 before_script:
-  - docker info
-
   # Install ssh-agent if not already installed, it is required by Docker.
   # (change apt-get to yum if you use a CentOS-based image)
   - 'which ssh-agent || ( apk add openssh-client )'
@@ -16,7 +14,6 @@ before_script:
   # Add the SSH key stored in SSH_PRIVATE_KEY variable to the agent store
   - mkdir -p ~/.ssh
   - echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-  - cat ~/.ssh/id_rsa
   - chmod 600 ~/.ssh/id_rsa
   - ssh-add ~/.ssh/id_rsa
 
@@ -35,8 +32,6 @@ build:
     - docker-compose -f docker-compose.test.yml up sut
     #- docker build -f Dockerfile -t registry.gitlab.com/sergio-fry/mazavr-engine:latest .
     #- docker push registry.gitlab.com/sergio-fry/mazavr-engine:latest
-  only:
-    - none
 
 deploy:
   script:
