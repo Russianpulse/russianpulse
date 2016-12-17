@@ -4,15 +4,7 @@
   <%= render :partial => "shared/share_description", :locals => { :title => strip_tags(@post.title), :url => smart_post_url(@post), :text => @post.body, :image => @post.picture_url } %>
 <% end %>
 
-<div class="mdl-grid">
-  <div class="mdl-cell mdl-cell--9-col">
-    <%= render partial: 'post' %>
-  </div>
-  <div class="mdl-cell mdl-cell--3-col">
-    Right tower
-    <%= snippet :post_right_tower, adult: @post.has_picture? %>
-  </div>
-</div>
+<%= render partial: 'post' %>
 
 <hr />
 

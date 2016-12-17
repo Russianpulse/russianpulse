@@ -36,7 +36,18 @@
       </div>
 
       <div class="section mdl-card__supporting-text main-card__body">
-        <%= render :partial => 'body' %>
+
+        <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--9-col">
+            <%= render :partial => 'body' %>
+          </div>
+          <div class="mdl-cell mdl-cell--3-col">
+            <center>
+              <%= snippet :post_right_tower, adult: @post.has_picture? %>
+            </center>
+          </div>
+        </div>
+
       </div>
 
       <div class="section mdl-card__supporting-text main-card__footer">
