@@ -1,9 +1,5 @@
 <% cache @post do %>
   <div class="body" itemprop="articleBody">
     <%= raw @post.body.gsub(/http:/, '') %>
-
-    <p>
-      <%= raw post_teaser_for(@post) %>
-    </p>
   </div>
 <% end %>

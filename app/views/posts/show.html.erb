@@ -4,7 +4,7 @@
   <%= render :partial => 'shared/share_description', locals: { title: strip_tags(@post.title), url: smart_post_url(@post), text: @post.body, image: @post.picture_url } %>
 <% end %>
 
-<%= render partial: 'post' %>
+<% render partial: 'post' %>
 
 <%= snippet :below_article, url: smart_post_url(@post), adult: @post.has_picture? %>
 

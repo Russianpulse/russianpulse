@@ -23,17 +23,33 @@
             </div>
           <% end %>
         </div>
+
+        <br />
+        <br />
       <% end %>
 
-      <h2><%= t ".leave_comment" %></h2>
 
-      <%= simple_form_for Comment.new, html: { id: "comments_form" } do |f| %>
+      <%= form_for Comment.new, html: { id: "comments_form" } do |f| %>
         <%= hidden_field_tag :post_id, @post.id %>
-        <%= f.input :comment, label: false, input_html: { rows: 8 } %>
 
-        <%= f.simple_fields_for :user_attributes do |f| %>
-          <%= f.input :name, label: t(".your_name"), input_html: { class: "name memorized-field" } %>
-          <%= f.input :email, as: :email, label: t(".email"), input_html: { class: "name memorized-field" } %>
+        <div class='mdl-textfield mdl-js-textfield mdl-textfield--floating-label'>
+          <%= f.text_area :comment, { rows: 4, class: 'mdl-textfield__input' } %>
+          <%= f.label :comment, 'Комментарий', class: 'mdl-textfield__label' %>
+
+        </div>
+        <br />
+
+        <%= f.fields_for :user_attributes do |f| %>
+          <div class='mdl-textfield mdl-js-textfield mdl-textfield--floating-label'>
+            <%= f.text_field :name, { class: 'name memorized-field mdl-textfield__input' } %>
+            <%= f.label :name, t('.your_name'), class: 'mdl-textfield__label' %>
+          </div>
+          <br />
+
+          <div class='mdl-textfield mdl-js-textfield mdl-textfield--floating-label'>
+            <%= f.text_field :email, { class: 'name memorized-field mdl-textfield__input' } %>
+            <%= f.label :email, t('.email'), class: 'mdl-textfield__label' %>
+          </div>
         <% end %>
 
         <div style='margin-bottom: 12px'>
@@ -41,13 +57,14 @@
         </div>
 
         <p>
-        <%= check_box_tag :subscribe, 1, true %>
-        <%= label_tag :subscribe, t('.subscribe') %>
+          <%= label_tag :subscribe, class: 'mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect' do %>
+            <%= check_box_tag :subscribe, 1, true, class: 'mdl-checkbox__input' %>
+            <span class='mdl-checkbox__label'><%= t '.subscribe' %></span>
+          <% end %>
         </p>
 
-        <%= f.button :submit, t(".send"), class: "btn-primary btn-lg" %>
+        <%= f.submit t(".send"), class: "btn-primary btn-lg" %>
       <% end %>
-
 
     </div>
   </div>
