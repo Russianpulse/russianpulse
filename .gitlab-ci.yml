@@ -49,6 +49,6 @@ build_image:
 deploy:
   stage: deploy
   script:
-    - ssh deployer@$DEPLOY_HOST "cd mazavr && git pull && make run"
+    - ssh deployer@$DEPLOY_HOST "cd my-cluster && git pull && make update"
   only:
     - master
