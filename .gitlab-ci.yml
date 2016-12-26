@@ -4,7 +4,7 @@ services:
   - docker:1.12.1-dind
 
 variables:
-  IMAGE_NAME: registry.gitlab.com/sergio-fry/mazavr-engine:latest
+  IMAGE_NAME: registry.gitlab.com/russianpulse/mazavr:latest
 
 before_script:
   # Install ssh-agent if not already installed, it is required by Docker.
