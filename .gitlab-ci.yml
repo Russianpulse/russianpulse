@@ -35,8 +35,6 @@ stages:
 testing:
   stage: build
   script:
-    - docker pull $IMAGE_NAME
-    - docker-compose -f docker-compose.test.yml pull
     - docker-compose -f docker-compose.test.yml build sut
     - docker-compose -f docker-compose.test.yml up sut
 
@@ -45,7 +43,6 @@ build_image:
   only:
     - master
   script:
-    - docker pull $IMAGE_NAME
     - docker build -f Dockerfile -t $IMAGE_NAME .
     - docker push $IMAGE_NAME
 
