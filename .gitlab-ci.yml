@@ -29,17 +29,18 @@ before_script:
   - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
 
 stages:
+  - test
   - build
   - deploy
 
 testing:
-  stage: build
+  stage: test
   script:
     - docker-compose -f docker-compose.test.yml build sut
     - docker-compose -f docker-compose.test.yml up sut
 
 build_image:
-  stage: deploy
+  stage: build
   only:
     - master
   script:
