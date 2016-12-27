@@ -106,7 +106,7 @@ module ApplicationHelper
   def recaptcha_tags
     capture do
       concat javascript_include_tag('https://www.google.com/recaptcha/api.js')
-      concat content_tag(:div, nil, class: 'g-recaptcha', 'data-sitekey' => ENV['RECAPTCHA_PUBLIC_KEY'] )
+      concat content_tag(:div, nil, class: 'g-recaptcha', 'data-sitekey' => ENV['RECAPTCHA_PUBLIC_KEY'].html_safe )
     end
   end
 
