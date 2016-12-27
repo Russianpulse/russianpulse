@@ -32,8 +32,8 @@
     <%= f.input :email, as: :email, label: t(".email"), input_html: { class: "name memorized-field" } %>
   <% end %>
 
-  <div style='margin-bottom: 12px'>
-    <%= recaptcha_tags rescue "Can't render captcha widget" %>
+  <div style='margin-bottom: 12px; display: none;'>
+    <% recaptcha_tags rescue "Can't render captcha widget" %>
   </div>
 
   <p>

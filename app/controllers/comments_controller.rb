@@ -95,4 +95,9 @@ class CommentsController < ApplicationController
         CommentsMailer.created(@comment, follower).deliver_later
       end
     end
+
+    def verify_recaptcha
+      # TODO: Disabled because of new API. Should be updated
+      true
+    end
 end
