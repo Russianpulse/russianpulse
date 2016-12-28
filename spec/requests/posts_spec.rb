@@ -30,6 +30,15 @@ RSpec.describe "Posts", type: :request do
     context 'atom' do
       before { get posts_path(format: :atom) }
       it { expect(response).to have_http_status(200) }
+
+      describe 'item title' do
+        subject do
+          doc = Nokogiri::XML response.body
+          doc.css('entry title').text
+        end
+        let!(:post) { FactoryGirl.create :post, title: 'В окружении популистов из&nbsp;Госдумы' }
+        it { is_expected.not_to include '&nbsp;' }
+      end
     end
   end
 

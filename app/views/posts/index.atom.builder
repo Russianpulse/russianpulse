@@ -5,7 +5,7 @@ atom_feed(:root_url => url_for(:controller => :posts, :action => :index, only_pa
   @posts.each do |post|
     feed.entry(post, :url => smart_post_url(post, utm_source: params[:utm_source], utm_medium: params[:utm_medium], utm_campaign: params[:utm_campaign])) do |entry|
       entry.id("post:#{post.id}")
-      entry.title(post.title)
+      entry.title(Nokogiri::HTML(post.title).text)
 
       if params[:short]
         case params[:short]

@@ -48,10 +48,3 @@ worker:
   memswap_limit: 500000000 # + 250mb swap
   environment:
     - RAILS_ENV=production
-
-backup:
-  restart: always
-  log_driver: "json-file"
-  log_opt:
-    max-size: "50m"
-    max-file: "7"
