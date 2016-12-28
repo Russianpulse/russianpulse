@@ -33,10 +33,3 @@ worker:
     - .env
   volumes_from:
     - web
-
-backup:
-  build: containers/backup
-  links: 
-    - db
-  env_file:
-    - .env.pg-backup
