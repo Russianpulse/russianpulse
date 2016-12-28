@@ -53,7 +53,7 @@
         <% end %>
 
         <div style='margin-bottom: 12px'>
-          <%= recaptcha_tags rescue "Can't render captcha widget" %>
+          <%= recaptcha_tags %>
         </div>
 
         <p>
@@ -63,9 +63,8 @@
           <% end %>
         </p>
 
-        <%= f.submit t(".send"), class: "btn-primary btn-lg" %>
+        <%= f.submit t(".send"), class: 'mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent' %>
       <% end %>
-
     </div>
   </div>
 </div>
