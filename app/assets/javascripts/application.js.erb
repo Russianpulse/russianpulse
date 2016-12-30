@@ -11,7 +11,6 @@
 // about supported directives.
 //
 //= require turbolinks
-//= require material-design-lite
 //= require jquery
 //= require jquery-timeago
 //= require jquery-ui
@@ -66,8 +65,4 @@ $(".memorized-field").each(function() {
 $(".js-news-dashboard").each(function() {
   var widget = new Views.NewsDashboard({ el: $(this) });
   widget.render();
-});
-
-$(document).on('turbolinks:load', function() {
-  componentHandler.upgradeDom();
 });

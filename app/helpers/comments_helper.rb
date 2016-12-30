@@ -10,8 +10,12 @@ module CommentsHelper
   def comments_link(commentable, options={})
     return if (commentable.comments_count <= 0) && !options[:without_comments]
 
-    link_to smart_post_path(commentable, anchor: 'comments'), class: 'mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect', title: t(:discussion) do
-      concat content_tag :i, :comment, class: 'material-icons'
+    content_tag :span, class: (options[:class] || 'pull-right'), title: t(:discussion) do
+      link_to smart_post_path(commentable, anchor: 'comments'), class: 'no-underline' do
+        concat glyphicon(:comment)
+        concat raw('&nbsp;')
+        concat commentable.comments_count if commentable.comments_count > 0
+      end
     end
   end
 end

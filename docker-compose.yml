@@ -19,8 +19,6 @@ web:
     - .env
   environment:
     - RAILS_ENV=development
-    - DOCKER=true
-
 
 worker:
   build: .
@@ -31,7 +29,6 @@ worker:
   command: bin/worker
   environment:
     - RAILS_ENV=development
-    - DOCKER=true
   env_file:
     - .env
   volumes_from:

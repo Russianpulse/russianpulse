@@ -1,16 +1,6 @@
 <% content_for(:meta_title, t(:about).mb_chars.capitalize) %>
 
-<section class="section--center mdl-grid  mdl-shadow--2dp main-card">
-  <div class="mdl-card mdl-cell mdl-cell--12-col">
-    <div class="mdl-card__supporting-text">
-      <h1 class='mdl-typography--display-1'><%= t(:about).mb_chars.capitalize %></h1>
+<h1><%= t(:about).mb_chars.capitalize %></h1>
+<hr />
 
-      <%= simple_format snippet(:about) %>
-    </div>
-  </div>
-</section>
-
-
-
-
-
+<%= simple_format snippet(:about) %>
