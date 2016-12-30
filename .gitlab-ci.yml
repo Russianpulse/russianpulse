@@ -1,4 +1,4 @@
-image: ruby:2.3.1
+#image: ruby:2.3.1
 
 variables:
   IMAGE_NAME: registry.gitlab.com/russianpulse/mazavr:latest
