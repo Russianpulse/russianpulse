@@ -41,7 +41,7 @@ class PostsController < ApplicationController
         end
       end
 
-      #fresh_when(etag: @post, last_modified: @post.updated_at, public: true)
+      fresh_when(etag: @post, last_modified: @post.updated_at, public: true)
     end
   end
 

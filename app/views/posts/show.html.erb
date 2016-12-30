@@ -1,23 +1,72 @@
 <% content_for(:meta_title, strip_tags(@post.title)) %>
 
 <% content_for :share_description do %>
-  <%= render :partial => 'shared/share_description', locals: { title: strip_tags(@post.title), url: smart_post_url(@post), text: @post.body, image: @post.picture_url } %>
+  <%= render :partial => "shared/share_description", :locals => { :title => strip_tags(@post.title), :url => smart_post_url(@post), :text => @post.body, :image => @post.picture_url } %>
 <% end %>
 
-<%= render partial: 'post' %>
+<div itemscope itemtype="http://schema.org/BlogPosting">
+  <%= render :partial => 'meta_tags' %>
 
-<%= snippet :below_article, url: smart_post_url(@post), adult: @post.has_picture? %>
+  <h1><%= @post.title %></h1>
 
-<div class='mdl-grid'>
-  <div class='mdl-cell mdl-cell--6-col'>
-    <%= render partial: 'comments', locals: { comments: @post.comments.order(:created_at) } %>
-  </div>
-  <div class='mdl-cell mdl-cell--6-col'>
-    <%= render partial: 'most_active_commenters', locals: { users: User.where(id: Comment.recent.limit(100).pluck(:user_id)).limit(10) } %>
-  </div>
+  <% if policy(@post).update? %>
+    <%= link_to "Edit", "/admin/rails_admin/post/#{@post.id}/edit", :class => "btn btn-default" %>
+  <% end %>
+
+  <%= render :partial => 'tags' %>
+
+  <hr />
+
+  <%= link_to @post.blog.title, blog_path(@post.blog.slug), class: 'blog_link' %>,
+
+  <%= content_tag(:span, format_date(@post.created_at, time: false), class: '') %>
+
+  <% if @post.source_url.present? %>
+    &nbsp;
+    –
+    &nbsp;
+    <%= link_to @post.source_url, title: t(:original), target: '_blank', class: 'no-decoration' do %>
+      <%= favicon_icon(@post.source_url) %>
+      <%= URI(@post.source_url).host %>
+    <% end %>
+  <% end %>
+
+  <%= comments_link @post, without_comments: true %>
+
+  <br />
+  <br />
+  <br />
+
+  <table width="100%">
+    <tr>
+      <td width="100%" valign="top">
+        <%= render :partial => 'body' %>
+      </td>
+      <td valign="top" class="visible-lg visible-md" style="padding-left: 15px">
+        <%= snippet :post_right_tower, adult: @post.has_picture? %>
+      </td>
+    </tr>
+  </table>
+
+
+  <%= counter_tag @post.id %>
 </div>
 
 <hr />
+
+<%= snippet :below_article, :url => smart_post_url(@post), adult: @post.has_picture? %>
+
+<div class="row">
+  <div class="col-sm-6">
+    <div>
+      <%= render partial: "comments", locals: { comments: @post.comments.order(:created_at) } %>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <%= render partial: 'most_discussed_vertical', locals: { posts: Post.newer_than(1.week.ago).where.not(id: @post).most_discussed.limit(9) } %>
+  </div>
+</div>
+
 <br />
 <br />
 
