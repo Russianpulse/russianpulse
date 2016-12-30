@@ -12,6 +12,14 @@ stages:
 
 testing:
   stage: test
+  services:
+    - postgres:9.4.5
+  variables:
+    POSTGRES_DB: mazavr_test
+    POSTGRES_USER: postgres
+    POSTGRES_PASSWORD: postgres
+    DB_USER: postgres
+    DB_PASSWORD: postgres
   script:
     - bundle install
     - bundle exec db:setup
