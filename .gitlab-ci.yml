@@ -24,9 +24,13 @@ testing:
     DB_PASSWORD: postgres
     DB_HOST: postgres
   script:
-    - bundle install --path vendor/bundle
-    - bundle exec rake db:setup
-    - bundle exec rspec
+    - mkdir -p vendor/bundle
+    - ls -l vendor/bundle
+    - echo 'file' >> vendor/bundle/file.1
+    - cat vendor/bundle/file.1
+    #- bundle install --path vendor/bundle
+    #- bundle exec rake db:setup
+    #- bundle exec rspec
 
 build_image:
   image: jonaskello/docker-and-compose:1.12.1-1.8.0
