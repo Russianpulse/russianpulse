@@ -4,12 +4,15 @@
   <% if @ab_test.present? %>
     <%= raw @ab_test.ga_code %>
   <% end %>
-  <link href='https://fonts.googleapis.com/css?family=PT+Serif:400,700,700italic,400italic&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700,700i&subset=cyrillic" rel="stylesheet">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="shortcut icon" href="<%= snippet(:favicon_url) || '/favicon.ico' %>" type="image/x-icon">
   <link rel="icon" href="<%= snippet(:favicon_url) || '/favicon.ico' %>" type="image/x-icon">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= csrf_meta_tags if session.present? %>
@@ -35,39 +38,39 @@
 <body>
 <%= snippet :after_body_tag %>
 
-  <div class="container">
+  <!-- Uses a header that contracts as the page scrolls down. -->
+  <div class="layout-waterfall mdl-layout mdl-js-layout">
     <%= render :partial => 'shared/header' %>
 
-    <div class="row" style="min-height: 430px">
-      <div class="col-md-12">
-        <div class="controller-<%= params[:controller] %> action-<%= params[:controller] %>-<%= params[:action] %>">
-
-          <%= yield %>
-        </div>
+    <div class="mdl-layout__drawer">
+      <span class="mdl-layout-title">Русский пульс</span>
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable
+    mdl-textfield--floating-label mdl-textfield--align-right">
+      <label class="mdl-button mdl-js-button mdl-button--icon"
+             for="search-sidebar">
+        <i class="material-icons">search</i>
+      </label>
+      <div class="mdl-textfield__expandable-holder">
+        <%= form_tag '/search', method: :get do %>
+          <%= text_field_tag :q, params[:q], class: 'mdl-textfield__input', placeholder: 'Что ищем?', id: 'search-sidebar' %>
+        <% end %>
       </div>
     </div>
-    <hr />
-    <div class="row">
-      <div class="col-md-12">
-        <div class="footer">
-          <%= Time.now.year %> &copy; <%= snippet(:site_name) || "Mazavr" %>
-          • 
-          <%= link_to t(:about).mb_chars.capitalize, about_path %>
-          • 
-          <%= link_to t(:archive).mb_chars.capitalize, archive_path %>
-          • 
-          <%= link_to t(:search).mb_chars.capitalize, search_path %>
-          <%= snippet :bottom_menu %>
-        </div>
-        <br />
-      </div>
+      <%= render partial: "shared/navigation" %>
     </div>
 
-    <div class="row">
-      <div class="col-md-12">
-        <%= snippet :bottom %>
+    <main class="mdl-layout__content">
+      <div class="page-content"><!-- Your content goes here -->
+        <%= yield %>
       </div>
+    <%= render partial: "shared/footer" %>
+    </main>
+
+
+    <div>
+      <%= snippet :bottom %>
     </div>
+
   </div>
 
   <%= javascript_include_tag 'application', data: { 'turbolinks-eval' => false } %>

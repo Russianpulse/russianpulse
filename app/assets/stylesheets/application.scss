@@ -10,109 +10,24 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
+ *= require material-design-lite
  *= require_tree ./cells
  *= require_tree .
  *= require_tree ./admin
  *= require_self
  */
 
-// "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
-@import "bootstrap-sprockets";
-@import "bootstrap";
-
-h1,h2,h3,h4,h5,h6 {
-  font-weight: bold
-}
-
-h1 {
-  letter-spacing: 0.19rem;
-}
-
 body {
-  font-family: 'PT Serif', Georgia, 'Times New Roman', Times, serif;
-  font-size: 16px;
-
-  letter-spacing: 0.07rem;
-  font-weight: 400;
-  line-height: 1.7;
-  word-wrap: break-word;
+  font-family: 'Roboto', sans-serif;
 }
 
-
-a {
-  color: #333;
-  text-decoration: none;
+.text--serif {
+  font-family: serif;
 }
 
-a:hover {
-  color: black;
-  text-decoration: underline;
-}
-
-a.no-underline:hover {
-  text-decoration: none;
-}
-
-a:visited {
-  color: grey;
-}
-
-h1 {
-  font-size: 28pt;
-}
-
-h2,h3,h4,h5,h6 {
-  color: grey;
-
-  a {
-    color: grey;
+.layout-waterfall {
+  .mdl-layout__header-row .mdl-navigation__link:last-of-type  {
+    padding-right: 0;
   }
 }
 
-p {
-  font-size: 120%;
-  margin: 0px;
-  padding-bottom: 22px;
-  padding-top: 22px;
-
-}
-
-p.tiny {
-  padding-bottom: 10px;
-  padding-top: 10px;
-}
-
-
-#logo {
-  font-size: 20pt;
-  a {
-    color: black;
-    text-decoration: none;
-  }
-}
-
-#time_now {
-}
-
-.footer {
-  a {
-    color: #333;
-  }
-}
-
-
-ol.breadcrumb {
-  margin-bottom: 30px;
-}
-
-.truncate {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.strong { font-weight: bold }
-
-div.spacer {
-  height: 50px
-}

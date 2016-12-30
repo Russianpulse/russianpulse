@@ -1,46 +1,72 @@
 <a href="#comments" name="comments"></a>
 
-<% if comments.present? %>
-  <h2><%= t ".comments" %></h2>
+<div class="mdl-grid">
+  <div class="main-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+    <div class="section mdl-card__supporting-text main-card__body">
 
-  <div class="comments">
-    <% for comment in comments %>
-      <a href="#comment_<%= comment.id %>" name="comment_<%= comment.id %>"></a>
-      <div class="comment">
-        <div class="comment__header">
-          <%= image_tag gravatar_url(comment.user.email, size: 35), class: "comment__avatar", width: 20, height: 20 %>
-          <%= comment.user.name %>
-          <%= link_to "#", "#comment_#{comment.id}" %>
-          <small><%= smart_date comment.created_at %></small>
+      <% if comments.present? %>
+        <h2><%= t ".comments" %></h2>
+
+        <div class="comments">
+          <% for comment in comments %>
+            <a href="#comment_<%= comment.id %>" name="comment_<%= comment.id %>"></a>
+            <div class="comment">
+              <div class="comment__header">
+                <%= image_tag gravatar_url(comment.user.email, size: 35), class: "comment__avatar", width: 20, height: 20 %>
+                <%= comment.user.name %>
+                <%= link_to "#", "#comment_#{comment.id}" %>
+                <small><%= smart_date comment.created_at %></small>
+              </div>
+              <div class="comment__body">
+                <%= simple_format comment.comment %>
+              </div>
+            </div>
+          <% end %>
         </div>
-        <div class="comment__body">
-          <%= simple_format comment.comment %>
+
+        <br />
+        <br />
+      <% end %>
+
+
+      <%= form_for Comment.new, html: { id: "comments_form" } do |f| %>
+        <%= hidden_field_tag :post_id, @post.id %>
+
+        <div class='mdl-textfield mdl-js-textfield mdl-textfield--floating-label'>
+          <%= f.text_area :comment, { rows: 4, class: 'mdl-textfield__input' } %>
+          <%= f.label :comment, 'Комментарий', class: 'mdl-textfield__label' %>
+
         </div>
-      </div>
-    <% end %>
+        <br />
+
+        <%= f.fields_for :user_attributes do |f| %>
+          <div class='mdl-textfield mdl-js-textfield mdl-textfield--floating-label'>
+            <%= f.text_field :name, { class: 'name memorized-field mdl-textfield__input' } %>
+            <%= f.label :name, t('.your_name'), class: 'mdl-textfield__label' %>
+          </div>
+          <br />
+
+          <div class='mdl-textfield mdl-js-textfield mdl-textfield--floating-label'>
+            <%= f.text_field :email, { class: 'name memorized-field mdl-textfield__input' } %>
+            <%= f.label :email, t('.email'), class: 'mdl-textfield__label' %>
+          </div>
+        <% end %>
+
+        <div style='margin-bottom: 12px'>
+          <%= recaptcha_tags %>
+        </div>
+
+        <p>
+          <%= label_tag :subscribe, class: 'mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect' do %>
+            <%= check_box_tag :subscribe, 1, true, class: 'mdl-checkbox__input' %>
+            <span class='mdl-checkbox__label'><%= t '.subscribe' %></span>
+          <% end %>
+        </p>
+
+        <%= f.submit t(".send"), class: 'mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent' %>
+      <% end %>
+    </div>
   </div>
-<% end %>
+</div>
 
-<h2><%= t ".leave_comment" %></h2>
-
-<%= simple_form_for Comment.new, html: { id: "comments_form" } do |f| %>
-  <%= hidden_field_tag :post_id, @post.id %>
-  <%= f.input :comment, label: false, input_html: { rows: 8 } %>
-
-  <%= f.simple_fields_for :user_attributes do |f| %>
-    <%= f.input :name, label: t(".your_name"), input_html: { class: "name memorized-field" } %>
-    <%= f.input :email, as: :email, label: t(".email"), input_html: { class: "name memorized-field" } %>
-  <% end %>
-
-  <div style='margin-bottom: 12px'>
-    <%= recaptcha_tags rescue "Can't render captcha widget" %>
-  </div>
-
-  <p>
-  <%= check_box_tag :subscribe, 1, true %>
-  <%= label_tag :subscribe, t('.subscribe') %>
-  </p>
-
-  <%= f.button :submit, t(".send"), class: "btn-primary btn-lg" %>
-<% end %>
 

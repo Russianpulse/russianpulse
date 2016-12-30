@@ -1,0 +1,21 @@
+<footer class="mdl-mini-footer">
+  <div class="mdl-mini-footer__left-section">
+    <div class="mdl-logo">
+      <%= Time.now.year %> &copy; Русский пульс
+		</div>
+
+    <ul class="mdl-mini-footer__link-list">
+      <li>
+        <%= link_to t(:about).mb_chars.capitalize, about_path %>
+      </li>
+      <li>
+        <%= link_to t(:archive).mb_chars.capitalize, archive_path %>
+      </li>
+      <li>
+        <%= link_to t(:search).mb_chars.capitalize, search_path %>
+      </li>
+      <%= snippet :bottom_menu %>
+
+    </ul>
+  </div>
+</footer>
