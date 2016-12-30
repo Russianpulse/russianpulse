@@ -22,7 +22,7 @@ testing:
     DB_PASSWORD: postgres
   script:
     - bundle install
-    - bundle exec db:setup
+    - bundle exec rake db:setup
     - bundle exec rspec
 
 build_image:
