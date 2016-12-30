@@ -1,0 +1,27 @@
+<!-- Icon List -->
+<style>
+.demo-list-icon {
+  width: 100%;
+}
+</style>
+
+<div class="mdl-grid">
+  <div class="main-card mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+    <div class="section mdl-card__supporting-text main-card__body">
+
+      <h2>Комментаторы</h2>
+      <ul class="demo-list-icon mdl-list">
+        <% users.each do |user| %>
+          <li class="mdl-list__item">
+            <span class="mdl-list__item-primary-content">
+              <i class="material-icons mdl-list__item-icon">person</i>
+              <%= user.name %>
+            </span>
+            <span class="mdl-list__item-secondary-content"><%= user.comments.count %></span>
+          </li>
+        <% end %>
+
+      </ul>
+    </div>
+  </div>
+</div>

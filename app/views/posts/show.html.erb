@@ -4,17 +4,20 @@
   <%= render :partial => 'shared/share_description', locals: { title: strip_tags(@post.title), url: smart_post_url(@post), text: @post.body, image: @post.picture_url } %>
 <% end %>
 
-<% render partial: 'post' %>
+<%= render partial: 'post' %>
 
 <%= snippet :below_article, url: smart_post_url(@post), adult: @post.has_picture? %>
 
-<%= render partial: 'comments', locals: { comments: @post.comments.order(:created_at) } %>
-
-<hr />
-<div>
-  <%= render partial: 'most_discussed_vertical', locals: { posts: Post.newer_than(1.week.ago).where.not(id: @post).most_discussed.limit(9) } %>
+<div class='mdl-grid'>
+  <div class='mdl-cell mdl-cell--6-col'>
+    <%= render partial: 'comments', locals: { comments: @post.comments.order(:created_at) } %>
+  </div>
+  <div class='mdl-cell mdl-cell--6-col'>
+    <%= render partial: 'most_active_commenters', locals: { users: User.where(id: Comment.recent.limit(100).pluck(:user_id)).limit(10) } %>
+  </div>
 </div>
 
+<hr />
 <br />
 <br />
 
