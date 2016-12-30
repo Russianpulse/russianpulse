@@ -11,6 +11,8 @@ stages:
   - deploy
 
 testing:
+  cache:
+    untracked: true
   stage: test
   services:
     - postgres:9.4.5
@@ -20,8 +22,9 @@ testing:
     POSTGRES_PASSWORD: postgres
     DB_USER: postgres
     DB_PASSWORD: postgres
+    DB_HOST: postgres
   script:
-    - bundle install
+    - bundle install --path vendor/bundle
     - bundle exec rake db:setup
     - bundle exec rspec
 
