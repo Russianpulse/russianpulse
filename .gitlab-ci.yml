@@ -13,6 +13,8 @@ stages:
 testing:
   cache:
     untracked: true
+    paths:
+      - vendor/bundle
   stage: test
   services:
     - postgres:9.4.5
