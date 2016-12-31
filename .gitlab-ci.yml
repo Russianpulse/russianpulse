@@ -1,4 +1,4 @@
-image: ruby:2.3.1
+image: registry.gitlab.com/russianpulse/mazavr:base
 
 variables:
   IMAGE_NAME: registry.gitlab.com/russianpulse/mazavr:latest
@@ -11,10 +11,6 @@ stages:
   - deploy
 
 testing:
-  cache:
-    untracked: true
-    paths:
-      - vendor/bundle
   stage: test
   services:
     - postgres:9.4.5
@@ -26,13 +22,9 @@ testing:
     DB_PASSWORD: postgres
     DB_HOST: postgres
   script:
-    - mkdir -p vendor/bundle
-    - ls -l vendor/bundle
-    - echo 'file' >> vendor/bundle/file.1
-    - cat vendor/bundle/file.1
-    #- bundle install --path vendor/bundle
-    #- bundle exec rake db:setup
-    #- bundle exec rspec
+    - bundle install
+    - bundle exec rake db:setup
+    - bundle exec rspec
 
 build_image:
   image: jonaskello/docker-and-compose:1.12.1-1.8.0
