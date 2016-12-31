@@ -1,32 +1,7 @@
-image: jonaskello/docker-and-compose:1.12.1-1.8.0
-
-services:
-  - docker:1.12.1-dind
-
 variables:
   IMAGE_NAME: registry.gitlab.com/russianpulse/mazavr:latest
 
 before_script:
-  # Install ssh-agent if not already installed, it is required by Docker.
-  # (change apt-get to yum if you use a CentOS-based image)
-  - 'which ssh-agent || ( apk add openssh-client )'
-
-  # Run ssh-agent (inside the build environment)
-  - eval $(ssh-agent -s)
-
-  # Add the SSH key stored in SSH_PRIVATE_KEY variable to the agent store
-  - mkdir -p ~/.ssh
-  - echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-  - chmod 600 ~/.ssh/id_rsa
-  - ssh-add ~/.ssh/id_rsa
-
-  # For Docker builds disable host key checking. Be aware that by adding that
-  # you are suspectible to man-in-the-middle attacks.
-  # WARNING: Use this only with the Docker executor, if you use it with shell
-  # you will overwrite your user's SSH config.
-  - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-
-  - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
 
 stages:
   - test
@@ -35,21 +10,55 @@ stages:
 
 testing:
   stage: test
+  image: ruby:2.3.1
+  services:
+    - postgres:9.4.5
+  variables:
+    POSTGRES_DB: mazavr_test
+    POSTGRES_USER: postgres
+    POSTGRES_PASSWORD: postgres
+    DB_USER: postgres
+    DB_PASSWORD: postgres
+    DB_HOST: postgres
   script:
-    - docker-compose -f docker-compose.test.yml build sut
-    - docker-compose -f docker-compose.test.yml up sut
+    - bundle install
+    - bundle exec rake db:setup
+    - bundle exec rspec
 
 build_image:
+  image: jonaskello/docker-and-compose:1.12.1-1.8.0
+  services:
+    - docker:1.12.1-dind
+
   stage: build
   only:
     - master
   script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
     - docker build -f Dockerfile -t $IMAGE_NAME .
     - docker push $IMAGE_NAME
 
 deploy:
   stage: deploy
   script:
+    # Install ssh-agent if not already installed, it is required by Docker.
+    # (change apt-get to yum if you use a CentOS-based image)
+    - 'which ssh-agent || ( apk add openssh-client )'
+
+    # Run ssh-agent (inside the build environment)
+    - eval $(ssh-agent -s)
+
+    # Add the SSH key stored in SSH_PRIVATE_KEY variable to the agent store
+    - mkdir -p ~/.ssh
+    - echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+    - ssh-add ~/.ssh/id_rsa
+
+    # For Docker builds disable host key checking. Be aware that by adding that
+    # you are suspectible to man-in-the-middle attacks.
+    # WARNING: Use this only with the Docker executor, if you use it with shell
+    # you will overwrite your user's SSH config.
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
     - ssh deployer@$DEPLOY_HOST "cd my-cluster && git pull && make update"
   only:
     - master
