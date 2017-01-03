@@ -4,9 +4,24 @@ variables:
 before_script:
 
 stages:
+  - lint
   - test
   - build
   - deploy
+
+rubocop:
+  stage: lint
+  image: ruby:2.3.1
+  script:
+    - gem install rubocop -v '0.46.0'
+    - rubocop
+
+bundle-audit:
+  stage: lint
+  image: ruby:2.3.1
+  script:
+    - gem install bundler-audit -v '0.5.0'
+    - bundle-audit
 
 testing:
   stage: test
@@ -24,20 +39,6 @@ testing:
     - bundle install
     - bundle exec rake db:setup
     - bundle exec rspec
-
-rubocop:
-  stage: test
-  image: ruby:2.3.1
-  script:
-    - gem install rubocop -v '0.46.0'
-    - rubocop
-
-bundle-audit:
-  stage: test
-  image: ruby:2.3.1
-  script:
-    - gem install bundler-audit -v '0.5.0'
-    - bundle-audit
 
 build_image:
   image: jonaskello/docker-and-compose:1.12.1-1.8.0
