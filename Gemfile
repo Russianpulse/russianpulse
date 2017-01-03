@@ -3,9 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '~> 5.0'
 gem 'puma', '~> 3.0'
 
-# Rails Admin
-gem 'remotipart', github: 'mshibuya/remotipart', ref: '88d9a7'
-gem 'rails_admin', '>= 1.0.0.rc'
+gem 'rails_admin', '~> 1.0'
 
 # Assets & JS & CSS
 gem 'sass-rails', '~> 5.0'
