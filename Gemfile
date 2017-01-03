@@ -9,7 +9,7 @@ gem 'rails_admin', '>= 1.0.0.rc'
 
 # Assets & JS & CSS
 gem 'sass-rails', '~> 5.0'
-gem 'uglifier', '~> 1.3'
+gem 'uglifier'
 gem 'coffee-rails', '~> 4.2'
 gem 'therubyracer', platforms: :ruby
 gem 'jquery-rails'
