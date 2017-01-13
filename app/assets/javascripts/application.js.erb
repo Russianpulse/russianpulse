@@ -24,14 +24,18 @@
 //= require_tree ./templates
 //= require ./views/news_dashboard
 
-mrk.markUserOnce("first_visit_at", Math.floor(Date.now() / 1000));
-mrk.markUserOnce("first_visit_url", window.location.href);
-mrk.markUserOnce("first_visit_referrer", document.referrer);
-mrk.counterIncrement("pageviews");
+document.addEventListener("turbolinks:load", function() {
+  console.log('load');
 
-if(mrk.getCounter("pageviews") == 2) {
-  ga('send', 'event', 'Users', 'Return', {'nonInteraction': 1});
-}
+  mrk.markUserOnce("first_visit_at", Math.floor(Date.now() / 1000));
+  mrk.markUserOnce("first_visit_url", window.location.href);
+  mrk.markUserOnce("first_visit_referrer", document.referrer);
+  mrk.counterIncrement("pageviews");
+
+  if(mrk.getCounter("pageviews") == 2) {
+    ga('send', 'event', 'Users', 'Return', {'nonInteraction': 1});
+  }
+})
 
 // Отправляем внешние переходы в GA
 $("a").click(function() {
