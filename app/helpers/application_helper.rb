@@ -3,14 +3,6 @@ module ApplicationHelper
     raw "<img src='/p/views/#{post_id}.png' alt='' title='' width=1, height=1 />"
   end
 
-  def favicon_url(url)
-    "//www.google.com/s2/favicons?domain=#{URI(url || "http://#{Rails.configuration.x.domain}").host}"
-  end
-
-  def favicon_icon(url)
-    image_tag favicon_url(url), :width => 16, :height => 16, :alt => "", :title => ""
-  end
-
   def glyphicon(name, type = :bootstrap)
     content_tag(:i, nil, class: "glyphicon glyphicon-#{name}")
   end
@@ -75,16 +67,6 @@ module ApplicationHelper
 
   def bootstrap_class_for flash_type
     { success: "alert-success", error: "alert-danger", alert: "alert-warning", notice: "alert-info" }[flash_type] || flash_type.to_s
-  end
-
-  def gravatar_url(email, args={})
-    # include MD5 gem, should be part of standard ruby install
-    #require 'digest/md5'
-    # create the md5 hash
-    hash = Digest::MD5.hexdigest(email.downcase)
-
-    # compile URL which can be used in <img src="RIGHT_HERE"...
-    "//www.gravatar.com/avatar/#{hash}?s=#{args[:size] || 35}"
   end
 
   def send_ga_events

@@ -46,6 +46,12 @@ RSpec.describe "Posts", type: :request do
     let!(:post) { FactoryGirl.create :post }
     before { get smart_post_path(post) }
     it { expect(response).to have_http_status(200) }
+
+    context 'when source_url has non-ascii' do
+      let!(:post) { FactoryGirl.create :post, source_url: 'http://khazin.ru/articles/10-vlast-i-obcshestvo/29019-u-edinorossov-prorezalsja-golos-pered-\u{201c}isaakievskim-protestom\u{201d}' }
+      it { expect(response).to have_http_status(200) }
+
+    end
   end
 end
 

@@ -4,6 +4,9 @@ class CommentsController < ApplicationController
   include CommentsHelper
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
 
+  # already protected with captcha
+  skip_before_action :verify_authenticity_token, only: :create
+
   # GET /comments
   def index
     @comments = Comment.all
