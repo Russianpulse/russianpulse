@@ -4,20 +4,21 @@ variables:
 before_script:
 
 stages:
+  - lint
   - test
   - build
   - deploy
 
 rubocop:
-  stage: test
-  image: ruby:2.3.1
+  stage: lint
+  image: ruby:2.3.1-alpine
   script:
     - gem install rubocop -v '0.46.0'
     - rubocop
 
 bundle-audit:
-  stage: test
-  image: ruby:2.3.1
+  stage: lint
+  image: ruby:2.3.1-alpine
   script:
     - gem install bundler-audit -v '0.5.0'
     - bundle-audit
@@ -46,7 +47,7 @@ build_image:
 
   stage: build
   only:
-    - production
+    - master
   script:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
     - docker build -f Dockerfile -t $IMAGE_NAME .
@@ -75,4 +76,4 @@ deploy:
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
     - ssh deployer@$DEPLOY_HOST "cd my-cluster && git pull && make update"
   only:
-    - production
+    - master

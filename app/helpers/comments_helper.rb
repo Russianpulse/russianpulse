@@ -14,7 +14,7 @@ module CommentsHelper
       link_to smart_post_path(commentable, anchor: 'comments'), class: 'no-underline' do
         concat glyphicon(:comment)
         concat raw('&nbsp;')
-        concat commentable.comments_count if commentable.comments_count > 0
+        concat commentable.comments_count if commentable.comments_count.positive?
       end
     end
   end
