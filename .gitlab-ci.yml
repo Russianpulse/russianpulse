@@ -4,19 +4,20 @@ variables:
 before_script:
 
 stages:
+  - lint
   - test
   - build
   - deploy
 
 rubocop:
-  stage: test
+  stage: lint
   image: ruby:2.3.1-alpine
   script:
     - gem install rubocop -v '0.46.0'
     - rubocop
 
 bundle-audit:
-  stage: test
+  stage: lint
   image: ruby:2.3.1-alpine
   script:
     - gem install bundler-audit -v '0.5.0'
@@ -24,7 +25,7 @@ bundle-audit:
 
 testing:
   stage: test
-  image: ruby:2.3.1-alpine
+  image: ruby:2.3.1
   services:
     - postgres:9.4.5
   variables:
