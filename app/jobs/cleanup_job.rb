@@ -1,7 +1,7 @@
 class CleanupJob < ActiveJob::Base
   queue_as :default
 
-  def perform(*args)
+  def perform(*_args)
     cleanup_blocked if need_cleanup?
     smart_cleanup if need_cleanup?
     cleanup_hard if need_cleanup?
@@ -15,7 +15,7 @@ class CleanupJob < ActiveJob::Base
 
   def cleanup_hard
     obj = Post.unpopular.limit(space_needed - space_available).destroy_all.size
-    EventTracker.track_and_notify("Jobs", "Cleanup hard", nil, obj.size)
+    EventTracker.track_and_notify('Jobs', 'Cleanup hard', nil, obj.size)
   end
 
   def need_cleanup?
@@ -39,14 +39,15 @@ class CleanupJob < ActiveJob::Base
   end
 
   module SmartCleanup
-    def divide_period_into_parts(from, to, n=1)
+    def divide_period_into_parts(from, to, n = 1)
       periods = [[from, to]]
 
       n.times do
         new_periods = []
 
-        periods.each_with_index do |period, index|
-          from, to = period[0], period[1]
+        periods.each_with_index do |period, _index|
+          from = period[0]
+          to = period[1]
 
           m = median(from, to)
 
@@ -64,18 +65,20 @@ class CleanupJob < ActiveJob::Base
     MIN_ERROR_TRUSTED = 0.01
 
     def median(from, to)
-      from, to = from.to_f, to.to_f
+      from = from.to_f
+      to = to.to_f
 
       # область поиска
-      median_from, median_to = from, to
+      median_from = from
+      median_to = to
 
-      current  = lambda { (median_from + median_to) / 2 }
-      count_older = lambda { Post.created_between(Time.at(from), Time.at(current.call)).count }
-      count_newer = lambda { Post.created_between(Time.at(current.call), Time.at(to)).count }
-      error = lambda { (count_older.call - count_newer.call).abs.to_f / ((count_older.call + count_newer.call).abs / 2) }
+      current = -> { (median_from + median_to) / 2 }
+      count_older = -> { Post.created_between(Time.at(from), Time.at(current.call)).count }
+      count_newer = -> { Post.created_between(Time.at(current.call), Time.at(to)).count }
+      error = -> { (count_older.call - count_newer.call).abs.to_f / ((count_older.call + count_newer.call).abs / 2) }
 
       i = 0
-      while true
+      loop do
         break if i > MAX_ITERATIONS
         break if error.call < MIN_ERROR_TRUSTED
 
@@ -91,7 +94,6 @@ class CleanupJob < ActiveJob::Base
       Time.at current.call
     end
 
-
     # делим весь период на 16 частей
     # очищаем каждый период, кроме самого последнего
     def smart_cleanup
@@ -101,10 +103,11 @@ class CleanupJob < ActiveJob::Base
       periods = divide_period_into_parts(Post.minimum(:created_at), Post.maximum(:created_at), 4)
       periods.pop
 
-      from, to = periods[0][0], periods[-1][1]
+      from = periods[0][0]
+      to = periods[-1][1]
       obj = Post.where(views: 0).limit(space_needed - space_available).created_between(from, to).destroy_all.size
       count += obj.size
-      EventTracker.track("Jobs", "Cleanup unused", "#{from} - #{to}", obj.size)
+      EventTracker.track('Jobs', 'Cleanup unused', "#{from} - #{to}", obj.size)
 
       return unless need_cleanup?
 
@@ -112,7 +115,7 @@ class CleanupJob < ActiveJob::Base
       divide_period_into_parts(Post.minimum(:created_at), Post.maximum(:created_at), 4)[0..-2].each do |period|
         obj = cleanup_period(period[0], period[1], delete_in_each_period)
         count += obj.size
-        EventTracker.track("Jobs", "Cleanup smart", "#{period[0]} - #{period[1]}", obj.size)
+        EventTracker.track('Jobs', 'Cleanup smart', "#{period[0]} - #{period[1]}", obj.size)
       end
 
       count

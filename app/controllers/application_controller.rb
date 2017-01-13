@@ -20,13 +20,13 @@ class ApplicationController < ActionController::Base
   before_action :load_ab_test
 
   private
-   
+
   def set_locale
-    if rails_admin?
-      I18n.locale = :en
-    else
-      I18n.locale = user_locale || ENV['DEFAULT_LOCALE'] || :en
-    end
+    I18n.locale = if rails_admin?
+                    :en
+                  else
+                    user_locale || ENV['DEFAULT_LOCALE'] || :en
+                  end
   end
 
   def rails_admin?
@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
   end
 
   def ab_variant?
-    params[:v] == "2"
+    params[:v] == '2'
   end
 
   def load_ab_test
@@ -64,17 +64,17 @@ class ApplicationController < ActionController::Base
     session[:ga_events] ||= []
 
     session[:ga_events] << {
-      category: args[:category], 
+      category: args[:category],
       action: args[:action],
       label: args[:label],
       value: args[:value],
-      interaction: args[:interaction],
+      interaction: args[:interaction]
     }
   end
 
   def verify_recaptcha
     uri = URI('https://www.google.com/recaptcha/api/siteverify')
     res = Net::HTTP.post_form(uri, secret: ENV['RECAPTCHA_PRIVATE_KEY'], response: params['g-recaptcha-response'])
-    JSON.parse(res.body)["success"]
+    JSON.parse(res.body)['success']
   end
 end

@@ -10,7 +10,7 @@ require 'rails_helper'
 #     end
 #   end
 # end
-RSpec.describe PostsHelper, :type => :helper do
+RSpec.describe PostsHelper, type: :helper do
   describe '.post_teaser_for' do
     subject { helper.post_teaser_for(post) }
     let(:post) { FactoryGirl.create :post }

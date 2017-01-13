@@ -40,13 +40,12 @@ class HtmlCleanup
     max_header_level = nil
 
     (1..6).each do |level|
-      max_header_level = level if doc.css("h#{level}").size > 0
+      max_header_level = level unless doc.css("h#{level}").empty?
       break if max_header_level.present?
     end
 
-
     if max_header_level.present?
-      range = max_header_level < 2 ? (6).downto(max_header_level) : max_header_level.upto(6)
+      range = max_header_level < 2 ? 6.downto(max_header_level) : max_header_level.upto(6)
 
       range.each do |level|
         doc.css("h#{level}").each do |el|
@@ -55,7 +54,6 @@ class HtmlCleanup
         end
       end
     end
-
 
     html = doc.to_html
 
@@ -86,9 +84,7 @@ class HtmlCleanup
 
     doc.css('p').each do |el|
       if el.text.remove(/[[:space:]]+/m).blank?
-        if el.css('img,iframe,video').size == 0
-          el.remove 
-        end
+        el.remove if el.css('img,iframe,video').empty?
       end
     end
 
@@ -97,7 +93,6 @@ class HtmlCleanup
     end
 
     html = doc.to_html
-
 
     raw html
   end

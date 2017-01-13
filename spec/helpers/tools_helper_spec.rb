@@ -10,5 +10,5 @@ require 'rails_helper'
 #     end
 #   end
 # end
-RSpec.describe ToolsHelper, :type => :helper do
+RSpec.describe ToolsHelper, type: :helper do
 end

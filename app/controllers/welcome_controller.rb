@@ -8,7 +8,7 @@ class WelcomeController < ApplicationController
     @posts_most_discussed = Post.published.where.not(id: ids).most_discussed.newer_than(1.week.ago).limit(6)
     ids += @posts_most_discussed.pluck(:id)
 
-    @posts_featured = Post.published.where('blogs.featured = ?', true).joins(:blog).where.not("posts.id IN (?)", ids).joins(:blog).recent.limit(6)
+    @posts_featured = Post.published.where('blogs.featured = ?', true).joins(:blog).where.not('posts.id IN (?)', ids).joins(:blog).recent.limit(6)
     ids += @posts_featured.pluck(:id)
 
     @posts_recent = stream_scope.where.not(id: ids).recent.limit(30)

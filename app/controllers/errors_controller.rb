@@ -8,6 +8,5 @@ class ErrorsController < ApplicationController
     end
   end
 
-  def exception
-  end
+  def exception; end
 end

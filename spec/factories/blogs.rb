@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :blog do
-    title "Title"
+    title 'Title'
     sequence(:slug) { |n| "blog-#{n}" }
 
     trait :featured do

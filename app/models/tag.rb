@@ -1,5 +1,5 @@
 class Tag < ActiveRecord::Base
-  validates :title, :presence => true
+  validates :title, presence: true
   validates :slug, presence: true, uniqueness: true
 
   serialize :post_ids, JSON
@@ -14,11 +14,11 @@ class Tag < ActiveRecord::Base
   end
 
   def posts
-    Post.where(:id => post_ids)
+    Post.where(id: post_ids)
   end
 
   def self_and_aliases
-    [title] + aliases.to_s.split(",").map(&:strip)
+    [title] + aliases.to_s.split(',').map(&:strip)
   end
 
   def russian?
@@ -39,4 +39,3 @@ class Tag < ActiveRecord::Base
     self.slug = self.class.generate_slug(title)
   end
 end
-

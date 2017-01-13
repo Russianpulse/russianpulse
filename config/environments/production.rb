@@ -48,7 +48,7 @@ Rails.application.configure do
   config.log_level = :debug
 
   # Prepend all log lines with the following tags.
-  config.log_tags = [ :request_id ]
+  config.log_tags = [:request_id]
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
@@ -64,7 +64,7 @@ Rails.application.configure do
     address: ENV['SMTP_SERVER'],
     port: ENV['SMTP_SERVER_PORT'],
     user_name: ENV['SMTP_USER_NAME'],
-    password: ENV['SMTP_PASSWORD'],
+    password: ENV['SMTP_PASSWORD']
   }
 
   #############################################################################
@@ -83,7 +83,7 @@ Rails.application.configure do
   # require 'syslog/logger'
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
-  if ENV["RAILS_LOG_TO_STDOUT"].present?
+  if ENV['RAILS_LOG_TO_STDOUT'].present?
     logger           = ActiveSupport::Logger.new(STDOUT)
     logger.formatter = config.log_formatter
     config.logger = ActiveSupport::TaggedLogging.new(logger)
@@ -93,11 +93,11 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   Rails.application.config.middleware.use ExceptionNotification::Rack,
-    slack: {
-      webhook_url: ENV['SLACK_EXCEPTION_WEBHOOK_URL'],
-      channel: ENV['SLACK_EXCEPTION_CHANNEL'],
-      additional_parameters: {
-        mrkdwn: true
-      }
-    }
+                                          slack: {
+                                            webhook_url: ENV['SLACK_EXCEPTION_WEBHOOK_URL'],
+                                            channel: ENV['SLACK_EXCEPTION_CHANNEL'],
+                                            additional_parameters: {
+                                              mrkdwn: true
+                                            }
+                                          }
 end

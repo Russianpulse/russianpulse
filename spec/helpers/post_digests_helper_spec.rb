@@ -10,5 +10,5 @@ require 'rails_helper'
 #     end
 #   end
 # end
-RSpec.describe PostDigestsHelper, :type => :helper do
+RSpec.describe PostDigestsHelper, type: :helper do
 end

@@ -48,7 +48,6 @@ RSpec.describe HtmlCleanup do
     it { is_expected.not_to match('br') }
   end
 
-
   describe 'headers' do
     context do
       let(:source_html) { '<h1>Header</h1>' }
@@ -70,4 +69,3 @@ RSpec.describe HtmlCleanup do
     end
   end
 end
-

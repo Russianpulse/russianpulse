@@ -9,7 +9,7 @@ class CacheHeaterJob < ActiveJob::Base
 
     req = Net::HTTP::Get.new(uri)
 
-    req['Cookie'] = "#{ENV["CACHE_REVALIDATE_SECRET_COOKIE"]}=1"
+    req['Cookie'] = "#{ENV['CACHE_REVALIDATE_SECRET_COOKIE']}=1"
 
     res = Net::HTTP.start(uri.hostname, uri.port) do |http|
       http.request(req)

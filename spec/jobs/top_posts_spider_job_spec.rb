@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe TopPostsSpiderJob, :type => :job do
+RSpec.describe TopPostsSpiderJob, type: :job do
   let!(:post) { create :post }
 
   it 'should work' do

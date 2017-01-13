@@ -27,51 +27,51 @@ RSpec.describe CommentsController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # Comment. As you add validations to Comment, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) {
+  let(:valid_attributes) do
     {
       comment: FactoryGirl.attributes_for(:comment).merge(user_attributes: {
-        name: user_attributes[:name],
-        email: user_attributes[:email],
-      }), post_id: current_post.id
+                                                            name: user_attributes[:name],
+                                                            email: user_attributes[:email]
+                                                          }), post_id: current_post.id
     }
-  }
+  end
 
-  let(:invalid_attributes) {
-    { comment: { comment: "Me comment", user_attributes: { name: "Name", email: "bademail" } }, post_id: current_post.id }
-  }
+  let(:invalid_attributes) do
+    { comment: { comment: 'Me comment', user_attributes: { name: 'Name', email: 'bademail' } }, post_id: current_post.id }
+  end
 
-  let(:valid_session) {
+  let(:valid_session) do
     {}
-  }
+  end
 
   let(:current_post) { FactoryGirl.create(:post) }
 
-  describe "POST #create" do
+  describe 'POST #create' do
     before do
       expect(controller).to receive(:verify_recaptcha) { true }
     end
 
-    context "with valid params" do
+    context 'with valid params' do
       subject(:request) do
         post :create, params: valid_attributes, session: valid_session
       end
 
-      it "creates a new Comment" do
+      it 'creates a new Comment' do
         expect { request }.to change(current_post.comments, :count).by(1)
       end
 
-      it "assigns a newly created comment as @comment" do
+      it 'assigns a newly created comment as @comment' do
         request
         expect(assigns(:comment)).to be_a(Comment)
         expect(assigns(:comment)).to be_persisted
       end
 
-      it "redirects to the created comment" do
+      it 'redirects to the created comment' do
         request
         expect(response).to redirect_to(smart_post_path(current_post, anchor: "comment_#{assigns(:comment).id}"))
       end
 
-      it "should register a new user" do
+      it 'should register a new user' do
         expect { request }.to change(User, :count).by(1)
       end
 
@@ -87,13 +87,13 @@ RSpec.describe CommentsController, type: :controller do
         end
       end
 
-      context "when user already registered" do
+      context 'when user already registered' do
         let!(:user) { FactoryGirl.create :user, user_attributes }
-        it { expect{ request }.not_to change(User, :count) }
-        it { expect{ request }.to change(user.comments, :count).by(1) }
+        it { expect { request }.not_to change(User, :count) }
+        it { expect { request }.to change(user.comments, :count).by(1) }
       end
 
-      describe "user" do
+      describe 'user' do
         before do
           post :create, params: valid_attributes, session: valid_session
         end
@@ -104,12 +104,12 @@ RSpec.describe CommentsController, type: :controller do
       end
     end
 
-    context "with invalid params" do
+    context 'with invalid params' do
       subject(:request) do
         post :create, params: invalid_attributes, session: valid_session
       end
 
-      it "should not create a new Comment" do
+      it 'should not create a new Comment' do
         expect { request }.not_to change(current_post.comments, :count)
       end
 

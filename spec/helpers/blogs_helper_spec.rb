@@ -10,5 +10,5 @@ require 'rails_helper'
 #     end
 #   end
 # end
-RSpec.describe BlogsHelper, :type => :helper do
+RSpec.describe BlogsHelper, type: :helper do
 end

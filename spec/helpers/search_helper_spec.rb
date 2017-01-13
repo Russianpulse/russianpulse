@@ -10,5 +10,5 @@ require 'rails_helper'
 #     end
 #   end
 # end
-RSpec.describe SearchHelper, :type => :helper do
+RSpec.describe SearchHelper, type: :helper do
 end

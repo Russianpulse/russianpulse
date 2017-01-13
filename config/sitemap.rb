@@ -2,7 +2,6 @@
 SitemapGenerator::Sitemap.default_host = "#{ENV['SSL'] ? 'https' : 'http'}://#{Rails.configuration.x.domain}"
 SitemapGenerator::Interpreter.send :include, PostsHelper
 
-
 unless Rails.env.test?
   SitemapGenerator::Sitemap.adapter =
     SitemapGenerator::S3Adapter.new(fog_provider: 'AWS',
@@ -11,10 +10,8 @@ unless Rails.env.test?
                                     fog_directory: ENV['S3_BUCKET_NAME'],
                                     fog_region: ENV['S3_REGION'])
 
-
   SitemapGenerator::Sitemap.sitemaps_host = "http://#{ENV['S3_BUCKET_NAME']}.s3.amazonaws.com/"
 end
-
 
 SitemapGenerator::Sitemap.sitemaps_path = 'sitemaps/'
 
@@ -49,7 +46,6 @@ SitemapGenerator::Sitemap.create do
   add posts_path(top: 1), lastmod: Post.published.top.maximum(:created_at), changefreq: 'daily', priority: 1
   add rating_path, priority: 0.2
   add archive_path, lastmod: 1.day.ago, changefreq: 'monthly', priority: 0.5
-
 
   Blog.find_each do |blog|
     add blog_path(blog.slug), lastmod: blog.updated_at, changefreq: 'hourly', priority: 1

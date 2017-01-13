@@ -1,4 +1,4 @@
 require 'rails_helper'
 
-RSpec.describe UpdatePostsPerHourJob, :type => :job do
+RSpec.describe UpdatePostsPerHourJob, type: :job do
 end

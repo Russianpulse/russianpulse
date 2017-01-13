@@ -13,8 +13,7 @@ class CommentsController < ApplicationController
   end
 
   # GET /comments/1
-  def show
-  end
+  def show; end
 
   # GET /comments/new
   def new
@@ -22,8 +21,7 @@ class CommentsController < ApplicationController
   end
 
   # GET /comments/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /comments
   def create
@@ -41,18 +39,24 @@ class CommentsController < ApplicationController
         EventTracker.notify 'comments', 'create', <<-MSG
         #{@user.name}:
         #{@comment.comment}
-        #{@post.title} #{(comment_url(@comment) rescue :cant_get_comment_url)}
+        #{@post.title} #{(begin
+                            comment_url(@comment)
+                          rescue
+                            :cant_get_comment_url
+                          end)}
         MSG
 
-        sign_in @user rescue nil
-
-        if params[:subscribe] == '1'
-          @user.follow(@post)
+        begin
+          sign_in @user
+        rescue
+          nil
         end
+
+        @user.follow(@post) if params[:subscribe] == '1'
 
         notify_post_subscribers
 
-        redirect_to comment_path(@comment), notice: t("comments.thank_you")
+        redirect_to comment_path(@comment), notice: t('comments.thank_you')
       else
         redirect_to smart_post_path(@post)
       end
@@ -78,24 +82,25 @@ class CommentsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_comment
-      @comment = Comment.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def comment_params
-      params.require(:comment).permit(:comment)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_comment
+    @comment = Comment.find(params[:id])
+  end
 
-    def user_params
-      (params[:comment] || {}).require(:user_attributes).permit(:name, :email)
-    end
+  # Only allow a trusted parameter "white list" through.
+  def comment_params
+    params.require(:comment).permit(:comment)
+  end
 
-    def notify_post_subscribers
-      @post.followers.each do |follower|
-        next if follower == current_user
-        CommentsMailer.created(@comment, follower).deliver_later
-      end
+  def user_params
+    (params[:comment] || {}).require(:user_attributes).permit(:name, :email)
+  end
+
+  def notify_post_subscribers
+    @post.followers.each do |follower|
+      next if follower == current_user
+      CommentsMailer.created(@comment, follower).deliver_later
     end
+  end
 end

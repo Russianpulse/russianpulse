@@ -2,13 +2,11 @@ class DashboardController < ApplicationController
   def index
     authorize Post, :dashboard?
 
-    gon.push({
-      posts: {
-        trash: stream_as_json(:trash),
-        inbox: stream_as_json(:inbox),
-        pulse: stream_as_json(:pulse),
-      }
-    })
+    gon.push(posts: {
+               trash: stream_as_json(:trash),
+               inbox: stream_as_json(:inbox),
+               pulse: stream_as_json(:pulse)
+             })
   end
 
   def stream_count

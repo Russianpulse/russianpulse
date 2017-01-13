@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe "Posts", type: :request do
+RSpec.describe 'Posts', type: :request do
   include PostsHelper
 
-  describe "GET /" do
+  describe 'GET /' do
     context 'when no posts' do
       before { get root_path }
       it { expect(response).to have_http_status(200) }
@@ -22,7 +22,7 @@ RSpec.describe "Posts", type: :request do
     end
   end
 
-  describe "GET /recent" do
+  describe 'GET /recent' do
     let!(:post) { FactoryGirl.create :post }
     before { get posts_path }
     it { expect(response).to have_http_status(200) }
@@ -42,7 +42,7 @@ RSpec.describe "Posts", type: :request do
     end
   end
 
-  describe "GET smart_post_path" do
+  describe 'GET smart_post_path' do
     let!(:post) { FactoryGirl.create :post }
     before { get smart_post_path(post) }
     it { expect(response).to have_http_status(200) }
@@ -50,8 +50,6 @@ RSpec.describe "Posts", type: :request do
     context 'when source_url has non-ascii' do
       let!(:post) { FactoryGirl.create :post, source_url: 'http://khazin.ru/articles/10-vlast-i-obcshestvo/29019-u-edinorossov-prorezalsja-golos-pered-\u{201c}isaakievskim-protestom\u{201d}' }
       it { expect(response).to have_http_status(200) }
-
     end
   end
 end
-

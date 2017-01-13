@@ -7,7 +7,7 @@ class PostsController < ApplicationController
 
     @posts = @posts.older_than(Time.at(params[:before].to_f)) if params[:before].present?
 
-    @posts = @posts.top if params[:top] == "1"
+    @posts = @posts.top if params[:top] == '1'
 
     respond_to do |format|
       format.html do
@@ -25,20 +25,20 @@ class PostsController < ApplicationController
 
     if @post.blank?
       raise ActiveRecord::RecordNotFound if params[:slug_id].blank?
-        
+
       @slug_id = params[:slug_id]
       redirect_to goto_path(url: "http://goo.gl/#{@slug_id}")
 
       expires_in(1.hour, public: true)
     else
-      unless request.path == URI(smart_post_path(@post)).path
-        redirect_to smart_post_path(@post)
-      else
+      if request.path == URI(smart_post_path(@post)).path
         if @post.blocked?
           render template: 'posts/show_blocked'
         else
           render template: 'posts/show'
         end
+      else
+        redirect_to smart_post_path(@post)
       end
 
       fresh_when(etag: @post, last_modified: @post.updated_at, public: true)
@@ -47,9 +47,9 @@ class PostsController < ApplicationController
 
   def counter
     views = Post.where(id: params[:id]).pluck(:views).first
-    Post.where(id: params[:id]).update_all :accessed_at => Time.now, :views => views.to_i + 1
+    Post.where(id: params[:id]).update_all accessed_at: Time.now, views: views.to_i + 1
 
-    redirect_to "/counter.png", :protocol => request.ssl? ? "https://" : "http://"
+    redirect_to '/counter.png', protocol: request.ssl? ? 'https://' : 'http://'
   end
 
   private

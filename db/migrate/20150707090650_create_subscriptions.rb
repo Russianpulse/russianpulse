@@ -7,6 +7,6 @@ class CreateSubscriptions < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    add_index :subscriptions, :user_id, :unique => true
+    add_index :subscriptions, :user_id, unique: true
   end
 end

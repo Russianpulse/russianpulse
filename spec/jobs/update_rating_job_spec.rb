@@ -1,4 +1,4 @@
 require 'rails_helper'
 
-RSpec.describe UpdateRatingJob, :type => :job do
+RSpec.describe UpdateRatingJob, type: :job do
 end

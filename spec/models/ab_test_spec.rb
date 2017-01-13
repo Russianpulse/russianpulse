@@ -1,4 +1,4 @@
 require 'rails_helper'
 
-RSpec.describe AbTest, :type => :model do
+RSpec.describe AbTest, type: :model do
 end

@@ -10,5 +10,5 @@ require 'rails_helper'
 #     end
 #   end
 # end
-RSpec.describe ErrorsHelper, :type => :helper do
+RSpec.describe ErrorsHelper, type: :helper do
 end

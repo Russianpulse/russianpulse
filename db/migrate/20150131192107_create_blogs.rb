@@ -3,7 +3,7 @@ class CreateBlogs < ActiveRecord::Migration
     create_table :blogs do |t|
       t.string :title
       t.text :dscription
-      t.string :slug, :null => false
+      t.string :slug, null: false
       t.text :feed_url
       t.text :avatar_url
       t.datetime :checked_at
@@ -13,6 +13,6 @@ class CreateBlogs < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    add_index :blogs, :slug, :unique => true
+    add_index :blogs, :slug, unique: true
   end
 end

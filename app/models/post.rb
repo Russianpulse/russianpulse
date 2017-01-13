@@ -6,19 +6,19 @@ class Post < ActiveRecord::Base
 
   delegate :title, to: :blog, prefix: true, allow_nil: true
 
-  validates :title, :presence => true
-  validates :body, :presence => true
+  validates :title, presence: true
+  validates :body, presence: true
 
-  scope :recent, lambda { order("#{self.table_name}.created_at DESC") }
-  scope :newer_than, lambda { |date| where("#{self.table_name}.created_at > ?", date) }
-  scope :older_than, lambda { |date| where("#{self.table_name}.created_at < ?", date) }
-  scope :created_between, lambda { |from, to| where("#{self.table_name}.created_at >= ? AND #{self.table_name}.created_at <= ?", from, to) }
-  scope :popular, lambda { order("views DESC NULLS LAST") }
-  scope :unpopular, lambda { order("views, accessed_at DESC NULLS FIRST") }
-  scope :top, lambda { where('top = ? OR comments_count > 0', true) }
-  scope :with_picture, lambda { where("picture_url LIKE '%//%'") }
-  scope :most_discussed, lambda { where('comments_count > 0').order('comments_count DESC') }
-  scope :published, lambda { where(blocked_at: nil) }
+  scope :recent, -> { order("#{table_name}.created_at DESC") }
+  scope :newer_than, ->(date) { where("#{table_name}.created_at > ?", date) }
+  scope :older_than, ->(date) { where("#{table_name}.created_at < ?", date) }
+  scope :created_between, ->(from, to) { where("#{table_name}.created_at >= ? AND #{table_name}.created_at <= ?", from, to) }
+  scope :popular, -> { order('views DESC NULLS LAST') }
+  scope :unpopular, -> { order('views, accessed_at DESC NULLS FIRST') }
+  scope :top, -> { where('top = ? OR comments_count > 0', true) }
+  scope :with_picture, -> { where("picture_url LIKE '%//%'") }
+  scope :most_discussed, -> { where('comments_count > 0').order('comments_count DESC') }
+  scope :published, -> { where(blocked_at: nil) }
 
   before_create :set_accessed_at
   after_save -> { PingerJob.perform_later(self) }
@@ -36,7 +36,7 @@ class Post < ActiveRecord::Base
   end
 
   def source_url
-    self[:source_url] unless blog.hide_source_url? 
+    self[:source_url] unless blog.hide_source_url?
   end
 
   def title
@@ -63,22 +63,21 @@ class Post < ActiveRecord::Base
     friendly_param.presence || "#{id}-#{title.parameterize}"
   end
 
-  def related(options={})
+  def related(options = {})
     limit = options[:limit] || 10
 
     ids = Rails.cache.fetch("#{cache_key}#related##{options.to_json}") do
-
       result = []
 
       _tags = tags
 
       (1..[_tags.size, 3].min).to_a.reverse.each do |n|
-        _tags.sort_by{ |t| t.post_ids.size }.combination(n).each do |tags_combination|
-          tagged = tags_combination.map{ |t| t.post_ids}.inject(&:&)
+        _tags.sort_by { |t| t.post_ids.size }.combination(n).each do |tags_combination|
+          tagged = tags_combination.map(&:post_ids).inject(&:&)
 
           tagged ||= []
 
-          tagged = tagged - [self.id]
+          tagged -= [id]
 
           # only older than current
           result += tagged.reject { |id| id > self.id }

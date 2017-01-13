@@ -1,7 +1,7 @@
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe CommentsMailer, type: :mailer do
-  describe "created" do
+  describe 'created' do
     let(:comment) { create :comment }
     let(:user) {  build :user }
     let(:mail) { CommentsMailer.created(comment, user) }

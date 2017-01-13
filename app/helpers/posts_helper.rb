@@ -8,7 +8,7 @@ module PostsHelper
     post_permalink_url(post.slug_id.presence || post.id)
   end
 
-  def smart_post_path(post, options={})
+  def smart_post_path(post, options = {})
     blog_slug = Rails.cache.fetch("Blog#slug##{post.blog_id}", expires_in: 1.hour) { post.blog.slug }
 
     options = {
@@ -16,19 +16,19 @@ module PostsHelper
       blog: blog_slug,
       year: post.created_at.year,
       month: post.created_at.strftime('%m'),
-      day: post.created_at.strftime('%d'),
+      day: post.created_at.strftime('%d')
     }.merge(options)
 
     options[:id] = post.to_param
-    post_url options.merge( :only_path => true )
+    post_url options.merge(only_path: true)
   end
 
-  def smart_post_url(post, options={})
+  def smart_post_url(post, options = {})
     "http://#{Rails.configuration.x.domain}#{smart_post_path(post, options)}"
   end
 
   def post_descritpion_has_image?(post)
-    Nokogiri::HTML(post_description_with_cut(post)).css('img').size > 0
+    !Nokogiri::HTML(post_description_with_cut(post)).css('img').empty?
   end
 
   def post_description_short(post, max_length = 500)
@@ -43,9 +43,7 @@ module PostsHelper
 
       result = text.sub(/[^.!?]+\z/, '')
 
-      if result.size < (max_length * 0.65)
-        result = text[0..-6] + ' […] '
-      end
+      result = text[0..-6] + ' […] ' if result.size < (max_length * 0.65)
 
       raw(result)
     else

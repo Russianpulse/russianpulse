@@ -10,7 +10,7 @@ module UriHelper
   end
 
   def favicon_icon(url)
-    image_tag favicon_url(url), :width => 16, :height => 16, :alt => "", :title => ""
+    image_tag favicon_url(url), width: 16, height: 16, alt: '', title: ''
   end
 
   def gravatar_url(email, args = {})

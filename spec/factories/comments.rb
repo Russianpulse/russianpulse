@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :comment do
-    comment "Some comment"
+    comment 'Some comment'
     user
     commentable { build :post }
   end

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature "PostsSnippetsAdults", type: :feature do
+RSpec.feature 'PostsSnippetsAdults', type: :feature do
   let(:post) { FactoryGirl.create(:post) }
   let(:post_path) { [post.blog.slug, post.created_at.year, post.created_at.month, post.created_at.day, post.id].join('/') }
 
@@ -10,7 +10,7 @@ RSpec.feature "PostsSnippetsAdults", type: :feature do
 
   scenario 'when post has picture ads should be hidden' do
     post.update_columns(
-      picture_url: 'http://example.com/pic.jpeg',
+      picture_url: 'http://example.com/pic.jpeg'
     )
 
     visit post_path
@@ -20,7 +20,7 @@ RSpec.feature "PostsSnippetsAdults", type: :feature do
 
   scenario 'when post has no picture ads should be displayed' do
     post.update_columns(
-      picture_url: nil,
+      picture_url: nil
     )
 
     visit post_path

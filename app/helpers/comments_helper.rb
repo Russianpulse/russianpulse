@@ -7,7 +7,7 @@ module CommentsHelper
     smart_post_url(comment.commentable, anchor: "comment_#{comment.id}")
   end
 
-  def comments_link(commentable, options={})
+  def comments_link(commentable, options = {})
     return if (commentable.comments_count <= 0) && !options[:without_comments]
 
     content_tag :span, class: (options[:class] || 'pull-right'), title: t(:discussion) do

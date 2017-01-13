@@ -2,8 +2,6 @@ require 'exception_notification/rails'
 
 require 'exception_notification/sidekiq'
 
-
-
 ExceptionNotification.configure do |config|
   # Ignore additional exception types.
   # ActiveRecord::RecordNotFound, Mongoid::Errors::DocumentNotFound, AbstractController::ActionNotFound and ActionController::RoutingError are already added.
@@ -13,8 +11,8 @@ ExceptionNotification.configure do |config|
 
   # Adds a condition to decide when an exception must be ignored or not.
   # The ignore_if method can be invoked multiple times to add extra conditions.
-  config.ignore_if do |exception, options|
-    not Rails.env.production?
+  config.ignore_if do |_exception, _options|
+    !Rails.env.production?
   end
 
   # Notifiers =================================================================
@@ -26,13 +24,11 @@ ExceptionNotification.configure do |config|
   #   :exception_recipients => %w{sergei.udalov@gmail.com}
   # }
 
-  config.add_notifier :slack, {
-    :webhook_url => ENV['SLACK_EXCEPTION_WEBHOOK_URL'],
-    :channel => ENV['SLACK_EXCEPTION_CHANNEL'],
-    :additional_parameters => {
-      :mrkdwn => true
-    }
-  }
+  config.add_notifier :slack, webhook_url: ENV['SLACK_EXCEPTION_WEBHOOK_URL'],
+                              channel: ENV['SLACK_EXCEPTION_CHANNEL'],
+                              additional_parameters: {
+                                mrkdwn: true
+                              }
 
   # Campfire notifier sends notifications to your Campfire room. Requires 'tinder' gem.
   # config.add_notifier :campfire, {
@@ -52,5 +48,4 @@ ExceptionNotification.configure do |config|
   #   :url => 'http://example.com:5555/hubot/path',
   #   :http_method => :post
   # }
-
 end

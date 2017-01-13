@@ -10,5 +10,5 @@ require 'rails_helper'
 #     end
 #   end
 # end
-RSpec.describe RobotsHelper, :type => :helper do
+RSpec.describe RobotsHelper, type: :helper do
 end

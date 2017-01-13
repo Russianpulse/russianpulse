@@ -5,7 +5,7 @@ class UpdateBlogJob < ActiveJob::Base
 
   include ActionView::Helpers::SanitizeHelper
 
-  def perform(blog=nil, force=false)
+  def perform(blog = nil, force = false)
     if blog.nil?
       Blog.with_feed.find_each do |blog|
         UpdateBlogJob.perform_later blog
@@ -18,11 +18,11 @@ class UpdateBlogJob < ActiveJob::Base
 
     logger.info "Updating blog #{blog.id} feed '#{blog.feed_url}'"
 
-    result = Timeout::timeout(30) do
+    result = Timeout.timeout(30) do
       Feedjira::Feed.fetch_and_parse(blog.feed_url)
     end
 
-    EventTracker.track "Blogs", "Feed update", blog.title
+    EventTracker.track 'Blogs', 'Feed update', blog.title
 
     if result.is_a? Numeric
       raise "Updating blog #{blog.id} faild, feedzirra status code '#{result}'"
@@ -40,18 +40,18 @@ class UpdateBlogJob < ActiveJob::Base
       end
 
       if entry.url.blank?
-        logger.error "Entry has blank url"
+        logger.error 'Entry has blank url'
         next
       end
 
       entry_url = url_after_redirects(entry.url)
 
       # иначе youtube ленты содержат дубликаты
-      entry_url.sub("&feature=youtube_gdata", "")
+      entry_url.sub('&feature=youtube_gdata', '')
 
-      post_body = entry.content.presence || entry.summary || ""
+      post_body = entry.content.presence || entry.summary || ''
 
-      if blog.posts.exists?(:source_url => entry_url)
+      if blog.posts.exists?(source_url: entry_url)
         # TODO: обновлять статью
         logger.warn "Entry #{entry.url} is already added"
         next
@@ -68,27 +68,23 @@ class UpdateBlogJob < ActiveJob::Base
                      [entry.published.to_time, Time.now].min
                    end
 
-        if caps? title
-          title = title.mb_chars.capitalize.to_s
-        end
+        title = title.mb_chars.capitalize.to_s if caps? title
 
-        post = blog.posts.new({
-          body: HtmlCleanup.new(blog.cleanup_html(post_body)).cleanup,
-          created_at: pub_date,
-          source_url: entry_url,
-          title: Typogruby.improve(strip_tags(title)),
-          stream: blog.default_stream
-        })
+        post = blog.posts.new(body: HtmlCleanup.new(blog.cleanup_html(post_body)).cleanup,
+                              created_at: pub_date,
+                              source_url: entry_url,
+                              title: Typogruby.improve(strip_tags(title)),
+                              stream: blog.default_stream)
 
         if post.valid?
           post.save!
-          EventTracker.track "Blogs", "Created post via Feed", blog.title
+          EventTracker.track 'Blogs', 'Created post via Feed', blog.title
           TaggerJob.perform_later post
           ImageFinderJob.perform_later post
 
           logger.info "Post ##{post.id} created!"
         else
-          EventTracker.track "Blogs", "Failed to create post via Feed", blog.title
+          EventTracker.track 'Blogs', 'Failed to create post via Feed', blog.title
         end
       else
         logger.error "Entry #{entry_url} has no title!"
@@ -110,7 +106,7 @@ class UpdateBlogJob < ActiveJob::Base
 
   # получаем полный url - после редиректов
   def url_after_redirects(source_url)
-    follow_url = lambda { |url| HTTPClient.new.head(url).header['Location'][0] }
+    follow_url = ->(url) { HTTPClient.new.head(url).header['Location'][0] }
 
     target_url = source_url
 

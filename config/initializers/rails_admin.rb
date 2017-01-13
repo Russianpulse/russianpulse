@@ -2,7 +2,7 @@ require 'i18n'
 I18n.default_locale = :en
 
 RailsAdmin.config do |config|
-  config.excluded_models << "PostArchived"
+  config.excluded_models << 'PostArchived'
 
   ### Popular gems integration
 
@@ -36,13 +36,13 @@ RailsAdmin.config do |config|
     # history_show
   end
 
-  config.model 'Blog' do 
+  config.model 'Blog' do
     configure :posts do
       hide
     end
   end
 
-  config.model 'Tag' do 
+  config.model 'Tag' do
     configure :post_ids do
       hide
     end
@@ -50,7 +50,7 @@ RailsAdmin.config do |config|
 
   config.authorize_with do
     authenticate_or_request_with_http_basic('Rails admin') do |username, password|
-      username == (ENV["ADMIN_USERNAME"] || 'admin') && password == (ENV["ADMIN_PASSWORD"] || 'secret')
+      username == (ENV['ADMIN_USERNAME'] || 'admin') && password == (ENV['ADMIN_PASSWORD'] || 'secret')
     end
   end
 end

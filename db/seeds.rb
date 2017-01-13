@@ -34,7 +34,6 @@
   Snippet.find_or_create_by(key: key)
 end
 
-unless Blog.exists?(slug: "archive")
-  Blog.create(:title => "Archive", :slug => "archive")
+unless Blog.exists?(slug: 'archive')
+  Blog.create(title: 'Archive', slug: 'archive')
 end
-

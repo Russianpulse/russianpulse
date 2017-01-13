@@ -25,9 +25,7 @@ Rails.application.routes.draw do
 
   get '/p/views/:id' => 'posts#counter'
 
-
   get 'digest/:slug' => 'post_digests#show', :as => :digest
-
 
   get 'about' => 'static#about', as: :about
 
@@ -39,9 +37,9 @@ Rails.application.routes.draw do
     post 'cleanup', action: :cleanup
   end
 
-  get 'tags/:tag' => "tags#show", :as => :tag
+  get 'tags/:tag' => 'tags#show', :as => :tag
 
-  get 'recent' => "posts#index", :as => :posts
+  get 'recent' => 'posts#index', :as => :posts
 
   scope path: '/admin' do
     mount RailsAdmin::Engine => '/rails_admin', as: 'rails_admin'
@@ -59,19 +57,18 @@ Rails.application.routes.draw do
 
   resources :blogs, only: :index
 
-  get ':blog/:year/:month/:day/:id' => "posts#show", :as => :post
-  get ':blog/:year/:month/:day/:slug_id/:title' => "posts#show", :as => :post_with_slug
-  get 'posts/:slug_id' => "posts#show", as: :post_permalink
+  get ':blog/:year/:month/:day/:id' => 'posts#show', :as => :post
+  get ':blog/:year/:month/:day/:slug_id/:title' => 'posts#show', :as => :post_with_slug
+  get 'posts/:slug_id' => 'posts#show', as: :post_permalink
 
-  get "/main" => "posts#index" # legacy
-  get ':slug' => "blogs#show", :as => :blog
-
+  get '/main' => 'posts#index' # legacy
+  get ':slug' => 'blogs#show', :as => :blog
 
   if Rails.env.development?
     get '/rails/mailers' => 'rails/mailers#index'
     mount LetterOpenerWeb::Engine, at: '/rails/inbox'
   else
-    get '*a', :to => 'errors#not_found'
+    get '*a', to: 'errors#not_found'
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

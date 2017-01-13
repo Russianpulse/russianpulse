@@ -2,7 +2,7 @@ class SluggerJob < ActiveJob::Base
   queue_as :default
 
   # Запоминаем короткую ссылку на источник, откуда будем восстанвливать
-  def perform(*args)
+  def perform(*_args)
     counter = 0
 
     begin
@@ -11,7 +11,7 @@ class SluggerJob < ActiveJob::Base
         counter += 1
       end
     rescue StandardError => ex
-      EventTracker.track "Jobs", "Slugs added", nil, counter
+      EventTracker.track 'Jobs', 'Slugs added', nil, counter
       raise ex
     end
   end

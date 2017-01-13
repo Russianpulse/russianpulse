@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Blog, :type => :model do
+RSpec.describe Blog, type: :model do
   let(:blog) { FactoryGirl.create :blog }
 
   describe '#cleanup_html' do
@@ -8,7 +8,7 @@ RSpec.describe Blog, :type => :model do
 
     let(:blog) { Blog.new }
 
-    let(:source_html) {
+    let(:source_html) do
       <<-HTML
       <title>Title</title>
       <body>
@@ -25,26 +25,26 @@ RSpec.describe Blog, :type => :model do
       </body>
 
       HTML
-    }
+    end
 
-    it "should remove by regexp rule" do
+    it 'should remove by regexp rule' do
       blog.text_cleanup_rules = "remove regexp /what do\s?you/i"
-      is_expected.not_to include("What do You")
+      is_expected.not_to include('What do You')
     end
 
-    it "should remove by css rule" do
-      blog.text_cleanup_rules = "remove css .social-buttons"
-      is_expected.not_to include("VK")
+    it 'should remove by css rule' do
+      blog.text_cleanup_rules = 'remove css .social-buttons'
+      is_expected.not_to include('VK')
     end
 
-    it "should select by css rule" do
-      blog.text_cleanup_rules = "select css .post-body"
-      is_expected.not_to include("footer")
+    it 'should select by css rule' do
+      blog.text_cleanup_rules = 'select css .post-body'
+      is_expected.not_to include('footer')
     end
 
-    it "should not raise when no rules" do
+    it 'should not raise when no rules' do
       blog.text_cleanup_rules = nil
-      expect{ subject }.not_to raise_error
+      expect { subject }.not_to raise_error
     end
 
     context 'when fetching from ftr.fivefilters.org' do
@@ -52,7 +52,7 @@ RSpec.describe Blog, :type => :model do
         blog.feed_url = 'http://ftr.fivefilters.org/makefulltextfeed.php?url=http%3A%2F%2Fwww.novorosinform.org%2Frss%2Frss.xml&max=3'
       end
 
-      let(:source_html) {
+      let(:source_html) do
         <<-HTML
         <title>Title</title>
         <body>
@@ -63,7 +63,7 @@ RSpec.describe Blog, :type => :model do
         </body>
 
         HTML
-      }
+      end
 
       it { expect { subject }.not_to raise_error }
       it { is_expected.not_to include('Let\'s block') }
@@ -96,7 +96,7 @@ RSpec.describe Blog, :type => :model do
 
   describe '#failed_to_check!' do
     context 'when blog has invalid post' do
-      let(:invalid_post_attributes) { { title: ''} }
+      let(:invalid_post_attributes) { { title: '' } }
 
       before do
         blog.posts.build invalid_post_attributes

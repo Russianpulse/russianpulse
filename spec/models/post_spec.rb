@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Post, :type => :model do
+RSpec.describe Post, type: :model do
   describe '.published' do
     subject { Post.published }
     let!(:post) { FactoryGirl.create :post }

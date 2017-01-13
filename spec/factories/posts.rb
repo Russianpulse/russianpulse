@@ -1,9 +1,9 @@
 FactoryGirl.define do
   factory :post do
     sequence(:title) { |n| "Title #{n}" }
-    body "Body"
+    body 'Body'
     blog
-    
+
     trait :top do
       top true
     end
