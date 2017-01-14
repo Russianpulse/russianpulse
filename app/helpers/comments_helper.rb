@@ -11,7 +11,7 @@ module CommentsHelper
     return if (commentable.comments_count <= 0) && !options[:without_comments]
 
     content_tag :span, class: (options[:class] || 'pull-right'), title: t(:discussion) do
-      link_to smart_post_path(commentable, anchor: 'comments'), class: 'no-underline' do
+      link_to smart_post_path(commentable, anchor: 'comments'), class: 'no-underline', data: { turbolinks: false } do
         concat glyphicon(:comment)
         concat raw('&nbsp;')
         concat commentable.comments_count if commentable.comments_count.positive?
