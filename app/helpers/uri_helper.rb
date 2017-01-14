@@ -1,6 +1,6 @@
 module UriHelper
   def host_from_url(url)
-    URI(url).host recsue URI("http://#{Rails.configuration.x.domain}").host
+    URI(url).host
   rescue
     nil
   end

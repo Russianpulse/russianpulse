@@ -27,7 +27,7 @@
     &nbsp;
     <%= link_to @post.source_url, title: t(:original), target: '_blank', class: 'no-decoration' do %>
       <%= favicon_icon(@post.source_url) %>
-      <%= host_from_url @post.source_url %>
+      <span class='source-url-host'><%= host_from_url @post.source_url %></span>
     <% end %>
   <% end %>
 
