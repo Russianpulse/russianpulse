@@ -24,43 +24,44 @@
 //= require_tree ./templates
 //= require ./views/news_dashboard
 
-mrk.markUserOnce("first_visit_at", Math.floor(Date.now() / 1000));
-mrk.markUserOnce("first_visit_url", window.location.href);
-mrk.markUserOnce("first_visit_referrer", document.referrer);
-mrk.counterIncrement("pageviews");
+document.addEventListener("turbolinks:load", function() {
+  mrk.markUserOnce("first_visit_at", Math.floor(Date.now() / 1000));
+  mrk.markUserOnce("first_visit_url", window.location.href);
+  mrk.markUserOnce("first_visit_referrer", document.referrer);
+  mrk.counterIncrement("pageviews");
 
-if(mrk.getCounter("pageviews") == 2) {
-  ga('send', 'event', 'Users', 'Return', {'nonInteraction': 1});
-}
+  if(mrk.getCounter("pageviews") == 2) {
+    ga('send', 'event', 'Users', 'Return', {'nonInteraction': 1});
+  }
 
-// Отправляем внешние переходы в GA
-$("a").click(function() {
-  if(typeof ga === "function") {
-    var a = $(this);
-    var url = $(this).attr("href");
+  // Отправляем внешние переходы в GA
+  $("a").click(function() {
+    if(typeof ga === "function") {
+      var a = $(this);
+      var url = $(this).attr("href");
 
-    if( links.is_external(url) ) {
-      // Если не сработает, то фиг с ним. Если делать через window.open, 
-      // то может срабатывать блокировка попапов, что вообще недопустимо
-      ga('send', 'event', 'outbound', 'click', url, { transport: 'beacon' });
+      if( links.is_external(url) ) {
+        // Если не сработает, то фиг с ним. Если делать через window.open, 
+        // то может срабатывать блокировка попапов, что вообще недопустимо
+        ga('send', 'event', 'outbound', 'click', url, { transport: 'beacon' });
+      }
     }
-  }
+  });
+
+  $("a").each(function() {
+    if(links.is_external($(this).attr("href"))) {
+      $(this).attr("href", links.add_params($(this).attr("href"), {
+        "utm_source": "<%= Rails.configuration.x.domain %>",
+        "utm_medium": "link",
+        "utm_compaign": "article",
+      }));
+    }
+  })
+
+  $(".memorized-field").each(function() {
+    new MemorizedField($(this));
+  });
 });
-
-$("a").each(function() {
-  if(links.is_external($(this).attr("href"))) {
-    $(this).attr("href", links.add_params($(this).attr("href"), {
-      "utm_source": "<%= Rails.configuration.x.domain %>",
-      "utm_medium": "link",
-      "utm_compaign": "article",
-    }));
-  }
-})
-
-$(".memorized-field").each(function() {
-  new MemorizedField($(this));
-});
-
 
 $(".js-news-dashboard").each(function() {
   var widget = new Views.NewsDashboard({ el: $(this) });
