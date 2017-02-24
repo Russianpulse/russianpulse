@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170223105158) do
+ActiveRecord::Schema.define(version: 20170224130254) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20170223105158) do
     t.integer  "health_status",      default: 0
     t.string   "default_stream",     default: "inbox", null: false
     t.string   "podcast_url"
+    t.string   "type"
     t.index ["featured"], name: "index_blogs_on_featured", using: :btree
     t.index ["rating"], name: "index_blogs_on_rating", using: :btree
     t.index ["slug"], name: "index_blogs_on_slug", unique: true, using: :btree
@@ -111,6 +112,7 @@ ActiveRecord::Schema.define(version: 20170223105158) do
     t.string   "stream",         default: "inbox"
     t.text     "body"
     t.text     "enclosures"
+    t.string   "type"
     t.index ["comments_count"], name: "index_posts_on_comments_count", using: :btree
     t.index ["created_at"], name: "index_posts_on_created_at", using: :btree
     t.index ["slug_id"], name: "index_posts_on_slug_id", unique: true, using: :btree

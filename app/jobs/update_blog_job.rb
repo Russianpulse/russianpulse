@@ -9,8 +9,13 @@ class UpdateBlogJob < ActiveJob::Base
 
   def perform(blog = nil, force = false)
     if blog.nil?
-      Blog.with_feed.find_each do |blog|
-        UpdateBlogJob.perform_later blog
+      BlogBase.with_feed.find_each do |blog|
+        case blog
+        when Blog
+          UpdateBlogJob.perform_later blog
+        when Podcast
+          UpdatePodcastJob.perform_later blog
+        end
       end
 
       return
