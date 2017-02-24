@@ -1,10 +1,13 @@
 class PostBase < ActiveRecord::Base
   self.table_name = 'posts'
-  serialize :related_ids, JSON
-  serialize :enclosures, JSON
 
   acts_as_commentable
   acts_as_followable
+
+  serialize :related_ids, JSON
+  serialize :enclosures, JSON
+
+  belongs_to :blog, class_name: 'BlogBase'
 
   delegate :title, to: :blog, prefix: true, allow_nil: true
 
