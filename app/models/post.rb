@@ -3,6 +3,7 @@ class Post < ActiveRecord::Base
   acts_as_followable
   belongs_to :blog
   serialize :related_ids, JSON
+  serialize :enclosures, JSON
 
   delegate :title, to: :blog, prefix: true, allow_nil: true
 
