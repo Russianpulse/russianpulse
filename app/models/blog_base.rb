@@ -6,7 +6,7 @@ class BlogBase < ActiveRecord::Base
   MAX_FETCHES_STORED = 10
   serialize :recent_fetches, Array
 
-  has_many :posts, dependent: :destroy, foreign_key: :blog_id
+  has_many :posts, dependent: :destroy, foreign_key: :blog_id, class_name: 'PostBase'
 
   validates :title, presence: true
   validates :slug, presence: true

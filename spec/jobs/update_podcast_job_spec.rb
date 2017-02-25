@@ -3,7 +3,7 @@ require 'open-uri'
 
 RSpec.describe UpdatePodcastJob, type: :job do
   let(:job) { UpdatePodcastJob.new }
-  let(:blog) { Podcast.new title: 'Blog', slug: 'blog' }
+  let(:blog) { create :podcast }
 
   describe '#perform' do
     before do
@@ -23,12 +23,12 @@ RSpec.describe UpdatePodcastJob, type: :job do
           VCR.use_cassette :podcast_feed do
             job.perform(blog)
           end
-          blog.posts.last
+          blog.episodes.reload.last
         end
 
         let(:default_stream) { :inbox }
-        let(:blog) { create :blog, default_stream: default_stream }
 
+        it { is_expected.to be_an Episode }
         its(:enclosures) { is_expected.to be_present }
       end
     end
