@@ -40,7 +40,7 @@
 
     <div class="row" style="min-height: 430px">
       <div class="col-md-12">
-        <div class="controller-<%= params[:controller] %> action-<%= params[:controller] %>-<%= params[:action] %>">
+        <div class="controller-<%= params[:controller].gsub('/', '-') %> action-<%= params[:controller].gsub('/', '-') %>-<%= params[:action] %>">
 
           <%= yield %>
         </div>

@@ -48,7 +48,7 @@ document.addEventListener("turbolinks:load", function() {
     }
   });
 
-  $("a").each(function() {
+  $("a").not('.skip-utm').each(function() {
     if(links.is_external($(this).attr("href"))) {
       $(this).attr("href", links.add_params($(this).attr("href"), {
         "utm_source": "<%= Rails.configuration.x.domain %>",

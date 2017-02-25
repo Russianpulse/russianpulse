@@ -1,20 +1,54 @@
-<h1>Подкасты</h1>
+<h1>
+  <i class='fa fa-podcast'></i>
+  Подкасты
+</h1>
 
-<% @episodes.recent.limit(10).each do |episode| %>
-  <div class='row'>
-    <div class="col-md-2">
-      <%= image_tag episode.podcast.avatar_url %>
+<ol class="breadcrumb">
+  <li>
+    <%= link_to('Подкасты', podcasts_root_path)  %>
+  </li>
+  <% if params[:before].present? %>
+    <li class="active"><%= raw "Подкасты до #{format_date Time.at(params[:before].to_f)}" %></li>
+  <% else %>
+    <li class="active">Новые</li>
+  <% end %>
+</ol>
+
+<% @episodes.each do |episode| %>
+  <div class='episode media'>
+    <div class="media-left">
+      <%= image_tag episode.podcast.avatar_url, class: 'media-object' %>
     </div>
-    <div class="col-md-10">
-      <h2><%= episode.title %></h2>
+    <div class="media-body">
+      <div class='details'>
+        <h2 class='media-heading'><%= episode.title %></h2>
+        <span class='podcast'><%= episode.podcast.title %></span>
+        <span class='date'><%= format_date episode.created_at %></span>
 
-      <%= raw episode.body %>
+        <div class='player'>
+          <audio controls='controls' preload='none'>
+            <source src="<%= episode.enclosure_mp3 %>" type="audio/mpeg">
+          </audio>
+        </div>
+      </div>
 
-      <% episode.enclosures.each do |enclosure| %>
-        <audio controls>
-          <source src="<%= enclosure %>" type="audio/mpeg">
-        </audio>
-      <% end %>
+
+      <div class='btn-group' role='group'>
+        <%= link_to episode.enclosure_mp3, class: 'btn btn-default skip-utm' do %>
+          <i class='fa fa-download'></i>
+          Скачать (mp3)
+        <% end %>
+        <%= link_to episode.podcast.feed_url, class: 'btn btn-default skip-utm' do %>
+          <i class='fa fa-podcast'></i>
+          Подписаться
+        <% end %>
+      </div>
     </div>
   </div>
+<% end %>
+
+<% if Episode.older_than(@episodes.last.try(:created_at)).exists? %>
+  <%= link_to("Дальше →", url_for(:before => @episodes.last.created_at.to_f ), :class => "btn btn-default")  %>
+<% else %>
+  <%= link_to("Дальше →", "#", :class => "btn btn-default disabled")  %>
 <% end %>
