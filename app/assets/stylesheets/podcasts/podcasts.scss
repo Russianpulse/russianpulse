@@ -1,11 +1,11 @@
 .controller-podcasts-podcasts {
+  .fa-podcast {
+    color: rgb(170, 70, 220);
+  }
+
   .episode {
     border: 1px solid #efefef;
     margin-bottom: 20px;
-
-    .fa-podcast {
-      color: rgb(170, 70, 220);
-    }
 
     img {
       height: 88px;

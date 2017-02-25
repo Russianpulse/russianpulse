@@ -12,6 +12,12 @@
   <div class='col-xs-6'>
     <div class="top-nav-bar pull-right">
       <span class='top-nav-bar__item'>
+        <%= link_to podcasts_root_path do %>
+          <i class='fa fa-podcast'></i>
+          Подкасты
+        <% end %>
+      </span>
+      <span class='top-nav-bar__item'>
         <%= link_to 'Новое', posts_path %>
       </span>
       <span class='top-nav-bar__item'>

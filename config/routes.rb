@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   namespace :podcasts do
-    get '/', to: 'podcasts#index', as: :podcasts
+    get '/', to: 'podcasts#index', as: :root
   end
 
   scope path: '/archive', controller: :archive do

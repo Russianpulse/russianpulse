@@ -1,6 +1,20 @@
-<h1>Подкасты</h1>
+<h1>
+  <i class='fa fa-podcast'></i>
+  Подкасты
+</h1>
 
-<% @episodes.recent.limit(10).each do |episode| %>
+<ol class="breadcrumb">
+  <li>
+    <%= link_to('Подкасты', podcasts_root_path)  %>
+  </li>
+  <% if params[:before].present? %>
+    <li class="active"><%= raw "Подкасты до #{format_date Time.at(params[:before].to_f)}" %></li>
+  <% else %>
+    <li class="active">Новые</li>
+  <% end %>
+</ol>
+
+<% @episodes.each do |episode| %>
   <div class='episode media'>
     <div class="media-left">
       <%= image_tag episode.podcast.avatar_url, class: 'media-object' %>
@@ -31,4 +45,10 @@
       </div>
     </div>
   </div>
+<% end %>
+
+<% if Episode.older_than(@episodes.last.try(:created_at)).exists? %>
+  <%= link_to("Дальше →", url_for(:before => @episodes.last.created_at.to_f ), :class => "btn btn-default")  %>
+<% else %>
+  <%= link_to("Дальше →", "#", :class => "btn btn-default disabled")  %>
 <% end %>
