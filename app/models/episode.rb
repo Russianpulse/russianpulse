@@ -4,4 +4,3 @@ class Episode < PostBase
 
   validates :enclosures, presence: true
 end
-

@@ -132,4 +132,3 @@ class PostBase < ActiveRecord::Base
     end
   end
 end
-
