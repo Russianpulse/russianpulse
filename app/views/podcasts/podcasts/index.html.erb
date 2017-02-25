@@ -1,0 +1,20 @@
+<h1>Подкасты</h1>
+
+<% @episodes.recent.limit(10).each do |episode| %>
+  <div class='row'>
+    <div class="col-md-2">
+      <%= image_tag episode.podcast.avatar_url %>
+    </div>
+    <div class="col-md-10">
+      <h2><%= episode.title %></h2>
+
+      <%= raw episode.body %>
+
+      <% episode.enclosures.each do |enclosure| %>
+        <audio controls>
+          <source src="<%= enclosure %>" type="audio/mpeg">
+        </audio>
+      <% end %>
+    </div>
+  </div>
+<% end %>

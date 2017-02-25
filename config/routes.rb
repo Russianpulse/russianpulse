@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  namespace :podcasts do
+    get '/', to: 'podcasts#index', as: :podcasts
+  end
+
   scope path: '/archive', controller: :archive do
     get '/', action: :index, as: :archive
     get '/:year/:month/:day', action: :day, as: :archive_day
