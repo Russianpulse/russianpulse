@@ -5,7 +5,6 @@ class PostBase < ActiveRecord::Base
   acts_as_followable
 
   serialize :related_ids, JSON
-  serialize :enclosures, JSON
 
   belongs_to :blog, class_name: 'BlogBase'
 

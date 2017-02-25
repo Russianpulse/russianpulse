@@ -53,8 +53,8 @@ ActiveRecord::Schema.define(version: 20170224130254) do
   create_table "comments", force: :cascade do |t|
     t.string   "title",            limit: 50, default: ""
     t.text     "comment"
-    t.string   "commentable_type"
     t.integer  "commentable_id"
+    t.string   "commentable_type"
     t.integer  "user_id"
     t.string   "role",                        default: "comments"
     t.datetime "created_at"
