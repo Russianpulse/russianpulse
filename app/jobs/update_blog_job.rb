@@ -54,7 +54,7 @@ class UpdateBlogJob < ActiveJob::Base
       end
 
       if entry.title.blank?
-        logger.error "Entry #{entry_url} has no title!"
+        logger.error "Entry #{entry.url} has no title!"
         next
       end
 
