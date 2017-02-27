@@ -1,7 +1,7 @@
 (function() {
   var links = window.links = function() {}
 
-  var domainRe = /https?:\/\/((?:[\w\d-.]+\.)+[\w\d]{2,})/i;
+  var domainRe = /\/\/((?:[\w\d-.]+\.)+[\w\d]{2,})/i;
 
   var domain = links.domain = function(url) {
     var match = domainRe.exec(url);
