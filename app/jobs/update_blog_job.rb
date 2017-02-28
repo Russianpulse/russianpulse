@@ -134,11 +134,12 @@ class UpdateBlogJob < ActiveJob::Base
 
     title = title.mb_chars.capitalize.to_s if caps? title
 
-    post = blog.posts.new(body: HtmlCleanup.new(blog.cleanup_html(post_body)).cleanup,
-                          created_at: pub_date,
-                          source_url: entry_url,
-                          title: Typogruby.improve(strip_tags(title)),
-                          stream: blog.default_stream)
+    post = Post.new(body: HtmlCleanup.new(blog.cleanup_html(post_body)).cleanup,
+                    blog_id: blog.id,
+                    created_at: pub_date,
+                    source_url: entry_url,
+                    title: Typogruby.improve(strip_tags(title)),
+                    stream: blog.default_stream)
 
     post
   end
