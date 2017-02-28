@@ -55,6 +55,7 @@ RSpec.describe UpdateBlogJob, type: :job do
         let(:blog) { create :blog, default_stream: default_stream }
 
         its(:stream) { is_expected.to eq 'inbox' }
+        it { is_expected.to be_a Post }
 
         context 'when blogs default_stream is "news"' do
           let(:default_stream) { :news }
