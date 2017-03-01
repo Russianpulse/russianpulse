@@ -15,7 +15,7 @@ class EventTracker
 
   def track(category, action, label = nil, value = nil)
     return if Rails.env.test?
-    Rails.logger.warn 'EventTracker.track is deprocated'
+    Rails.logger.warn 'EventTracker.track is depricated'
     event(category: category, action: action, label: label, value: value, non_interactive: true)
   rescue Exception => ex
     ExceptionNotifier.notify_exception ex
