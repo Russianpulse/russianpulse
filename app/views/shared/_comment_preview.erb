@@ -10,7 +10,11 @@
         <small><%= smart_date comment.created_at %></small>
       </h4>
 
-      <em><%= link_to typography("\"#{comment.commentable.title}\""), comment_path(comment) %></em>
+      <% if ab_variant? %>
+        <em><%= link_to text_short(comment.comment, 120), comment_path(comment) %></em>
+      <% else %>
+        <em><%= link_to typography("\"#{comment.commentable.title}\""), comment_path(comment) %></em>
+      <% end %>
     </div>
   </div>
 <% end %>
