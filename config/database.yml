@@ -19,5 +19,4 @@ test:
   database: mazavr_test
 
 production:
-  <<: *default
-  database: mazavr_production
+  url: <%= ENV['DATABASE_URL'] %>
