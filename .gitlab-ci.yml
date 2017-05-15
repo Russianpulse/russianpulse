@@ -40,7 +40,7 @@ deploy:
   stage: deploy
   script:
     - apt update
-    - apt install openssh-client
+    - apt install -y openssh-client
 
     # Run ssh-agent (inside the build environment)
     - eval $(ssh-agent -s)
