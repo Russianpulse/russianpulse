@@ -20,6 +20,6 @@ ADD . ./
 
 RUN mkdir -p tmp/pids
 
-EXPOSE 3000
+EXPOSE 80
 
 CMD ["./bin/web"]
