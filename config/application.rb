@@ -33,7 +33,7 @@ module Mazavr
     ENV['CACHE_REVALIDATE_SECRET_COOKIE'] ||= 'wEYfgbwfhg8239FBwhejFNO4fbg8ebfkwgbg'
 
     config.cache_store = :dalli_store,
-                         'memcached',
+                         ENV.fetch('MEMCACHED_URL', :memcached),
                          { username: nil,
                            password: nil,
                            failover: true,
