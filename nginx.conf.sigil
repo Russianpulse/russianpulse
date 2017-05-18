@@ -1,3 +1,7 @@
+
+proxy_cache_path /var/cache/nginx levels=1:2 keys_zone=my_cache:10m max_size=200m
+								 inactive=60m use_temp_path=off;
+
 server {
   listen      [::]:80;
   listen      80;
@@ -13,6 +17,13 @@ server {
   gzip_comp_level  6;
 
   location    / {
+		roxy_cache rp_cache;
+		proxy_cache_revalidate on;
+		proxy_cache_min_uses 3;
+		proxy_cache_use_stale error timeout updating http_500 http_502 http_503 http_504;
+		proxy_cache_lock on;
+
+
     proxy_pass  http://{{ .APP }};
     proxy_http_version 1.1;
     proxy_set_header Upgrade $http_upgrade;
