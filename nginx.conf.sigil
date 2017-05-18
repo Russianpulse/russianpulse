@@ -4,6 +4,8 @@
 {{ $listen_port := index $port_map_list 1 }}
 {{ $upstream_port := index $port_map_list 2 }}
 
+proxy_cache_path /var/cache/nginx levels=1:2 keys_zone=my_cache:10m max_size=10m inactive=60m use_temp_path=off;
+
 {{ if eq $scheme "http" }}
 server {
   listen      [::]:{{ $listen_port }};
@@ -22,6 +24,13 @@ server {
     gzip_types    text/css text/javascript text/xml text/plain text/x-component application/javascript application/x-javascript application/json application/xml  application/rss+xml font/truetype application/x-font-ttf font/opentype application/vnd.ms-fontobject image/svg+xml;
     gzip_vary on;
     gzip_comp_level  6;
+
+
+    proxy_cache rp_cache;
+    proxy_cache_revalidate on;
+    proxy_cache_min_uses 3;
+    proxy_cache_use_stale error timeout updating http_500 http_502 http_503 http_504;
+    proxy_cache_lock on;
 
     proxy_pass  http://{{ $.APP }}-{{ $upstream_port }};
     proxy_http_version 1.1;
