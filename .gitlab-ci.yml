@@ -8,7 +8,6 @@ rubocop:
   stage: test
   image: ruby:2.3.1-alpine
   script:
-    - exit 0
     - gem install rubocop -v '0.46.0'
     - rubocop
 
@@ -16,7 +15,6 @@ bundle-audit:
   stage: test
   image: ruby:2.3.1-alpine
   script:
-    - exit 0
     - gem install bundler-audit -v '0.5.0'
     - bundle-audit
 
@@ -33,7 +31,6 @@ testing:
     DB_PASSWORD: postgres
     DB_HOST: postgres
   script:
-    - exit 0
     - bundle install
     - bundle exec rake db:setup
     - bundle exec rspec
