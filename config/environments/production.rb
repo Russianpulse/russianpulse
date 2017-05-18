@@ -28,6 +28,10 @@ Rails.application.configure do
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
   config.assets.enabled = true
 
+  config.public_file_server.headers = {
+    'Cache-Control' => 'public, max-age=172800'
+  }
+
   # Suppress logger output for asset requests.
   config.assets.quiet = true
 
