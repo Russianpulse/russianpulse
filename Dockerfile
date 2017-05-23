@@ -18,8 +18,8 @@ RUN bundle install
 
 ADD . ./
 
-RUN mkdir -p tmp/pids
-
 EXPOSE 80
 
-CMD ["./bin/web"]
+COPY docker-entrypoint.sh /usr/local/bin/
+ENTRYPOINT ["docker-entrypoint.sh"]
+CMD ["web"]

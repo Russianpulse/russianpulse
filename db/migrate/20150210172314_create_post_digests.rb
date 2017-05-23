@@ -1,4 +1,4 @@
-class CreatePostDigests < ActiveRecord::Migration
+class CreatePostDigests < ActiveRecord::Migration[4.2]
   def change
     create_table :post_digests do |t|
       t.string :title

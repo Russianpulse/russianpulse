@@ -5,6 +5,6 @@ Rails:
 AllCops:
   TargetRubyVersion: 2.3
   Exclude:
-    - 'db/schema.rb'
+    - 'db/**/*'
 FrozenStringLiteralComment:
   Enabled: false

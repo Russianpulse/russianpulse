@@ -28,6 +28,6 @@ class TopPostsSpiderJob < ActiveJob::Base
   end
 
   def posts_scope
-    Post.all.where(stream: [:inbox, :pulse])
+    Post.all.where(stream: %i[inbox pulse])
   end
 end

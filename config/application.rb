@@ -18,9 +18,9 @@ module Mazavr
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     config.time_zone = ENV['TIMEZONE'] || 'Moscow'
 
-    config.autoload_paths += %W(#{Rails.root}/app/services)
-    config.autoload_paths += %W(#{Rails.root}/app/workers)
-    config.autoload_paths += %W(#{Rails.root}/app/decorators)
+    config.autoload_paths += %W[#{Rails.root}/app/services]
+    config.autoload_paths += %W[#{Rails.root}/app/workers]
+    config.autoload_paths += %W[#{Rails.root}/app/decorators]
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]

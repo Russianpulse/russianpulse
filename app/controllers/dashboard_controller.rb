@@ -33,6 +33,6 @@ class DashboardController < ApplicationController
     posts = Post.select(:id, :title, :created_at, :blog_id, :top, :comments_count, :picture_url)
     posts = posts.includes(:blog).recent.where(stream: stream).limit(50)
 
-    posts.as_json(methods: [:blog_title, :has_picture?])
+    posts.as_json(methods: %i[blog_title has_picture?])
   end
 end

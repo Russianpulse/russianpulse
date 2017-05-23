@@ -60,7 +60,7 @@ class HtmlCleanup
     ###########################################################################
     # Sanitize
 
-    html = sanitize(simple_format(html, {}, sanitize: false), tags: %w(h2 h3 h4 h5 h6 p a strong i b blockquote stroke ul li ol em del img cut table tr td th video iframe embded object), attributes: %w(href src alt title name start))
+    html = sanitize(simple_format(html, {}, sanitize: false), tags: %w[h2 h3 h4 h5 h6 p a strong i b blockquote stroke ul li ol em del img cut table tr td th video iframe embded object], attributes: %w[href src alt title name start])
 
     ###########################################################################
     # Nokogiri 2

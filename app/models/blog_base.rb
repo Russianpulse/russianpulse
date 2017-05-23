@@ -10,7 +10,7 @@ class BlogBase < ActiveRecord::Base
 
   validates :title, presence: true
   validates :slug, presence: true
-  validates :fetch_type, inclusion: { in: %w(net_http), allow_blank: true }
+  validates :fetch_type, inclusion: { in: %w[net_http], allow_blank: true }
 
   scope :with_feed, -> { where("feed_url LIKE 'http%'") }
   scope :popular, -> { order('rating DESC') }

@@ -1,4 +1,4 @@
-class CreateSnippets < ActiveRecord::Migration
+class CreateSnippets < ActiveRecord::Migration[4.2]
   def change
     create_table :snippets do |t|
       t.string :key, null: false

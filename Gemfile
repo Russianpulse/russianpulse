@@ -36,7 +36,6 @@ gem 'redcarpet'
 gem 'ruby-readability', require: 'readability'
 gem 'ruby-stemmer', require: 'lingua/stemmer'
 gem 'russian'
-gem 'session_off'
 gem 'sidekiq'
 gem 'sidekiq-scheduler'
 gem 'simple_form'
@@ -47,6 +46,9 @@ gem 'typogruby'
 gem 'dotenv-rails'
 gem 'fog'
 gem 'asset_sync'
+
+gem 'nokogiri', '~> 1.7.1'
+gem 'erubis'
 
 group :production do
   gem 'newrelic_rpm'
@@ -92,7 +94,6 @@ end
 group :test do
   gem 'webmock'
   gem 'capybara'
-  gem 'codeclimate-test-reporter', require: nil
 
   # TODO: remove it
   gem 'rails-controller-testing'
