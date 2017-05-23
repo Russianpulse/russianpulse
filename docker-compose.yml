@@ -1,16 +1,20 @@
 db:
   image: postgres:9.4.5
+  restart: unless-stopped
 
 memcached:
   image: memcached:1.4.27
+  restart: unless-stopped
 
 redis:
   image: redis:3.2.3
+  restart: unless-stopped
 
 web:
   build: .
+  restart: unless-stopped
   ports:
-    - "3000:3000"
+    - "3000:80"
   links: 
     - db
     - memcached
@@ -18,18 +22,20 @@ web:
   env_file:
     - .env
   environment:
-    - RAILS_ENV=development
+    - RAILS_ENV=production
+    - DATABASE_URL=postgresql://postgres:postgres@db/production
+    - RAILS_MAX_THREADS=16
 
 worker:
   build: .
+  restart: unless-stopped
   links: 
     - db
     - memcached
     - redis
-  command: bin/worker
+  command: worker
   environment:
-    - RAILS_ENV=development
+    - RAILS_ENV=production
+    - DATABASE_URL=postgresql://postgres:postgres@db/production
   env_file:
     - .env
-  volumes_from:
-    - web

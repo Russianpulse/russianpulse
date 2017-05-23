@@ -1,4 +1,4 @@
-class FixTags < ActiveRecord::Migration
+class FixTags < ActiveRecord::Migration[4.2]
   def change
     Tag.where.not(post_ids: nil).find_each do |tag|
       if tag.post_ids.is_a? String

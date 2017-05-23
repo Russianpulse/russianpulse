@@ -16,10 +16,8 @@ sut:
     - redis
   environment:
     - RAILS_ENV=test
-    - DB_USER=postgres
-    - DB_PASSWORD=postgres
-    - CODECLIMATE_REPO_TOKEN=$CODECLIMATE_REPO_TOKEN
+    - DATABASE_URL=postgresql://postgres:postgres@db/test
   env_file:
     - .env.test
   command:
-    ./bin/test
+    test

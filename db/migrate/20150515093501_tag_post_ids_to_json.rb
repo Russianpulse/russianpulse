@@ -1,4 +1,4 @@
-class TagPostIdsToJson < ActiveRecord::Migration
+class TagPostIdsToJson < ActiveRecord::Migration[4.2]
   def change
     Tag.transaction do
       Tag.connection.select_all('SELECT id, post_ids FROM tags').each do |tag|

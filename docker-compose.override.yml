@@ -1,6 +1,0 @@
-web:
-  volumes:
-    - ./:/app
-    - ./tmp/sitemaps:/app/public/sitemaps
-  environment:
-    - RAILS_ENV=development

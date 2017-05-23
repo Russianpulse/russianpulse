@@ -49,7 +49,6 @@ class ApplicationController < ActionController::Base
         break
       end
     end
-
   rescue StandardError => ex
     logger.error ex
   end
