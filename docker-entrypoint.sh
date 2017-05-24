@@ -8,6 +8,7 @@ fi
 
 if [ "$1" = 'web' ]; then
   bundle exec rake db:create db:migrate
+  bundle exec rake assets:precompile
   rm -rf tmp/pids/*
   bundle exec rails server puma -p 80 --binding 0.0.0.0
 fi

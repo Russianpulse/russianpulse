@@ -45,11 +45,6 @@ GEM
     addressable (2.5.1)
       public_suffix (~> 2.0, >= 2.0.2)
     arel (8.0.0)
-    asset_sync (2.1.0)
-      activemodel (>= 4.1.0)
-      fog-core
-      mime-types (>= 2.99)
-      unf
     ast (2.3.0)
     autoprefixer-rails (7.1.1)
       execjs
@@ -570,9 +565,6 @@ GEM
     uber (0.1.0)
     uglifier (3.2.0)
       execjs (>= 0.3.0, < 3)
-    unf (0.1.4)
-      unf_ext
-    unf_ext (0.0.7.4)
     unicode-display_width (1.2.1)
     uniform_notifier (1.10.0)
     vcr (3.0.3)
@@ -600,7 +592,6 @@ PLATFORMS
 DEPENDENCIES
   acts_as_commentable
   acts_as_follower
-  asset_sync
   bootstrap-sass
   bullet
   bundler-audit
@@ -677,4 +668,4 @@ DEPENDENCIES
   webmock
 
 BUNDLED WITH
-   1.14.6
+   1.15.0

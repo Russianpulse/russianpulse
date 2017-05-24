@@ -45,7 +45,6 @@ gem 'staccato'
 gem 'typogruby'
 gem 'dotenv-rails'
 gem 'fog'
-gem 'asset_sync'
 
 gem 'nokogiri', '~> 1.7.1'
 gem 'erubis'
