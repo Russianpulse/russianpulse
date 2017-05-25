@@ -41,7 +41,7 @@ class PostsController < ApplicationController
         redirect_to smart_post_path(@post)
       end
 
-      fresh_when(etag: @post, last_modified: @post.updated_at, public: true)
+      fresh_when(last_modified: [@post.updated_at, @post.comments.maximum(:updated_at)].compact.max, public: true)
     end
   end
 
