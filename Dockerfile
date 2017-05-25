@@ -18,6 +18,9 @@ RUN bundle install
 
 ADD . ./
 
+VOLUME /app/tmp/cache
+VOLUME /app/public/assets
+
 EXPOSE 80
 
 COPY docker-entrypoint.sh /usr/local/bin/
