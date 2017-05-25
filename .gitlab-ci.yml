@@ -63,4 +63,6 @@ deploy:
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
 
   script:
-    - ssh root@185.58.205.213 "cd /my-cluster && git pull && make update"
+    - ssh root@185.58.205.213 "cd /my-cluster && git pull && docker-compose pull web"
+    - ssh root@185.58.205.213 "cd /my-cluster && git pull && docker-compose run --rm web update"
+    - ssh root@185.58.205.213 "cd /my-cluster && git pull && make"
