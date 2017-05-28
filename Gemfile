@@ -14,7 +14,6 @@ gem 'jquery-rails'
 gem 'jbuilder', '~> 2.5'
 gem 'bootstrap-sass'
 gem 'js_cookie_rails'
-gem 'turbolinks', '~> 5.0.0'
 
 gem 'acts_as_commentable'
 gem 'acts_as_follower'
