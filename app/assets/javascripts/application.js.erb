@@ -10,7 +10,6 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require turbolinks
 //= require jquery
 //= require jquery-timeago
 //= require jquery-ui
@@ -24,7 +23,7 @@
 //= require_tree ./templates
 //= require ./views/news_dashboard
 
-document.addEventListener("turbolinks:load", function() {
+$(function() {
   mrk.markUserOnce("first_visit_at", Math.floor(Date.now() / 1000));
   mrk.markUserOnce("first_visit_url", window.location.href);
   mrk.markUserOnce("first_visit_referrer", document.referrer);
