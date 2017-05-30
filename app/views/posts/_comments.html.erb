@@ -39,9 +39,11 @@
     <% end %>
   <% end %>
 
-  <div style='margin-bottom: 12px'>
-    <%= recaptcha_tags rescue "Can't render captcha widget" %>
-  </div>
+  <% unless signed_in? %>
+    <div style='margin-bottom: 12px'>
+      <%= recaptcha_tags rescue "Can't render captcha widget" %>
+    </div>
+  <% end %>
 
   <p>
   <%= check_box_tag :subscribe, 1, true %>
