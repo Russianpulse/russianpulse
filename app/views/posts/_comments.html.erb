@@ -24,11 +24,12 @@
 <h2><%= t ".leave_comment" %></h2>
 
 
-<%= simple_form_for Comment.new(user: current_user), html: { id: "comments_form" } do |f| %>
+<%= simple_form_for Comment.new, html: { id: "comments_form" } do |f| %>
   <%= hidden_field_tag :post_id, @post.id %>
   <%= f.input :comment, label: false, input_html: { rows: 8 } %>
 
-  <%= f.simple_fields_for :user_attributes do |f| %>
+
+  <%= f.simple_fields_for :user_attributes, current_user do |f| %>
     <% if signed_in? %>
       <%= f.input :name, as: :hidden %>
       <%= f.input :email, as: :hidden %>
