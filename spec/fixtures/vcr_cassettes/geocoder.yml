@@ -1,0 +1,53 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://freegeoip.net/json/94.228.243.75
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 30 May 2017 14:04:06 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d4829c1416d1af8eef13baee25a242ec01496153046; expires=Wed, 30-May-18
+        14:04:06 GMT; path=/; domain=.freegeoip.net; HttpOnly
+      Vary:
+      - Origin
+      X-Database-Date:
+      - Tue, 23 May 2017 04:08:36 GMT
+      X-Ratelimit-Limit:
+      - '15000'
+      X-Ratelimit-Remaining:
+      - '14994'
+      X-Ratelimit-Reset:
+      - '2562'
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 36723d99b5d47690-ARN
+    body:
+      encoding: ASCII-8BIT
+      string: '{"ip":"94.228.243.75","country_code":"RU","country_name":"Russia","region_code":"MOW","region_name":"Moscow","city":"Moscow","zip_code":"101000","time_zone":"Europe/Moscow","latitude":55.7522,"longitude":37.6156,"metro_code":0}
+
+'
+    http_version: 
+  recorded_at: Tue, 30 May 2017 14:04:06 GMT
+recorded_with: VCR 3.0.3

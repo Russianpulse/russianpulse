@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
   has_many :comments
   validates :name, presence: true
 
+  after_save -> { SetUserCountryJob.perform_later(self) }
+
   def admin?
     role == 'admin'
   end
