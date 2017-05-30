@@ -11,7 +11,7 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       format.html do
-        expires_in(5.minutes, public: true)
+        expires_in(5.minutes, public: !signed_in?)
       end
 
       format.atom do

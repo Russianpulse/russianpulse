@@ -8,6 +8,6 @@ class ArchiveController < ApplicationController
 
     @posts = Post.includes(:blog).created_between(@date.beginning_of_day, @date.end_of_day).recent
 
-    expires_in(1.week, public: true) if @date < 1.day.ago
+    expires_in(1.week, public: !signed_in?) if @date < 1.day.ago
   end
 end
