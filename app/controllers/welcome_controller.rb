@@ -13,8 +13,6 @@ class WelcomeController < ApplicationController
 
     @posts_recent = stream_scope.where.not(id: ids).recent.limit(30)
     ids += @posts_recent.pluck(:id)
-
-    expires_in(5.minutes, public: true)
   end
 
   private

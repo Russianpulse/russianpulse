@@ -20,7 +20,5 @@ class BlogsController < ApplicationController
       format.html
       format.atom
     end
-
-    expires_in(5.minutes, public: true)
   end
 end
