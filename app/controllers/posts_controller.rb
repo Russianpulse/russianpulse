@@ -10,13 +10,8 @@ class PostsController < ApplicationController
     @posts = @posts.top if params[:top] == '1'
 
     respond_to do |format|
-      format.html do
-        expires_in(5.minutes, public: !signed_in?)
-      end
-
-      format.atom do
-        expires_in(15.minutes, public: true)
-      end
+      format.html
+      format.atom
     end
   end
 
@@ -40,8 +35,6 @@ class PostsController < ApplicationController
       else
         redirect_to smart_post_path(@post)
       end
-
-      fresh_when(last_modified: [@post.updated_at, @post.comments.maximum(:updated_at)].compact.max, public: !signed_in?)
     end
   end
 
