@@ -59,6 +59,8 @@ Rails.application.routes.draw do
     end
   end
 
+  get '/sitemap.xml', to: redirect("http://#{ENV['S3_BUCKET_NAME']}.s3.amazonaws.com/sitemaps/sitemap.xml")
+
   resources :blogs, only: :index
 
   get ':blog/:year/:month/:day/:id' => 'posts#show', :as => :post
