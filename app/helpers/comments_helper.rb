@@ -12,7 +12,7 @@ module CommentsHelper
 
     content_tag :span, class: (options[:class] || 'pull-right'), title: t(:discussion) do
       link_to smart_post_path(commentable, anchor: 'comments'), class: 'no-underline', data: { turbolinks: false } do
-        glyphicon(:comment) + raw('&nbsp;') + commentable.comments_count if commentable.comments_count.positive?
+        glyphicon(:comment) + raw('&nbsp;') + commentable.comments_count.to_s if commentable.comments_count.positive?
       end
     end
   end
