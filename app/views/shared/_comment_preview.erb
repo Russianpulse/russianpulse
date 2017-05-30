@@ -6,8 +6,8 @@
     <div class="media-body">
       <h4 class="media-heading">
         <%= comment.user.name %>
-        <%= link_to "#", "#comment_#{comment.id}", data: { turbolinks: false } %>
-        <small><%= smart_date comment.created_at %></small>
+        <%= flag_icon comment.user.country_code %>
+        <%= link_to smart_date(comment.created_at), comment_path(comment) %>
       </h4>
 
       <% if ab_variant? %>
