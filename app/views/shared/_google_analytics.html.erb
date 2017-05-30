@@ -6,6 +6,10 @@
 
   ga('create', '<%= snippet :google_analytics_id %>', 'auto');
 
+  <% if signed_in? %>
+    ga('set', 'userId', <%= current_user.id %>); 
+  <% end %>
+
   <% if Rails.env.production? -%>
     window.onerror = function(msg, url, line) {
       var preventErrorAlert = true;

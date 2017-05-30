@@ -21,6 +21,6 @@ class BlogsController < ApplicationController
       format.atom
     end
 
-    expires_in(5.minutes, public: true)
+    expires_in(5.minutes, public: !signed_in?)
   end
 end
