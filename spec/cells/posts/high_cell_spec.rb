@@ -12,5 +12,6 @@ describe Posts::HighCell, type: :cell do
   context 'post has comments' do
     let(:post) { FactoryGirl.create(:post, :commented) }
     it { is_expected.to include 'comment' }
+    it { is_expected.to include '&nbsp;1' } # 1 comment
   end
 end
