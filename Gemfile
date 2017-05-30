@@ -101,6 +101,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'font-awesome-rails'
 gem 'flag-icons-rails'
+gem 'material_design_lite-sass'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-jquery-ui'
