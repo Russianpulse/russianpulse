@@ -70,6 +70,15 @@
 <br />
 <br />
 
+<center>
+  <h2>Комментаторы</h2>
+  
+  <%= cell('commenters').(:show, limit: 10, period: 30.days) %>
+</center>
+
+<br />
+<br />
+
 <h2><%= t(:recent_comments) %></h2>
 
 <br />
