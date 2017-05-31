@@ -44,19 +44,12 @@
   <% end %>
 <% end %>
 
-<div class='row'>
-  <div class='col-md-8'>
-    <%= render :partial => "posts/list", :locals => { :posts => @posts } %>
 
-    <% if Post.older_than(@posts.last.try(:created_at)).exists? %>
-      <%= link_to("#{t(:more_stories).mb_chars.capitalize} →", url_for(:before => @posts.last.created_at.to_f ), :class => "btn btn-default")  %>
-    <% else %>
-      <%= link_to("#{t(:more_stories).mb_chars.capitalize} →", "#", :class => "btn btn-default disabled")  %>
-    <% end %>
-  </div>
-  <div class="col-md-4">
-    <h3>Комментаторы</h3>
 
-    <%= cell('commenters').(:show, limit: 10, period: 30.days) %>
-  </div>
-</div>
+<%= render :partial => "posts/list", :locals => { :posts => @posts } %>
+
+<% if Post.older_than(@posts.last.try(:created_at)).exists? %>
+  <%= link_to("#{t(:more_stories).mb_chars.capitalize} →", url_for(:before => @posts.last.created_at.to_f ), :class => "btn btn-default")  %>
+<% else %>
+  <%= link_to("#{t(:more_stories).mb_chars.capitalize} →", "#", :class => "btn btn-default disabled")  %>
+<% end %>
