@@ -12,7 +12,6 @@ gem 'coffee-rails', '~> 4.2'
 gem 'therubyracer', platforms: :ruby
 gem 'jquery-rails'
 gem 'jbuilder', '~> 2.5'
-gem 'materialize-sass'
 gem 'bootstrap-sass'
 gem 'js_cookie_rails'
 
