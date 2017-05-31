@@ -4,7 +4,7 @@
   <%= render :partial => "shared/share_description", :locals => { :title => strip_tags(@post.title), :url => smart_post_url(@post), :text => @post.body, :image => @post.picture_url } %>
 <% end %>
 
-<div itemscope itemtype="http://schema.org/BlogPosting">
+<div itemscope itemtype="http://schema.org/BlogPosting" class='well'>
   <%= render :partial => 'meta_tags' %>
 
   <h1><%= @post.title %></h1>
@@ -63,7 +63,9 @@
     </div>
   </div>
   <div class="col-sm-6">
-    <%= render partial: 'most_discussed_vertical', locals: { posts: Post.newer_than(1.week.ago).where.not(id: @post).most_discussed.limit(9) } %>
+    <div class="well">
+      <%= render partial: 'most_discussed_vertical', locals: { posts: Post.newer_than(1.week.ago).where.not(id: @post).most_discussed.limit(9) } %>
+    </div>
   </div>
 </div>
 
