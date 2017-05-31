@@ -10,11 +10,14 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
+ *= require_self
  *= require_tree ./cells
  *= require_tree .
  *= require_tree ./admin
- *= require_self
  */
+
+@import "materialize";
+@import "https://fonts.googleapis.com/icon?family=Material+Icons";
 
 // "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
 @import "bootstrap-sprockets";

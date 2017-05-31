@@ -50,7 +50,9 @@
   <%= label_tag :subscribe, t('.subscribe') %>
   </p>
 
-  <%= f.button :submit, t(".send"), class: "btn-primary btn-lg" %>
+  <%= button_tag class: "waves-effect waves-light btn" do %>
+    <%= t(".send") %>
+  <% end %>
 
   <% if signed_in? %>
     как
