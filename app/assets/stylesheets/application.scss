@@ -19,11 +19,12 @@
 // "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "bootstrap-material-design";
 @import "font-awesome";
 @import "flag-icon";
 
 h1,h2,h3,h4,h5,h6 {
-  font-weight: bold
+  font-weight: 500;
 }
 
 h1 {
@@ -31,11 +32,10 @@ h1 {
 }
 
 body {
-  font-family: 'PT Serif', Georgia, 'Times New Roman', Times, serif;
   font-size: 16px;
 
   letter-spacing: 0.07rem;
-  font-weight: 400;
+  font-weight: 200;
   line-height: 1.7;
   word-wrap: break-word;
 }

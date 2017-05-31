@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require jquery
+//= require bootstrap-material-design
 //= require jquery-timeago
 //= require jquery-ui
 //= require js.cookie
@@ -22,6 +23,8 @@
 //= require_tree ./utils
 //= require_tree ./templates
 //= require ./views/news_dashboard
+
+$.material.init();
 
 $(function() {
   mrk.markUserOnce("first_visit_at", Math.floor(Date.now() / 1000));

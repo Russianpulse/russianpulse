@@ -45,10 +45,14 @@
     </div>
   <% end %>
 
-  <p>
-  <%= check_box_tag :subscribe, 1, true %>
-  <%= label_tag :subscribe, t('.subscribe') %>
-  </p>
+  <div class='form-group'>
+    <div class="checkbox">
+      <%= label_tag :subscribe do %>
+        <%= check_box_tag :subscribe, 1, true %>
+        <%= t('.subscribe') %>
+      <% end %>
+    </div>
+  </div>
 
   <%= f.button :submit, t(".send"), class: "btn-primary btn-lg" %>
 
