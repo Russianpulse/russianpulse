@@ -2,35 +2,34 @@
   <%= snippet :above_header %>
 </center>
 
-
-<div class='row'>
-  <div class='col-xs-6'>
-    <span id="logo"><%= link_to snippet(:logo) || snippet(:site_name) || "Mazavr", root_path %></span>
-    <br />
-    <span id="time_now" title="<%= t(:last_update) %>: <%= format_date Post.order("created_at DESC").first.created_at rescue nil %>"><%= l Post.order("created_at DESC").first.created_at, format: "%e %b %Y" rescue nil  %></span>
-  </div>
-  <div class='col-xs-6'>
-    <div class="top-nav-bar pull-right">
-      <span class='top-nav-bar__item'>
-        <%= link_to podcasts_root_path do %>
-          <i class='fa fa-podcast'></i>
-          Подкасты
-        <% end %>
-      </span>
-      <span class='top-nav-bar__item'>
-        <%= link_to 'Новое', posts_path %>
-      </span>
-      <span class='top-nav-bar__item'>
-        <%= link_to 'Популярное', posts_path(top: 1) %>
-      </span>
-      <span class='top-nav-bar__item'>
-        <%= link_to 'Рейтинг', rating_path %>
-      </span>
-      <span class='top-nav-bar__item'>
-        <%= link_to 'Блоги', blogs_path %>
-      </span>
+<div class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <%= link_to snippet(:logo) || snippet(:site_name) || "Mazavr", root_path, class: 'navbar-brand', title: "Обновлено #{l Post.order("created_at DESC").first.created_at, format: "%e %b %Y" rescue nil}" %>
+    </div>
+    <div class="navbar-collapse collapse navbar-responsive-collapse">
+      <ul class="nav navbar-nav">
+        <li><%= link_to 'Новое', posts_path %></li>
+        <li><%= link_to 'Популярное', posts_path(top: 1) %></li>
+        <li class="dropdown">
+          <a href="#" data-target="navbar__submenu" class="dropdown-toggle" data-toggle="dropdown">Еще<b class="caret"></b></a>
+          <ul class="dropdown-menu navbar__submenu">
+            <li><%= link_to 'Блоги', blogs_path %></li>
+            <li><%= link_to 'Рейтинг', rating_path %></li>
+            <li><%= link_to 'Подкасты', podcasts_root_path %></li>
+          </ul>
+        </li>
+      </ul>
+      <%= form_tag '/search', method: :get, class: 'navbar-form navbar-right' do %>
+        <div class="form-group">
+          <input name='q' type="text" class="form-control col-md-8" placeholder="Поиск">
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
-
-<hr />

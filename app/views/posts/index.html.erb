@@ -1,15 +1,17 @@
-<% if params[:before].present? %>
-  <%= render partial: 'title_with_date', locals: { title: raw("#{params[:top] ? 'Популярное' : 'Новое'} до #{format_date Time.at(params[:before].to_f)}") } %>
-<% else %>
-  <%= render partial: 'title', locals: { title: params[:top] ? 'Популярное' : 'Новое' } %>
-<% end %>
+<div class="well">
+  <% if params[:before].present? %>
+    <%= render partial: 'title_with_date', locals: { title: raw("#{params[:top] ? 'Популярное' : 'Новое'} до #{format_date Time.at(params[:before].to_f)}") } %>
+  <% else %>
+    <%= render partial: 'title', locals: { title: params[:top] ? 'Популярное' : 'Новое' } %>
+  <% end %>
 
-<hr />
+  <hr />
 
-<%= render :partial => "posts/list", :locals => { :posts => @posts } %>
+  <%= render :partial => "posts/list", :locals => { :posts => @posts } %>
 
-<% if Post.older_than(@posts.last.try(:created_at)).exists? %>
-  <%= link_to("#{t(:more_stories).mb_chars.capitalize} →", url_for(:before => @posts.last.created_at.to_f, :top => params[:top]), :class => "btn btn-default")  %>
-<% else %>
-  <%= link_to("#{t(:more_stories).mb_chars.capitalize} →", "#", :class => "btn btn-default disabled")  %>
-<% end %>
+  <% if Post.older_than(@posts.last.try(:created_at)).exists? %>
+    <%= link_to("#{t(:more_stories).mb_chars.capitalize} →", url_for(:before => @posts.last.created_at.to_f, :top => params[:top]), :class => "btn btn-default")  %>
+  <% else %>
+    <%= link_to("#{t(:more_stories).mb_chars.capitalize} →", "#", :class => "btn btn-default disabled")  %>
+  <% end %>
+</div>

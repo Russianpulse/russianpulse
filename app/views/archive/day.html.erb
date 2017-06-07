@@ -1,13 +1,16 @@
-<% content_for :meta_title, l(@date, format: "%e %b %Y") %>
-<h1><%= l(@date, format: "%e %b %Y") %></h1>
+<div class="well">
+  <% content_for :meta_title, l(@date, format: "%e %b %Y") %>
+  <h1><%= l(@date, format: "%e %b %Y") %></h1>
 
-<ol class="breadcrumb">
-  <li>
-    <%= link_to 'Архив', archive_path %>
-  </li>
-  <li class='active'><%= l(@date, format: "%e %b %Y") %></li>
-</ol>
+  <ol class="breadcrumb">
+    <li>
+      <%= link_to 'Архив', archive_path %>
+    </li>
+    <li class='active'><%= l(@date, format: "%e %b %Y") %></li>
+  </ol>
 
-<hr />
+  <hr />
 
-<%= render :partial => "posts/list", :locals => { :posts => @posts } %>
+  <%= render :partial => "posts/list", :locals => { :posts => @posts } %>
+  
+</div>

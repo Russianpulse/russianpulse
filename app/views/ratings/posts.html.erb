@@ -1,5 +1,8 @@
 <% content_for :meta_title, 'Рейтинг' %>
-<h1>Рейтинг</h1>
-<br />
 
-<%= render partial: "shared/posts_table", locals: { posts: @posts } %>
+<div class="well">
+  <h1>Рейтинг</h1>
+  <br />
+
+  <%= render partial: "shared/posts_table", locals: { posts: @posts } %>
+</div>
