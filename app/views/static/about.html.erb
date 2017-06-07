@@ -1,6 +1,8 @@
 <% content_for(:meta_title, t(:about).mb_chars.capitalize) %>
 
-<h1><%= t(:about).mb_chars.capitalize %></h1>
-<hr />
+<div class="well">
+  <h1><%= t(:about).mb_chars.capitalize %></h1>
+  <hr />
 
-<%= simple_format snippet(:about) %>
+  <%= simple_format snippet(:about) %>
+</div>
