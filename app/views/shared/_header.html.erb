@@ -16,9 +16,14 @@
       <ul class="nav navbar-nav">
         <li><%= link_to 'Новое', posts_path %></li>
         <li><%= link_to 'Популярное', posts_path(top: 1) %></li>
-        <li><%= link_to 'Блоги', blogs_path %></li>
-        <li><%= link_to 'Рейтинг', rating_path %></li>
-        <li><%= link_to 'Подкасты', podcasts_root_path %></li>
+        <li class="dropdown">
+          <a href="#" data-target="navbar__submenu" class="dropdown-toggle" data-toggle="dropdown">Еще<b class="caret"></b></a>
+          <ul class="dropdown-menu navbar__submenu">
+            <li><%= link_to 'Блоги', blogs_path %></li>
+            <li><%= link_to 'Рейтинг', rating_path %></li>
+            <li><%= link_to 'Подкасты', podcasts_root_path %></li>
+          </ul>
+        </li>
       </ul>
       <%= form_tag '/search', method: :get, class: 'navbar-form navbar-right' do %>
         <div class="form-group">
