@@ -1,4 +1,4 @@
-<% cache "#{comment.cache_key}/#{ab_variant?}", expires_in: 5.minutes do %>
+<% cache comment, expires_in: 5.minutes do %>
   <div class="media comment well">
     <div class="media-left">
       <%= image_tag gravatar_url(comment.user.email, size: 35), class: "media-object", width: 35, height: 35 %>
@@ -10,11 +10,7 @@
         <%= link_to smart_date(comment.created_at), comment_path(comment) %>
       </h4>
 
-      <% if ab_variant? %>
-        <em><%= link_to text_short(comment.comment, 120), comment_path(comment) %></em>
-      <% else %>
-        <em><%= link_to typography("\"#{comment.commentable.title}\""), comment_path(comment) %></em>
-      <% end %>
+      <em><%= link_to text_short(comment.comment, 120), comment_path(comment) %></em>
     </div>
   </div>
 <% end %>
