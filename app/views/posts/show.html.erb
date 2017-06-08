@@ -63,9 +63,7 @@
     </div>
   </div>
   <div class="col-sm-6">
-    <div class="well">
-      <%= render partial: 'most_discussed_vertical', locals: { posts: Post.newer_than(1.week.ago).where.not(id: @post).most_discussed.limit(9) } %>
-    </div>
+    <%= render partial: 'most_discussed_vertical', locals: { posts: Post.newer_than(1.week.ago).where.not(id: @post).most_discussed.limit(9) } %>
   </div>
 </div>
 

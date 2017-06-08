@@ -1,7 +1,9 @@
 <h2><%= t(:most_discussed) %></h2>
 
-<% posts.in_groups(3, false) do |posts| %>
-  <div>
-    <%= cell("posts/text_block", posts) %>
-  </div>
-<% end %>
+<div class="well">
+  <% posts.in_groups(3, false) do |posts| %>
+    <div>
+      <%= cell("posts/text_block", posts) %>
+    </div>
+  <% end %>
+</div>
