@@ -13,7 +13,7 @@ end
 namespace :faker do
   desc 'Fake db data'
   task database: :environment do
-    [Post, Tag, Blog].each(&:delete_all)
+    [Post, Tag, Blog, Comment].each(&:delete_all)
 
     50.times do |_n|
       Tag.create! title: fake_word
@@ -26,7 +26,7 @@ namespace :faker do
     end
 
     Blog.find_each do |b|
-      (10_000 / 50).times do |_n|
+      (1000 / 50).times do |_n|
         body = (0..10).to_a.map { "<p>#{fake_paragraph}</p>" }.join
 
         post = Post.create!(title: fake_sentance, blog: b, body: body, top: rand(100) > 80)

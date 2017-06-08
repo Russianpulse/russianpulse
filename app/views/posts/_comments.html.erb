@@ -21,9 +21,9 @@
   </div>
 <% end %>
 
-<div class="well">
-  <h2><%= t ".leave_comment" %></h2>
+<h2><%= t ".leave_comment" %></h2>
 
+<div class="well">
   <%= simple_form_for Comment.new, html: { id: "comments_form", class: :form } do |f| %>
     <%= hidden_field_tag :post_id, @post.id %>
     <%= f.input :comment, label: false, input_html: { rows: 8 } %>
