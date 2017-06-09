@@ -1,3 +1,8 @@
 <script src="//yastatic.net/es5-shims/0.0.2/es5-shims.min.js"></script>
 <script src="//yastatic.net/share2/share.js"></script>
-<div class="ya-share2" data-services="vkontakte,facebook,odnoklassniki,twitter,telegram" data-counter=""></div>
+<div class="ya-share2" data-services="vkontakte,facebook,odnoklassniki,twitter,telegram"
+                       data-counter
+                       data-title="<%= strip_tags(@post.title) %>"
+                       data-description="<%= strip_tags(@post.body.to_s).gsub(/\s+/, " ").mb_chars.truncate(160) %>"
+                       data-url="<%= smart_post_url(@post) %>"
+                       data-image="<%= @post.picture_url %>"></div>
