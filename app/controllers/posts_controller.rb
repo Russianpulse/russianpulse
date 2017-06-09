@@ -25,16 +25,14 @@ class PostsController < ApplicationController
       redirect_to goto_path(url: "http://goo.gl/#{@slug_id}")
 
       expires_in(1.hour, public: true)
-    else
-      if request.path == URI(smart_post_path(@post)).path
-        if @post.blocked?
-          render template: 'posts/show_blocked'
-        else
-          render template: 'posts/show'
-        end
+    elsif request.path == URI(smart_post_path(@post)).path
+      if @post.blocked?
+        render template: 'posts/show_blocked'
       else
-        redirect_to smart_post_path(@post)
+        render template: 'posts/show'
       end
+    else
+      redirect_to smart_post_path(@post)
     end
   end
 

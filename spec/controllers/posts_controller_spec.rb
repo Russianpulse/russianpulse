@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe PostsController, type: :controller do
-
   describe 'PUT block' do
     let(:admin) { create :user, role: :admin }
     let!(:post) { create :post }
@@ -14,7 +13,7 @@ RSpec.describe PostsController, type: :controller do
       it 'should block post' do
         put :block, params: { id: post.id }
         expect(response).to have_http_status(:redirect)
-        expect(post.reload).to be_blocked 
+        expect(post.reload).to be_blocked
       end
     end
 
@@ -26,7 +25,7 @@ RSpec.describe PostsController, type: :controller do
           put :block, params: { id: post.id }
         end.to raise_error Pundit::NotAuthorizedError
 
-        expect(post.reload).not_to be_blocked 
+        expect(post.reload).not_to be_blocked
       end
     end
   end
