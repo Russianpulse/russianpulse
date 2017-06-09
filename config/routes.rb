@@ -63,6 +63,8 @@ Rails.application.routes.draw do
 
   resources :blogs, only: :index
 
+  put '/posts/:id/block' => 'posts#block', as: :block_post
+
   get ':blog/:year/:month/:day/:id' => 'posts#show', :as => :post
   get ':blog/:year/:month/:day/:slug_id/:title' => 'posts#show', :as => :post_with_slug
   get 'posts/:slug_id' => 'posts#show', as: :post_permalink
