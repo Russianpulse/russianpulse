@@ -6,9 +6,9 @@ class SetUserCountryJob < ApplicationJob
   def perform(user)
     @user = user
 
-    if country_update_required?
-      user.update_attribute(:country_code, country_code(user.current_sign_in_ip.to_s))
-    end
+    return unless country_update_required?
+
+    user.update_attributes(country_code: country_code(user.current_sign_in_ip.to_s))
   end
 
   private
