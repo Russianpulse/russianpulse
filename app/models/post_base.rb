@@ -17,8 +17,11 @@ class PostBase < ActiveRecord::Base
   scope :newer_than, ->(date) { where("#{table_name}.created_at > ?", date) }
   scope :older_than, ->(date) { where("#{table_name}.created_at < ?", date) }
   scope :created_between, ->(from, to) { where("#{table_name}.created_at >= ? AND #{table_name}.created_at <= ?", from, to) }
-  scope :popular, -> { order('views DESC NULLS LAST') }
-  scope :unpopular, -> { order('views, accessed_at DESC NULLS FIRST') }
+
+  COMMENTS_POWER = 50.freeze
+  scope :popular, -> { order("(views + comments_count * #{COMMENTS_POWER}) DESC NULLS LAST") }
+  scope :unpopular, -> { order("(views + comments_count * #{COMMENTS_POWER}), accessed_at DESC NULLS FIRST") }
+
   scope :top, -> { where('top = ? OR comments_count > 0', true) }
   scope :with_picture, -> { where("picture_url LIKE '%//%'") }
   scope :most_discussed, -> { where('comments_count > 0').order('comments_count DESC') }
