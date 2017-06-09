@@ -45,6 +45,15 @@ class PostsController < ApplicationController
     redirect_to '/counter.png', protocol: request.ssl? ? 'https://' : 'http://'
   end
 
+  def block
+    post = Post.find params[:id]
+
+    redirect_to smart_post_path(post)
+
+    authorize post, :update?
+    post.update_attribute :stream, :trash
+  end
+
   private
 
   def find_post_by_slug_or_id(slug, id)
