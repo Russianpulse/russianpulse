@@ -23,10 +23,17 @@
 
   <%= render :partial => "posts/list", :locals => { :posts => @posts } %>
 
-  <% if @posts.size >= 12 %>
-    <%= link_to("#{t(:more_stories).mb_chars.capitalize} →", url_for(:before => @posts.last.created_at.to_f ), :class => "btn btn-default")  %>
-  <% else %>
-    <%= link_to("#{t(:more_stories).mb_chars.capitalize} →", "#", :class => "btn btn-default disabled")  %>
-  <% end %>
+  <ul class='pager'>
+    <% if @posts.size >= 12 %>
+      <li class='next pull-left'>
+        <%= link_to("#{t(:more_stories).mb_chars.capitalize} →", url_for(:before => @posts.last.created_at.to_f, :top => params[:top]), :class => "")  %>
+      </li>
+    <% else %>
+      <li class='next pull-left disabled'>
+        <%= link_to("#{t(:more_stories).mb_chars.capitalize} →", "#", :class => "disabled")  %>
+
+      </li>
+    <% end %>
+  </ul>
     
 </div>

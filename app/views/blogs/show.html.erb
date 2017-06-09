@@ -49,9 +49,16 @@
 
   <%= render :partial => "posts/list", :locals => { :posts => @posts } %>
 
-  <% if Post.older_than(@posts.last.try(:created_at)).exists? %>
-    <%= link_to("#{t(:more_stories).mb_chars.capitalize} →", url_for(:before => @posts.last.created_at.to_f ), :class => "btn btn-default")  %>
-  <% else %>
-    <%= link_to("#{t(:more_stories).mb_chars.capitalize} →", "#", :class => "btn btn-default disabled")  %>
-  <% end %>
+  <ul class='pager'>
+    <% if Post.older_than(@posts.last.try(:created_at)).exists? %>
+      <li class='next pull-left'>
+        <%= link_to("#{t(:more_stories).mb_chars.capitalize} →", url_for(:before => @posts.last.created_at.to_f ), :class => "")  %>
+      </li>
+    <% else %>
+      <li class='next pull-left disabled'>
+        <%= link_to("#{t(:more_stories).mb_chars.capitalize} →", "#", :class => "disabled")  %>
+
+      </li>
+    <% end %>
+  </ul>
 </div>
