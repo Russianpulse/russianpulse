@@ -2,28 +2,26 @@ class MostDiscussedCell < Cell::ViewModel
   LIMIT = 9
 
   def show
-    @posts = Post.most_discussed.where(id: recent_commentable_ids)
+    @posts = most_discussed_posts
     cell("posts/text_block", @posts)
   end
 
   def horizontal
-    @posts = Post.most_discussed.where(id: recent_commentable_ids)
+    @posts = most_discussed_posts
     render
   end
 
   private
 
-  def recent_commentable_ids
-    recent_comments.map { |el| el['post_id'] }
+  def recent_commentable
+    Post.where id: Post.recent.where('comments_count > 0').limit(LIMIT * 3).pluck(:id)
   end
 
-  def recent_comments
-    Comment.connection.select_all <<-SQL
-      SELECT commentable_id AS post_id, COUNT(id) AS count, MAX(created_at) as created_at FROM comments
-        WHERE commentable_id NOT IN (#{model.try(:id) || 0})
-        GROUP BY commentable_id
-        ORDER BY created_at DESC
-        LIMIT #{LIMIT}
-    SQL
+  def most_discussed_posts
+    recent_commentable.where.not(id: current_post_id).most_discussed.limit LIMIT
+  end
+
+  def current_post_id
+    model.try(:id) || 0
   end
 end
