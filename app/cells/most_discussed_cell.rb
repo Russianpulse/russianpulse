@@ -18,7 +18,7 @@ class MostDiscussedCell < Cell::ViewModel
   end
 
   def most_discussed_posts
-    recent_commentable.where.not(id: current_post_id).most_discussed.limit LIMIT
+    recent_commentable.where.not(id: current_post_id).order('comments_count DESC, created_at DESC').limit LIMIT
   end
 
   def current_post_id
