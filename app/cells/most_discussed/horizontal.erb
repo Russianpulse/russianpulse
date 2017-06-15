@@ -1,0 +1,8 @@
+<div class="row">
+  <% @posts.in_groups_of(2, false) do |posts| %>
+    <div class="col-sm-4">
+      <%= cell('posts/text_block', posts) %>
+    </div>
+  <% end %>
+</div>
+

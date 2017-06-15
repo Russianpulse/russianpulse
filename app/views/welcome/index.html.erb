@@ -7,13 +7,7 @@
     <% end %>
   </div>
 
-  <div class="row">
-    <% @posts_most_discussed.in_groups_of(2, false) do |posts| %>
-      <div class="col-sm-4">
-        <%= cell("posts/text_block", posts) %>
-      </div>
-    <% end %>
-  </div>
+  <%= cell('most_discussed').(:horizontal) %>
 
   <div class="row">
     <div class="col-sm-4">
