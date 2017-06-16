@@ -7,7 +7,7 @@ class MostDiscussedCell < Cell::ViewModel
   end
 
   def horizontal
-    @posts = most_discussed_posts
+    @posts = most_discussed_posts.limit(6)
     render
   end
 
