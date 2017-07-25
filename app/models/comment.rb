@@ -15,4 +15,12 @@ class Comment < ActiveRecord::Base
 
   validates :comment, presence: true
   validates :user, presence: true
+
+  def comment
+    if spam?
+      I18n.translate('comments.marked_as_spam')
+    else
+      self[:comment]
+    end
+  end
 end

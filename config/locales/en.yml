@@ -88,6 +88,7 @@ en:
 
   comments:
     thank_you: "Thank you for response!"
+    marked_as_spam: "[Marked as SPAM]"
 
   redirects:
     bye:
