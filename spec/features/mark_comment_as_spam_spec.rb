@@ -21,6 +21,8 @@ RSpec.feature 'Mark comment as spam', type: :feature do
     within "#comment-#{comment.id}" do
       expect(page).not_to have_content 'spam message'
     end
+
+    expect(comment.user.reload).to be_flagged
   end
 end
 

@@ -65,7 +65,7 @@ class ApplicationController < ActionController::Base
   end
 
   def verify_recaptcha
-    return true if signed_in?
+    return true if (signed_in? && !current_user.flagged?)
 
     uri = URI('https://www.google.com/recaptcha/api/siteverify')
     res = Net::HTTP.post_form(uri, secret: ENV['RECAPTCHA_PRIVATE_KEY'], response: params['g-recaptcha-response'])
