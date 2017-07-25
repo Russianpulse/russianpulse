@@ -42,7 +42,7 @@
       <% end %>
     <% end %>
 
-    <% unless signed_in? %>
+    <% unless (signed_in? && !current_user.flagged?) %>
       <div style='margin-bottom: 12px'>
         <%= recaptcha_tags rescue "Can't render captcha widget" %>
       </div>
