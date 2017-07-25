@@ -21,7 +21,11 @@ class CommentsController < ApplicationController
   end
 
   def spam
-    @comment.update_attribute(:spam, true) if current_user.admin?
+    if current_user.admin?
+      @comment.update_attribute(:spam, true)
+      @comment.user.update_attribute(:flagged, true)
+    end
+
     redirect_to smart_post_path(@comment.commentable), notice: 'Comment marked as SPAM.'
   end
 
