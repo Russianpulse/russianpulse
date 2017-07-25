@@ -67,6 +67,7 @@ ru:
 
   comments:
     thank_you: "Спасибо за Ваш отзыв!"
+    marked_as_spam: "[Отмечено как СПАМ]"
 
   redirects:
     bye:

@@ -2,7 +2,7 @@ class CommentsController < ApplicationController
   include ApplicationHelper
   include PostsHelper
   include CommentsHelper
-  before_action :set_comment, only: %i[show edit update destroy]
+  before_action :set_comment, only: %i[show edit update destroy spam]
 
   # already protected with captcha
   skip_before_action :verify_authenticity_token, only: :create
@@ -18,6 +18,11 @@ class CommentsController < ApplicationController
   # GET /comments/new
   def new
     @comment = Comment.new
+  end
+
+  def spam
+    @comment.update_attribute(:spam, true) if current_user.admin?
+    redirect_to smart_post_path(@comment.commentable), notice: 'Comment marked as SPAM.'
   end
 
   # GET /comments/1/edit

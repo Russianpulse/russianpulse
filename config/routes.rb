@@ -13,7 +13,10 @@ Rails.application.routes.draw do
   get 'ratings/posts', as: :rating
 
   devise_for :users
-  resources :comments, only: [:create]
+
+  resources :comments, only: [:create] do
+    put :spam, on: :member
+  end
 
   get 'robots.txt' => 'robots#index'
 
