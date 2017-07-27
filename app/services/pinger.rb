@@ -19,5 +19,7 @@ class Pinger
     XML
 
     response = https.post(uri.path, xml)
+  rescue Net::OpenTimeout => ex
+    Rails.logger.error "Faild to ping #{ex}"
   end
 end
