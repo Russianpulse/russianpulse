@@ -12,12 +12,14 @@ class ApplicationController < ActionController::Base
   rescue_from ActiveRecord::RecordNotFound do
     respond_to do |format|
       format.html { render 'errors/not_found', status: 404 }
-      format.any { render text: 'Страница не найдена. Воспользуйтесь поиском.', status: 404 }
+      format.any { render plain: 'Страница не найдена. Воспользуйтесь поиском.', status: 404 }
     end
   end
 
   rescue_from ActionView::MissingTemplate, ActionController::UnknownFormat do
-    render text: 'Неверный формат запроса. Видимо, плохая ссылка.', status: 400
+    respond_to do |format|
+      format.any { render plain: 'Неверный формат запроса. Видимо, плохая ссылка.', status: 400 }
+    end
   end
 
   before_action :load_ab_test
