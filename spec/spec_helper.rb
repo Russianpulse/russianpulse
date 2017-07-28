@@ -16,6 +16,7 @@
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
 require 'factory_girl'
+require 'feedjira'
 Feedjira.logger.level = Logger::FATAL
 
 RSpec.configure do |config|

@@ -3,7 +3,7 @@ require 'rails_helper'
 describe MostDiscussed, type: :cell do
   include Cell::Testing
   controller WelcomeController
-  
+
   let!(:current_post) { create :post, :commented }
   let!(:post) { create :post, :commented }
   let!(:post_without_comments) { create :post }
