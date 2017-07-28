@@ -2,9 +2,6 @@
 variables:
   DOCKER_DRIVER: overlay
 
-services:
-  - docker:dind
-
 stages:
   - test
   - build
@@ -13,8 +10,15 @@ stages:
 test:
   stage: test
   image: ruby:2.3.1
+  services:
+    - postgres:9.4.5
+    - redis:3.2.3
+    - memcached:1.4.27
+
   variables:
     RAILS_ENV: test
+    DATABASE_URL: postgresql://postgres:postgres@postgres/test
+    MEMCACHED_URL: memcached
   script:
     - bundle install
     - bundle exec bundle-audit check --update
@@ -26,6 +30,9 @@ test:
 build:
   stage: build
   image: docker:17.03.1-ce
+
+  services:
+    - docker:dind
   only:
     - master
   variables:
