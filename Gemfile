@@ -96,6 +96,7 @@ group :test do
 
   # TODO: remove it
   gem 'rails-controller-testing'
+  gem 'simplecov', require: false
 end
 
 gem 'sdoc', '~> 0.4.0', group: :doc
