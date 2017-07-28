@@ -3,7 +3,7 @@ class MostDiscussedCell < Cell::ViewModel
 
   def show
     @posts = most_discussed_posts
-    cell("posts/text_block", @posts)
+    cell('posts/text_block', @posts)
   end
 
   def horizontal

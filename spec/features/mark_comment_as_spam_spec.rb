@@ -25,4 +25,3 @@ RSpec.feature 'Mark comment as spam', type: :feature do
     expect(comment.user.reload).to be_flagged
   end
 end
-
