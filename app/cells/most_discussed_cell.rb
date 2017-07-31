@@ -1,4 +1,4 @@
-class MostDiscussedCell < Cell::ViewModel
+class MostDiscussedCell < BaseCell
   LIMIT = 9
 
   def show
