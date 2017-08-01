@@ -1,13 +1,6 @@
 module Posts
   # Vertical widget with 3 posts
-  class TripleCell < Cell::ViewModel
-    include ActionView::Helpers::UrlHelper
-    include ActionView::Helpers::CaptureHelper
-    include ApplicationHelper
-    include CommentsHelper
-    include PostsHelper
-    include ActionView::Helpers::TranslationHelper
-
+  class TripleCell < BaseCell
     def show
       posts = model
       @post1 = posts.find(&:has_picture?) || posts.first
