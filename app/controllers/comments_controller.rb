@@ -35,12 +35,8 @@ class CommentsController < ApplicationController
   # POST /comments
   def create
     @post = Post.find params[:post_id]
-
-    # FIXME: what if user_params are blank?
     @user = User.find_or_initialize_by user_params
-
     @user.password = SecureRandom.hex if @user.new_record?
-
     @comment = @post.comments.new(comment_params.merge(user: @user))
 
     if verify_recaptcha
@@ -119,8 +115,7 @@ class CommentsController < ApplicationController
 
   def flag_spammer
     return if @comment.user.new_record?
-    if Comment.exists?(comment: @comment.comment, user: @comment.user)
-      @comment.user.update_attributes! flagged: true
-    end
+    return unless Comment.exists?(comment: @comment.comment, user: @comment.user)
+    @comment.user.update_attributes! flagged: true
   end
 end
