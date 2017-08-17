@@ -48,7 +48,7 @@ RSpec.describe CommentsController, type: :controller do
 
   describe 'POST #create' do
     before do
-      expect(controller).to receive(:verify_recaptcha) { true }
+      allow(controller).to receive(:verify_recaptcha) { true }
     end
 
     context 'with valid params' do
@@ -101,6 +101,17 @@ RSpec.describe CommentsController, type: :controller do
 
         it { should be_a(User) }
         its(:email) { should eq(user_attributes[:email]) }
+        its(:flagged) { is_expected.not_to eq true }
+      end
+
+      context 'when comment is duplicated (looks like a SPAM)' do
+        let(:user) { create :user }
+        let(:user_attributes) { user.attributes.symbolize_keys }
+        before { create :comment, comment: valid_attributes[:comment][:comment], user: user }
+        it 'should mark user as flagged' do
+          post :create, params: valid_attributes, session: valid_session
+          expect(user.reload.flagged).to eq true
+        end
       end
     end
 

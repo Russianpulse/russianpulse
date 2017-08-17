@@ -65,9 +65,9 @@ ActiveRecord::Schema.define(version: 20170725172950) do
   end
 
   create_table "follows", id: :serial, force: :cascade do |t|
-    t.string "followable_type"
+    t.string "followable_type", null: false
     t.integer "followable_id", null: false
-    t.string "follower_type"
+    t.string "follower_type", null: false
     t.integer "follower_id", null: false
     t.boolean "blocked", default: false, null: false
     t.datetime "created_at"
