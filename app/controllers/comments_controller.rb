@@ -36,12 +36,12 @@ class CommentsController < ApplicationController
   def create
     @post = Post.find params[:post_id]
     @user = User.find_or_initialize_by user_params
-
     @user.password = SecureRandom.hex if @user.new_record?
-
     @comment = @post.comments.new(comment_params.merge(user: @user))
 
     if verify_recaptcha
+      flag_spammer
+
       if @user.save && @comment.save
         ga_event category: :comments, action: :create, label: @post.title, interaction: 1, value: 1
 
@@ -111,5 +111,11 @@ class CommentsController < ApplicationController
       next if follower == current_user
       CommentsMailer.created(@comment, follower).deliver_later
     end
+  end
+
+  def flag_spammer
+    return if @comment.user.new_record?
+    return unless Comment.exists?(comment: @comment.comment, user: @comment.user)
+    @comment.user.update_attributes! flagged: true
   end
 end
