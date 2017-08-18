@@ -28,4 +28,12 @@ if [ "$1" = 'test' ]; then
   exit 0
 fi
 
+if [ "$1" = 'spec' ]; then
+  echo 'Specs...'
+  export RAILS_ENV=test
+  bundle exec rake db:create db:migrate
+  bundle exec rspec
+  exit 0
+fi
+
 exec "$@"

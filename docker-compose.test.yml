@@ -20,4 +20,4 @@ sut:
   env_file:
     - .env.test
   command:
-    test
+    spec
