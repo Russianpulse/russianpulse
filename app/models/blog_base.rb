@@ -1,4 +1,4 @@
-class BlogBase < ActiveRecord::Base
+class BlogBase < ApplicationRecord
   self.table_name = 'blogs'
 
   FETCH_SUCCESS = 0

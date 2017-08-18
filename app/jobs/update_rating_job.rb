@@ -1,4 +1,4 @@
-class UpdateRatingJob < ActiveJob::Base
+class UpdateRatingJob < ApplicationJob
   queue_as :default
 
   def perform

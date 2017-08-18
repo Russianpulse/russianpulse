@@ -1,6 +1,6 @@
 require 'net/http'
 
-class CacheHeaterJob < ActiveJob::Base
+class CacheHeaterJob < ApplicationJob
   queue_as :default
 
   def perform(path)

@@ -1,4 +1,4 @@
-class TopPostsSpiderJob < ActiveJob::Base
+class TopPostsSpiderJob < ApplicationJob
   queue_as :default
 
   def perform(mode = 'recent')

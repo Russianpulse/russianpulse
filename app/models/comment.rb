@@ -1,4 +1,4 @@
-class Comment < ActiveRecord::Base
+class Comment < ApplicationRecord
   include ActsAsCommentable::Comment
 
   belongs_to :commentable, polymorphic: true, touch: true, counter_cache: true

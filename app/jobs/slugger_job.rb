@@ -1,4 +1,4 @@
-class SluggerJob < ActiveJob::Base
+class SluggerJob < ApplicationJob
   queue_as :default
 
   # Запоминаем короткую ссылку на источник, откуда будем восстанвливать

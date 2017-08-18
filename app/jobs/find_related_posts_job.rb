@@ -1,4 +1,4 @@
-class FindRelatedPostsJob < ActiveJob::Base
+class FindRelatedPostsJob < ApplicationJob
   queue_as :default
 
   def perform(post)

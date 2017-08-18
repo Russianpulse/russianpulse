@@ -1,2 +1,2 @@
-class PostTeaser < ActiveRecord::Base
+class PostTeaser < ApplicationRecord
 end

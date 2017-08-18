@@ -1,4 +1,4 @@
-class TaggerJob < ActiveJob::Base
+class TaggerJob < ApplicationJob
   queue_as :default
 
   class WordsCollection

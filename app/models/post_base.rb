@@ -1,4 +1,4 @@
-class PostBase < ActiveRecord::Base
+class PostBase < ApplicationRecord
   self.table_name = 'posts'
 
   acts_as_commentable

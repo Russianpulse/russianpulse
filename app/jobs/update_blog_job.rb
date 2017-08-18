@@ -1,6 +1,6 @@
 require 'timeout'
 
-class UpdateBlogJob < ActiveJob::Base
+class UpdateBlogJob < ApplicationJob
   queue_as :default
 
   include ActionView::Helpers::SanitizeHelper

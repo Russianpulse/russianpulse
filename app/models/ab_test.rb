@@ -1,4 +1,4 @@
-class AbTest < ActiveRecord::Base
+class AbTest < ApplicationRecord
   def match?(request_path)
     return request_path == path if equal?
 

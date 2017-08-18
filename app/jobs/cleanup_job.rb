@@ -1,4 +1,4 @@
-class CleanupJob < ActiveJob::Base
+class CleanupJob < ApplicationJob
   queue_as :default
 
   def perform(*_args)

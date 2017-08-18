@@ -1,4 +1,4 @@
-class Tag < ActiveRecord::Base
+class Tag < ApplicationRecord
   validates :title, presence: true
   validates :slug, presence: true, uniqueness: true
 

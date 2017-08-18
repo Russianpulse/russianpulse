@@ -1,4 +1,4 @@
-class TagsCleanupJob < ActiveJob::Base
+class TagsCleanupJob < ApplicationJob
   queue_as :default
 
   def perform

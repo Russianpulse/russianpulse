@@ -1,4 +1,4 @@
-class RefreshSitemapJob < ActiveJob::Base
+class RefreshSitemapJob < ApplicationJob
   queue_as :default
 
   def perform(*_args)

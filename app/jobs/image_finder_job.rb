@@ -1,4 +1,4 @@
-class ImageFinderJob < ActiveJob::Base
+class ImageFinderJob < ApplicationJob
   queue_as :default
 
   def perform(post)

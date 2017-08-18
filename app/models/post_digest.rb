@@ -1,4 +1,4 @@
-class PostDigest < ActiveRecord::Base
+class PostDigest < ApplicationRecord
   validates :title, presence: true
   validates :slug, presence: true
 

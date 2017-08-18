@@ -1,4 +1,4 @@
-class UpdatePostsPerHourJob < ActiveJob::Base
+class UpdatePostsPerHourJob < ApplicationJob
   queue_as :default
 
   def perform(*_args)
