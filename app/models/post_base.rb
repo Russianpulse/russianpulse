@@ -28,7 +28,6 @@ class PostBase < ApplicationRecord
   scope :published, -> { where(blocked_at: nil) }
 
   before_create :set_accessed_at
-  after_save -> { PingerJob.perform_later(self) }
 
   before_save :nilify_slug_if_blank
   before_save :block_if_trashed

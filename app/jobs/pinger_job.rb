@@ -1,3 +1,4 @@
+# Not used for now
 class PingerJob < ApplicationJob
   queue_as :default
 
