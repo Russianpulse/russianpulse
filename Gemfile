@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '~> 5.0'
 gem 'puma', '~> 3.0'
 
-gem 'rails_admin', '~> 1.0'
+gem 'rails_admin'
 
 # Assets & JS & CSS
 gem 'sass-rails', '~> 5.0'
