@@ -39,8 +39,13 @@ class CommentsController < ApplicationController
     @user.password = SecureRandom.hex if @user.new_record?
     @comment = @post.comments.new(comment_params.merge(user: @user))
 
-    if verify_recaptcha
-      flag_spammer
+    flag_spammer
+
+    if !verify_recaptcha
+      redirect_to smart_post_path(@post), error: t('security.robot_atack')
+    elsif cooldown_spammer?(@user)
+      redirect_to smart_post_path(@post), error: t('security.spammer_atack')
+    else
 
       if @user.save && @comment.save
         ga_event category: :comments, action: :create, label: @post.title, interaction: 1, value: 1
@@ -69,9 +74,6 @@ class CommentsController < ApplicationController
       else
         redirect_to smart_post_path(@post)
       end
-
-    else
-      redirect_to smart_post_path(@post), error: t('security.robot_atack')
     end
   end
 
@@ -117,5 +119,20 @@ class CommentsController < ApplicationController
     return if @comment.user.new_record?
     return unless Comment.exists?(comment: @comment.comment, user: @comment.user)
     @comment.user.update_attributes! flagged: true
+  end
+
+  def cooldown_spammer?(user)
+    return unless user.persisted?
+    return unless user.flagged?
+
+    key = "cooldown:user:#{user.id}"
+
+    if Rails.cache.exist? key
+      true
+    else
+      Rails.cache.write key, expires_in: 5.minutes + rand(15).minutes
+
+      false
+    end
   end
 end
