@@ -45,7 +45,7 @@ gem 'typogruby'
 gem 'dotenv-rails'
 gem 'fog'
 
-gem 'nokogiri', '~> 1.7.1'
+gem 'nokogiri', '1.8.2'
 gem 'erubis'
 
 group :production do
