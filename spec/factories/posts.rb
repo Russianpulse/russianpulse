@@ -8,6 +8,10 @@ FactoryGirl.define do
       top true
     end
 
+    trait :ads do
+      stream :partners
+    end
+
     trait :blocked do
       stream :trash
       blocked_at { 5.minutes.ago }

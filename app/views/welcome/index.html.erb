@@ -11,6 +11,8 @@
 
   <div class="row">
     <div class="col-sm-4">
+      <%= cell('posts/ads') %>
+
       <%= cell("posts/text_block", @posts_recent[0..5]) %>
     </div>
     <% @posts_featured.in_groups(2, false) do |posts| %>
