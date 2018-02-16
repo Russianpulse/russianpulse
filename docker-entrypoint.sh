@@ -2,7 +2,7 @@
 set -e
 
 if [ "$1" = 'update' ]; then
-  bundle exec rake db:create db:migrate assets:precompile
+  bundle exec rake db:migrate assets:precompile
   exit 0
 fi
 
@@ -13,6 +13,7 @@ fi
 
 if [ "$1" = 'web' ]; then
   rm -rf tmp/pids/*
+  bundle exec rake db:migrate assets:precompile
   bundle exec rails server puma -p 80 --binding 0.0.0.0
 fi
 
