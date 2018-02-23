@@ -2,6 +2,7 @@ class SetUserCountryJob < ApplicationJob
   queue_as :low
 
   DEFAULT_COUNTRY_CODE = 'ru'.freeze
+  RUSSIA_COUNTRY_CODE = 'ru'.freeze
 
   def perform(user)
     @user = user
@@ -21,7 +22,11 @@ class SetUserCountryJob < ApplicationJob
 
   def country_code(ip)
     data = JSON.parse open("http://freegeoip.net/json/#{ip}").read
-    data['country_code'].downcase.presence || DEFAULT_COUNTRY_CODE
+    country_code = data['country_code'].downcase.presence || DEFAULT_COUNTRY_CODE
+
+    return RUSSIA_COUNTRY_CODE if data['region_name'] == 'Republic of Crimea'
+
+    country_code
   rescue
     DEFAULT_COUNTRY_CODE
   end
