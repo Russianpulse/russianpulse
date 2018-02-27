@@ -14,12 +14,14 @@ RUN mkdir -p /app
 WORKDIR /app
 
 ADD Gemfile* ./
-RUN bundle install
+RUN bundle install --deployment --without development test
 
 ADD . ./
 
-VOLUME /app/tmp/cache
-VOLUME /app/public/assets
+ENV RAILS_ENV=production
+ENV DATABASE_URL=sqlite3:///db/production.sqlite3
+ENV SECRET_KEY_BASE=abc123
+RUN rake assets:precompile
 
 EXPOSE 80
 
