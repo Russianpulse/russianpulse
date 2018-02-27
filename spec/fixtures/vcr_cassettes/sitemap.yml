@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://www.google.com/webmasters/tools/ping?sitemap=https://localhost/sitemaps/sitemap.xml.gz
+    uri: http://www.google.com/webmasters/tools/ping?sitemap=http://localhost/sitemaps/sitemap.xml.gz
     body:
       encoding: US-ASCII
       string: ''
@@ -21,9 +21,9 @@ http_interactions:
       Content-Type:
       - text/html; charset=UTF-8
       Expires:
-      - Fri, 30 Sep 2016 18:32:01 GMT
+      - Tue, 27 Feb 2018 13:15:31 GMT
       Date:
-      - Fri, 30 Sep 2016 18:32:01 GMT
+      - Tue, 27 Feb 2018 13:15:31 GMT
       Cache-Control:
       - private, max-age=0
       X-Content-Type-Options:
@@ -49,10 +49,10 @@ http_interactions:
         </BODY>
         </HTML>
     http_version: 
-  recorded_at: Fri, 30 Sep 2016 18:32:00 GMT
+  recorded_at: Tue, 27 Feb 2018 13:15:31 GMT
 - request:
     method: get
-    uri: http://www.bing.com/webmaster/ping.aspx?siteMap=https://localhost/sitemaps/sitemap.xml.gz
+    uri: http://www.bing.com/ping?sitemap=http://localhost/sitemaps/sitemap.xml.gz
     body:
       encoding: US-ASCII
       string: ''
@@ -73,26 +73,23 @@ http_interactions:
       Pragma:
       - no-cache
       Content-Length:
-      - '982'
+      - '401'
       Content-Type:
       - text/html; charset=utf-8
       Expires:
       - "-1"
       Vary:
       - Accept-Encoding
-      Server:
-      - Microsoft-IIS/8.5
       X-Machinename:
-      - BN2SCH030310232
+      - BN2SCH020220643
       X-Aspnet-Version:
       - 4.0.30319
       X-Powered-By:
       - ASP.NET
       X-Msedge-Ref:
-      - 'Ref A: F42AF50B2BD349E3A26A29042CF3DF79 Ref B: EC570873B69C9CF516A9270500790A50
-        Ref C: Fri Sep 30 11:32:01 2016 PST'
+      - 'Ref A: 772DAF4170244BDF8846D1CBDB92936F Ref B: AM3EDGE0210 Ref C: 2018-02-27T13:15:31Z'
       Date:
-      - Fri, 30 Sep 2016 18:32:01 GMT
+      - Tue, 27 Feb 2018 13:15:31 GMT
     body:
       encoding: ASCII-8BIT
       string: !binary |-
@@ -101,29 +98,8 @@ http_interactions:
         0YwgPGEgaHJlZj0iL3dlYm1hc3RlciI+0YHRgNC10LTRgdGC0LLQsNC80Lgg
         0LLQtdCxLdC80LDRgdGC0LXRgNCwIEJpbmc8L2E+LCDRh9GC0L7QsdGLINC/
         0YDQvtCy0LXRgNC40YLRjCDRgdC+0YHRgtC+0Y/QvdC40LUgU2l0ZW1hcHMg
-        0Lgg0YPQstC40LTQtdGC0Ywg0L7RgtGH0LXRgtGLIEJpbmcuPCEtLSBTaXRl
-        Q2F0YWx5c3QgY29kZSB2ZXJzaW9uOiBILjEuIENvcHlyaWdodCAxOTk3LTIw
-        MDUgT21uaXR1cmUsIEluYy4gTW9yZSBpbmZvIGF2YWlsYWJsZSBhdCBodHRw
-        Oi8vd3d3Lm9tbml0dXJlLmNvbSAtLT48c2NyaXB0IGxhbmd1YWdlPSdKYXZh
-        U2NyaXB0Jz52YXIgc19hY2NvdW50PSdtc25wb3J0YWxiaW5nd2VibWFzdGVy
-        Jzs8L3NjcmlwdD48c2NyaXB0IGxhbmd1YWdlPSdKYXZhU2NyaXB0JyBzcmM9
-        Jy93ZWJtYXN0ZXIvY29udGVudC9zX2NvZGUuanMnPjwvc2NyaXB0PjxzY3Jp
-        cHQgbGFuZ3VhZ2U9J0phdmFTY3JpcHQnPnMubGlua0ludGVybmFsRmlsdGVy
-        cz0namF2YXNjcmlwdDosJztzLnRyYWNrRXh0ZXJuYWxMaW5rcz10cnVlO3Mu
-        cGFnZU5hbWU9J3Bpbmdfc2l0ZW1hcCc7cy5zZXJ2ZXI9J3d3dy5iaW5nLmNv
-        bSc7cy5jaGFubmVsID0gJ1dlYm1hc3Rlcic7cy5wcm9wMiA9ICdydS1SVSc7
-        cy5lVmFyMyA9ICdydS1SVSc7cy5wcm9wNSA9ICcnO3MuZVZhcjUgPSAnJztz
-        LnByb3AyMiA9ICcnOy8qKioqKioqKioqKioqIERPIE5PVCBBTFRFUiBBTllU
-        SElORyBCRUxPVyBUSElTIExJTkUgISAqKioqKioqKioqKioqKi92YXIgc19j
-        b2RlPXMudCgpO2lmKHNfY29kZSlkb2N1bWVudC53cml0ZShzX2NvZGUpPC9z
-        Y3JpcHQ+PHNjcmlwdCBsYW5ndWFnZT0nSmF2YVNjcmlwdCc+PCEtLWlmKG5h
-        dmlnYXRvci5hcHBWZXJzaW9uLmluZGV4T2YoJ01TSUUnKT49MClkb2N1bWVu
-        dC53cml0ZSh1bmVzY2FwZSgnJTNDJykrJ1whLScrJy0nKS8vLS0+PC9zY3Jp
-        cHQ+PG5vc2NyaXB0PjxpbWcgc3JjPSdodHRwczovLzEwMi4xMTIuMk83Lm5l
-        dC9iL3NzL21zbnBvcnRhbGRldi8xL0guMS0tTlMvMCcgaGVpZ2h0PScxJyB3
-        aWR0aD0nMScgYm9yZGVyPScwJyBhbHQ9JycgLz48L25vc2NyaXB0PjwhLS0v
-        RE8gTk9UIFJFTU9WRS8tLT48IS0tIEVuZCBTaXRlQ2F0YWx5c3QgY29kZSB2
-        ZXJzaW9uOiBILjEuIC0tPjwvYm9keT48L2h0bWw+
+        0Lgg0YPQstC40LTQtdGC0Ywg0L7RgtGH0LXRgtGLIEJpbmcuPC9ib2R5Pjwv
+        aHRtbD4=
     http_version: 
-  recorded_at: Fri, 30 Sep 2016 18:32:01 GMT
+  recorded_at: Tue, 27 Feb 2018 13:15:31 GMT
 recorded_with: VCR 3.0.3
