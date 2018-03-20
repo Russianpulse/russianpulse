@@ -6,7 +6,7 @@ class PostPolicy < ApplicationPolicy
       if user.admin?
         scope
       else
-        scope.none
+        scope.where(user_id: user)
       end
     end
   end

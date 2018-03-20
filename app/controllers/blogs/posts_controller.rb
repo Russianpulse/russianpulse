@@ -1,10 +1,12 @@
 class Blogs::PostsController < ApplicationController
   include Pundit
-  before_action :set_blogs_post, only: [:show, :edit, :update, :destroy]
+  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  helper_method :blogs
+
 
   # GET /blogs/posts
   def index
-    @blogs_posts = policy_scope Post.limit(10)
+    @blogs_posts = policy_scope Post.recent.limit(100)
   end
 
   # GET /blogs/posts/1
@@ -22,10 +24,10 @@ class Blogs::PostsController < ApplicationController
 
   # POST /blogs/posts
   def create
-    @blogs_post = Blogs::Post.new(blogs_post_params)
+    @post = Post.new(post_params)
 
-    if @blogs_post.save
-      redirect_to @blogs_post, notice: 'Post was successfully created.'
+    if @post.save
+      redirect_to action: :show, id: @post.id, notice: 'Post was successfully created.'
     else
       render :new
     end
@@ -33,8 +35,8 @@ class Blogs::PostsController < ApplicationController
 
   # PATCH/PUT /blogs/posts/1
   def update
-    if @blogs_post.update(blogs_post_params)
-      redirect_to @blogs_post, notice: 'Post was successfully updated.'
+    if @post.update(post_params)
+      redirect_to action: :show, id: @post.id, notice: 'Post was successfully updated.'
     else
       render :edit
     end
@@ -48,12 +50,16 @@ class Blogs::PostsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_blogs_post
-      @blogs_post = Blogs::Post.find(params[:id])
+    def set_post
+      @post = Post.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
-    def blogs_post_params
-      params.fetch(:blogs_post, {})
+    def post_params
+      params.require(:post).permit(:blog_id, :title, :body).merge(user_id: current_user.id)
+    end
+
+    def blogs
+      policy_scope Blog.all
     end
 end

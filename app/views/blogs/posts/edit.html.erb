@@ -1,6 +1,8 @@
-<h1>Editing Blogs Post</h1>
+<div class='well'>
+  <h1>Editing Blogs Post</h1>
 
-<%= render 'form', blogs_post: @blogs_post %>
+  <%= render 'form', blogs_post: @post, action_url: url_for(action: :update, id: @post.id) %>
 
-<%= link_to 'Show', @blogs_post %> |
-<%= link_to 'Back', blogs_posts_path %>
+  <%= link_to 'Show', action: :show, id: @post %> |
+  <%= link_to 'Back', action: :index %>
+</div>

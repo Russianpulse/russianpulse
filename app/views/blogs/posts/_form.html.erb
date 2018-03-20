@@ -1,7 +1,8 @@
-<%= simple_form_for(@post, url: url_for(action: :create)) do |f| %>
+<%= simple_form_for(@post, url: action_url) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
+    <%= f.input :blog_id, as: :select, collection: blogs %>
     <%= f.input :title %>
     <%= f.text_area :body %>
   </div>

@@ -1,4 +1,14 @@
 <p id="notice"><%= notice %></p>
 
-<%= link_to 'Edit', edit_blogs_post_path(@blogs_post) %> |
-<%= link_to 'Back', blogs_posts_path %>
+<div class="well">
+  <strong><%= @post.blog.title %></strong>
+  <h1><%= @post.title %></h1>
+
+  <div class="body">
+    <%= raw @post.body.gsub(/http:/, '') %>
+  </div>
+
+  <%= link_to 'Edit', action: :edit, id: @post %> |
+  <%= link_to 'Back', action: :index %>
+</div>
+

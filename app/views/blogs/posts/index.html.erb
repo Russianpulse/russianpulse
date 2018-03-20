@@ -1,25 +1,36 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Blogs Posts</h1>
+<div class='well'>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+  <h1>Blogs Posts</h1>
 
-  <tbody>
-    <% @blogs_posts.each do |post| %>
+  <table>
+    <thead>
       <tr>
-        <td><%= link_to 'Show', smart_post_path(post) %></td>
-        <td><%= link_to 'Edit', action: :edit, id: post.id %></td>
-        <td><%= link_to 'Destroy', action: :destroy, id: post.id, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Заголовок</th>
+        <th>Блог</th>
+        <th>Опуликовано</th>
+        <th>Обновлено</th>
+        <th colspan="3"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<br>
+    <tbody>
+      <% @blogs_posts.each do |post| %>
+        <tr>
+          <td><%= post.title %></td>
+          <td><%= post.blog.try(:title) %></td>
+          <td><%= smart_date post.created_at %></td>
+          <td><%= smart_date post.updated_at %></td>
+          <td><%= link_to 'Show', smart_post_path(post) %></td>
+          <td><%= link_to 'Edit', action: :edit, id: post.id %></td>
+          <td><%= link_to 'Destroy', action: :destroy, id: post.id, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
-<%= link_to 'New Blogs Post', action: :new %>
+  <br>
+
+  <%= link_to 'Новая статья', action: :new %>
+</div>
