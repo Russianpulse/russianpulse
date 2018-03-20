@@ -3,7 +3,11 @@ class PostPolicy < ApplicationPolicy
   # Posts scope policy
   class Scope < Scope
     def resolve
-      scope
+      if user.admin?
+        scope
+      else
+        scope.none
+      end
     end
   end
 
