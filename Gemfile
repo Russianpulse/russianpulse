@@ -45,6 +45,7 @@ gem 'staccato'
 gem 'typogruby'
 gem 'dotenv-rails'
 gem 'fog'
+gem 'webpacker'
 
 gem 'nokogiri', '1.8.2'
 gem 'erubis'

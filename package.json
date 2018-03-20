@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@rails/webpacker": "^3.3.1",
+    "medium-editor": "^5.23.3"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "2.11.2"
+  }
+}
