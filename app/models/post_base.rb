@@ -12,6 +12,7 @@ class PostBase < ApplicationRecord
 
   validates :title, presence: true
   validates :body, presence: true
+  validates :blog, presence: true
 
   scope :recent, -> { order("#{table_name}.created_at DESC") }
   scope :newer_than, ->(date) { where("#{table_name}.created_at > ?", date) }

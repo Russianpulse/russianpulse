@@ -12,12 +12,14 @@ services:
   - docker
 
 before_install:
-  - echo 'GO!'
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
 
 script:
   #- yarn install
   - bundle exec rake db:create db:migrate
   - bundle exec rspec
 
-  - gem i codeclimate-test-reporter 
-  - CODECLIMATE_REPO_TOKEN=$CC_TEST_REPORTER_ID codeclimate-test-reporter
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT

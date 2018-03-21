@@ -1,0 +1,11 @@
+<div class='well'>
+  <h1>Редактирование статьи</h1>
+  <ol class="breadcrumb">
+    <li>
+      <%= link_to('Мои статьи', action: :index)  %>
+    </li>
+    <li class="active"><%= @post.title %></li>
+  </ol>
+
+  <%= render 'form', blogs_post: @post, action_url: url_for(action: :update, id: @post.id) %>
+</div>

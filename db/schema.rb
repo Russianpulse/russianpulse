@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170725172950) do
+ActiveRecord::Schema.define(version: 20180320181705) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,12 @@ ActiveRecord::Schema.define(version: 20170725172950) do
     t.index ["featured"], name: "index_blogs_on_featured"
     t.index ["rating"], name: "index_blogs_on_rating"
     t.index ["slug"], name: "index_blogs_on_slug", unique: true
+  end
+
+  create_table "blogs_users", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "blog_id", null: false
+    t.string "role", null: false
   end
 
   create_table "comments", id: :serial, force: :cascade do |t|
@@ -113,6 +119,7 @@ ActiveRecord::Schema.define(version: 20170725172950) do
     t.text "body"
     t.text "enclosures"
     t.string "type"
+    t.integer "user_id"
     t.index ["comments_count"], name: "index_posts_on_comments_count"
     t.index ["created_at"], name: "index_posts_on_created_at"
     t.index ["slug_id"], name: "index_posts_on_slug_id", unique: true
@@ -160,5 +167,8 @@ ActiveRecord::Schema.define(version: 20170725172950) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "blogs_users", "blogs"
+  add_foreign_key "blogs_users", "users"
   add_foreign_key "posts", "blogs"
+  add_foreign_key "posts", "users"
 end

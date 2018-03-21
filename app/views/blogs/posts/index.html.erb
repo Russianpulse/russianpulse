@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<div class='well'>
+
+  <h1>Мои статьи</h1>
+  <br />
+
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Заголовок</th>
+        <th>Блог</th>
+        <th>Опуликовано</th>
+        <th>Обновлено</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @blogs_posts.each do |post| %>
+        <tr>
+          <td><%= link_to post.title, action: :show, id: post %></td>
+          <td><%= post.blog.try(:title) %></td>
+          <td><%= smart_date post.created_at %></td>
+          <td><%= smart_date post.updated_at %></td>
+          <td><%= link_to 'Редактировать', { action: :edit, id: post.id }, class: 'btn btn-default' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <br>
+
+  <%= link_to 'Новая статья', { action: :new }, class: 'btn btn-primary' %>
+</div>

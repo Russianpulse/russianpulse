@@ -12,7 +12,10 @@ Rails.application.routes.draw do
 
   get 'ratings/posts', as: :rating
 
-  devise_for :users
+  devise_for :users, controllers: {
+    sessions: 'users/sessions',
+    registrations: 'users/registrations',
+  }
 
   resources :comments, only: [:create] do
     put :spam, on: :member
@@ -71,6 +74,10 @@ Rails.application.routes.draw do
   get ':blog/:year/:month/:day/:id' => 'posts#show', :as => :post
   get ':blog/:year/:month/:day/:slug_id/:title' => 'posts#show', :as => :post_with_slug
   get 'posts/:slug_id' => 'posts#show', as: :post_permalink
+
+  scope '/editor', module: :blogs do
+    resources :posts
+  end
 
   get '/main' => 'posts#index' # legacy
   get ':slug' => 'blogs#show', :as => :blog
