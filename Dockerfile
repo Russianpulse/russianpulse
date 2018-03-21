@@ -22,6 +22,11 @@ WORKDIR /app
 ADD Gemfile* ./
 RUN bundle install --deployment --without development test
 
+ADD package.json ./
+ADD yarn.lock ./
+
+RUN yarn install 
+
 ADD . ./
 
 ENV RAILS_ENV=production
