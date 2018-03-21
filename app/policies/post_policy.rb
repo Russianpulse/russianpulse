@@ -11,7 +11,17 @@ class PostPolicy < ApplicationPolicy
     end
   end
 
+  def create?
+    BlogUser.where(user_id: user.id).exists?
+  end
+
   def update?
+    return true if user.admin?
+
+    record.user_id == user.id
+  end
+
+  def block?
     user.admin?
   end
 

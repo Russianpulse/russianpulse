@@ -2,9 +2,10 @@
 
 <div class='well'>
 
-  <h1>Blogs Posts</h1>
+  <h1>Мои статьи</h1>
+  <br />
 
-  <table>
+  <table class='table'>
     <thead>
       <tr>
         <th>Заголовок</th>
@@ -18,13 +19,11 @@
     <tbody>
       <% @blogs_posts.each do |post| %>
         <tr>
-          <td><%= post.title %></td>
+          <td><%= link_to post.title, action: :show, id: post %></td>
           <td><%= post.blog.try(:title) %></td>
           <td><%= smart_date post.created_at %></td>
           <td><%= smart_date post.updated_at %></td>
-          <td><%= link_to 'Show', smart_post_path(post) %></td>
-          <td><%= link_to 'Edit', action: :edit, id: post.id %></td>
-          <td><%= link_to 'Destroy', action: :destroy, id: post.id, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'Редактировать', { action: :edit, id: post.id }, class: 'btn btn-default' %></td>
         </tr>
       <% end %>
     </tbody>
@@ -32,5 +31,5 @@
 
   <br>
 
-  <%= link_to 'Новая статья', action: :new %>
+  <%= link_to 'Новая статья', { action: :new }, class: 'btn btn-primary' %>
 </div>

@@ -1,14 +1,26 @@
 <p id="notice"><%= notice %></p>
 
 <div class="well">
-  <strong><%= @post.blog.title %></strong>
+
+  <h1>Предпросмотр статьи</h1>
+
+  <ol class="breadcrumb">
+    <li>
+      <%= link_to('Мои статьи', action: :index)  %>
+    </li>
+    <li class="active"><%= @post.title %></li>
+  </ol>
+
+
+  Основной адрес статьи: <%= link_to smart_post_url(@post), smart_post_path(@post) %>
+
   <h1><%= @post.title %></h1>
+  <%= link_to 'Редактировать', { action: :edit, id: @post }, class: 'btn btn-primary' %>
+  <hr>
+  <strong><%= @post.blog.title %></strong>
 
   <div class="body">
-    <%= raw @post.body.gsub(/http:/, '') %>
+    <%= raw @post.body %>
   </div>
-
-  <%= link_to 'Edit', action: :edit, id: @post %> |
-  <%= link_to 'Back', action: :index %>
 </div>
 

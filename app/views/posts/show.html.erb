@@ -9,10 +9,8 @@
 
   <h1><%= @post.title %></h1>
 
-  <% if policy(@post).update? %>
-    <%= link_to "Edit", "/admin/rails_admin/post/#{@post.id}/edit", :class => "btn btn-primary" %>
-    <%= link_to "Block", block_post_path(@post), method: :put, class: "btn btn-danger" %>
-  <% end %>
+  <%= link_to("Edit", { controller: 'blogs/posts', action: :edit, id: @post }, { class: 'btn btn-primary' }) if policy(@post).update? %>
+  <%= link_to("Block", block_post_path(@post), method: :put, class: "btn btn-danger") if policy(@post).block? %>
 
   <%= render :partial => 'tags' %>
 
