@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root 'welcome#index'
+
   namespace :podcasts do
     get '/', to: 'podcasts#index', as: :root
   end
@@ -30,8 +32,6 @@ Rails.application.routes.draw do
   get 'errors/not_found'
 
   get 'errors/exception'
-
-  root 'welcome#index'
 
   get '/p/views/:id' => 'posts#counter'
 
