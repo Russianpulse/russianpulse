@@ -12,4 +12,6 @@
 <br />
 <br />
 
-<%= render partial: "shared/posts_table", locals: { posts: @posts } %>
+<%= cache 'posts', epires_in: 1.hour do %>
+  <%= render partial: "shared/posts_table", locals: { posts: @posts } %>
+<% end %>
