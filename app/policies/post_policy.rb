@@ -17,6 +17,7 @@ class PostPolicy < ApplicationPolicy
 
   def update?
     return true if user.admin?
+    return false if user.id.blank?
 
     record.user_id == user.id
   end
