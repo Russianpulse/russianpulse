@@ -2,6 +2,7 @@ class CommentsController < ApplicationController
   include ApplicationHelper
   include PostsHelper
   include CommentsHelper
+  include Devise::Controllers::Rememberable
   before_action :set_comment, only: %i[show edit update destroy spam]
 
   # already protected with captcha
@@ -62,6 +63,7 @@ class CommentsController < ApplicationController
 
         begin
           sign_in @user
+          remember_me @user
         rescue
           nil
         end
