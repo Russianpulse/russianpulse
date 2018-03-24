@@ -9,7 +9,7 @@ RSpec.describe UpdatePodcastJob, type: :job do
     before do
       blog.save!
       allow(job).to receive(:need_check?).and_return(true)
-      blog.feed_url = 'http://youtube-podcasts.russianpulse.ru/nstarikovru/user.xml'
+      blog.feed_url = 'https://yt.mazavr.com/channels/UCVPYbobPRzz0SjinWekjUBw.atom'
 
       allow(job).to receive(:url_after_redirects) { |url| url }
 
