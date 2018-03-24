@@ -5,6 +5,6 @@ class Episode < PostBase
   validates :enclosures, presence: true
 
   def enclosure_mp3
-    enclosures.first
+    enclosures.find { |url| url.match(/mp3/) }
   end
 end
