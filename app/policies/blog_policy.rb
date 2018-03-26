@@ -1,6 +1,8 @@
 class BlogPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
+      return scope if user.admin?
+
       scope.where(id: allowed_blogs)
     end
 
