@@ -13,6 +13,11 @@ class CommentsController < ApplicationController
     @comments = Comment.all
   end
 
+  def recent
+    @post = Post.find params[:post_id]
+    @comments = Comment.recent.not_for(@post).limit(20)
+  end
+
   # GET /comments/1
   def show; end
 

@@ -75,6 +75,12 @@ Rails.application.routes.draw do
   get ':blog/:year/:month/:day/:slug_id/:title' => 'posts#show', :as => :post_with_slug
   get 'posts/:slug_id' => 'posts#show', as: :post_permalink
 
+  scope '/ajax', ajax: true do
+    scope '/comments' do
+      get '/recent' => 'comments#recent', as: :ajax_comments_recent
+    end
+  end
+
   scope '/editor', module: :blogs do
     resources :posts
   end

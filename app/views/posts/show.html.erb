@@ -73,13 +73,7 @@
 
 <br />
   
-<div class="row">
-  <% Comment.recent.not_for(@post).limit(20).in_groups(2, false).each do |comments| %>
-    <div class="col-sm-6">
-      <%= render partial: "shared/recent_comments", locals: { comments: comments } %>
-    </div>
-  <% end %>
-</div>
+<%= ajax_block ajax_comments_recent_url(post_id: @post.id) %>
 
 <br />
 
