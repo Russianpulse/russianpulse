@@ -81,6 +81,7 @@ Rails.application.routes.draw do
     end
     scope '/posts' do
       get '/most_discussed' => 'posts#most_discussed', as: :ajax_posts_most_discussed
+      get '/comments' => 'posts#comments', as: :ajax_post_comments
     end
   end
 

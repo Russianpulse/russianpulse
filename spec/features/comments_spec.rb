@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.feature 'Comments', type: :feature do
-  let(:post) { FactoryGirl.create(:post, title: 'Post title') }
+RSpec.feature 'Comments', type: :feature, js: true do
+  let!(:post) { FactoryGirl.create(:post, title: 'Post title') }
 
   scenario 'Guest creates new comment for a post' do
     visit "/posts/#{post.id}"

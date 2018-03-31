@@ -45,11 +45,6 @@
     <div class="row" style="min-height: 430px">
       <div class="col-md-12">
         <div class="controller-<%= params[:controller].gsub('/', '-') %> action-<%= params[:controller].gsub('/', '-') %>-<%= params[:action] %>">
-
-          <% if flash[:notice] %>
-            <div class="notice"><%= flash[:notice] %></div>
-          <% end %>
-
           <%= yield %>
         </div>
       </div>

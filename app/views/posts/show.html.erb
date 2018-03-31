@@ -58,7 +58,7 @@
 <div class="row">
   <div class="col-sm-6">
     <div>
-      <%= render partial: "comments", locals: { comments: @post.comments.order(:created_at) } %>
+      <%= ajax_block ajax_post_comments_url(id: @post.id) %>
     </div>
   </div>
   <div class="col-sm-6">
