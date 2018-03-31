@@ -6,4 +6,8 @@ module AjaxHelper
       concat javascript_tag("$('##{id}').load('#{url}');")
     end
   end
+
+  def ajax_cell(name, *args)
+    ajax_block ajax_cell_url(name, args: args.to_json)
+  end
 end

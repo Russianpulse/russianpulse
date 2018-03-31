@@ -1,5 +1,5 @@
 <h2><%= t(:most_discussed) %></h2>
 
 <div class="well">
-  <%= ajax_block ajax_posts_most_discussed_url(id: post.id) %>
+  <%= ajax_cell 'most_discussed', post.id %>
 </div>

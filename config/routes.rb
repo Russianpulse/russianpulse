@@ -83,6 +83,8 @@ Rails.application.routes.draw do
       get '/most_discussed' => 'posts#most_discussed', as: :ajax_posts_most_discussed
       get '/comments' => 'posts#comments', as: :ajax_post_comments
     end
+
+    get '/cells/:name' => 'ajax/cells#show', as: :ajax_cell
   end
 
   scope '/editor', module: :blogs do

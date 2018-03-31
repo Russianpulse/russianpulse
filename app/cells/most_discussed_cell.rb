@@ -22,6 +22,11 @@ class MostDiscussedCell < BaseCell
   end
 
   def current_post_id
-    model.try(:id) || 0
+    case model
+    when Numeric
+      model
+    else
+      model.try(:id) || 0
+    end
   end
 end
