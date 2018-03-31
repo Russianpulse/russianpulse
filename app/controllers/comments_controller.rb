@@ -15,6 +15,8 @@ class CommentsController < ApplicationController
 
   def recent
     @post = Post.find params[:post_id]
+
+    expires_in(30.minutes, public: true)
     @comments = Comment.recent.not_for(@post).limit(20)
   end
 

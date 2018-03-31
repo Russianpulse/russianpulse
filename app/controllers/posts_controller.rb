@@ -15,6 +15,14 @@ class PostsController < ApplicationController
     end
   end
 
+  def most_discussed
+    @post = Post.find params[:id]
+
+    expires_in(30.minutes, public: true)
+
+    render html: cell('most_discussed', @post)
+  end
+
   def show
     @post = find_post_by_slug_or_id(params[:slug_id], (params[:id] || params[:slug_id]).to_i)
 

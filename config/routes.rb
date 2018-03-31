@@ -79,6 +79,9 @@ Rails.application.routes.draw do
     scope '/comments' do
       get '/recent' => 'comments#recent', as: :ajax_comments_recent
     end
+    scope '/posts' do
+      get '/most_discussed' => 'posts#most_discussed', as: :ajax_posts_most_discussed
+    end
   end
 
   scope '/editor', module: :blogs do
