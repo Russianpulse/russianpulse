@@ -31,6 +31,7 @@ gem 'httpclient'
 gem 'liquid'
 gem 'pg'
 gem 'pundit'
+gem 'rack-cache'
 gem 'redcarpet'
 gem 'ruby-readability', require: 'readability'
 gem 'ruby-stemmer', require: 'lingua/stemmer'
@@ -57,9 +58,6 @@ group :production do
 end
 
 group :development do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug'
-
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console'
 
@@ -86,6 +84,10 @@ group :development, :test do
   gem 'rack-mini-profiler', require: false
   # gem 'benchmark-ips'
   gem 'bullet'
+
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'byebug'
+
   gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'vcr'
@@ -94,6 +96,7 @@ end
 group :test do
   gem 'webmock'
   gem 'capybara'
+  gem 'poltergeist'
 
   # TODO: remove it
   gem 'rails-controller-testing'

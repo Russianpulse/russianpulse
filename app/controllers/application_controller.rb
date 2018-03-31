@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   before_action :set_locale
 
   helper_method :ab_variant?
+  layout :layout
 
   rescue_from ActiveRecord::RecordNotFound do
     respond_to do |format|
@@ -76,5 +77,13 @@ class ApplicationController < ActionController::Base
     uri = URI('https://www.google.com/recaptcha/api/siteverify')
     res = Net::HTTP.post_form(uri, secret: ENV['RECAPTCHA_PRIVATE_KEY'], response: params['g-recaptcha-response'])
     JSON.parse(res.body)['success']
+  end
+
+  def layout
+    if params[:ajax]
+      false
+    else
+      'application'
+    end
   end
 end

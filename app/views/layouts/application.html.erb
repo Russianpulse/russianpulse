@@ -11,6 +11,7 @@
   <link rel="icon" href="<%= snippet(:favicon_url) || '/favicon.ico' %>" type="image/x-icon">
 
   <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'jquery' %>
   <%= csrf_meta_tags if session.present? %>
 
   <%= auto_discovery_link_tag :atom, posts_url(:format => :atom), :title => t(:recent_posts).mb_chars.capitalize %>
@@ -31,6 +32,7 @@
   <%= snippet :head %>
   <%= Gon::Base.render_data %>
 
+
 	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&amp;subset=cyrillic" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
@@ -43,11 +45,6 @@
     <div class="row" style="min-height: 430px">
       <div class="col-md-12">
         <div class="controller-<%= params[:controller].gsub('/', '-') %> action-<%= params[:controller].gsub('/', '-') %>-<%= params[:action] %>">
-
-          <% if flash[:notice] %>
-            <div class="notice"><%= flash[:notice] %></div>
-          <% end %>
-
           <%= yield %>
         </div>
       </div>

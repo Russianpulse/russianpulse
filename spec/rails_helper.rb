@@ -6,6 +6,8 @@ require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 require 'webmock/rspec'
 require 'capybara/rails'
+require 'capybara/poltergeist'
+Capybara.javascript_driver = :poltergeist
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -31,6 +33,7 @@ require 'vcr'
 VCR.configure do |config|
   config.cassette_library_dir = File.join(Rails.root, 'spec/fixtures/vcr_cassettes')
   config.hook_into :webmock # or :fakeweb
+  config.ignore_hosts '127.0.0.1'
 end
 
 RSpec.configure do |config|

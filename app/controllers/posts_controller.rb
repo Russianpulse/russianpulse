@@ -9,10 +9,24 @@ class PostsController < ApplicationController
 
     @posts = @posts.top if params[:top] == '1'
 
+
     respond_to do |format|
       format.html
       format.atom
     end
+  end
+
+  def comments
+    @post = Post.find params[:id]
+    @comments = @post.comments.order(:created_at)
+  end
+
+  def most_discussed
+    @post = Post.find params[:id]
+
+    expires_in(30.minutes, public: true)
+
+    render html: cell('most_discussed', @post)
   end
 
   def show
@@ -29,7 +43,7 @@ class PostsController < ApplicationController
       if @post.blocked?
         render template: 'posts/show_blocked'
       else
-        render template: 'posts/show'
+        fresh_when(etag: @post, last_modified: @post.updated_at, public: true)
       end
     else
       redirect_to smart_post_path(@post)

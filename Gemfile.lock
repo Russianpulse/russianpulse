@@ -79,6 +79,7 @@ GEM
     cells-rails (0.0.8)
       actionpack (>= 3.0)
       cells (>= 4.1.6, < 5.0.0)
+    cliver (0.3.2)
     coderay (1.1.1)
     coffee-rails (4.2.2)
       coffee-script (>= 2.2.0)
@@ -381,6 +382,10 @@ GEM
     parser (2.4.0.0)
       ast (~> 2.2)
     pg (0.20.0)
+    poltergeist (1.17.0)
+      capybara (~> 2.1)
+      cliver (~> 0.3.1)
+      websocket-driver (>= 0.2.0)
     powerpack (0.1.1)
     pry (0.10.4)
       coderay (~> 1.1.0)
@@ -391,6 +396,8 @@ GEM
     pundit (1.1.0)
       activesupport (>= 3.0.0)
     rack (2.0.4)
+    rack-cache (1.7.1)
+      rack (>= 0.4)
     rack-livereload (0.3.16)
       rack
     rack-mini-profiler (0.10.4)
@@ -655,8 +662,10 @@ DEPENDENCIES
   newrelic_rpm
   nokogiri (= 1.8.2)
   pg
+  poltergeist
   puma (~> 3.0)
   pundit
+  rack-cache
   rack-livereload
   rack-mini-profiler
   rails (~> 5.0)

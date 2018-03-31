@@ -41,6 +41,8 @@ module Mazavr
                            socket_failure_delay: 0.2,
                            race_condition_ttl: 5 }
 
+    config.action_dispatch.rack_cache = true
+
     # Use a real queuing backend for Active Job (and separate queues per environment)
     config.active_job.queue_adapter = :sidekiq
     # config.active_job.queue_name_prefix = "mazavr_#{Rails.env}"
