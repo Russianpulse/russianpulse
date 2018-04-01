@@ -1,5 +1,5 @@
 class Ajax::CellsController < ApplicationController
-  CELLS = %w( most_discussed posts/controls )
+  CELLS = %w( most_discussed posts/controls posts/comments_link )
 
   def show
     render html: cell(name, *JSON.parse(params[:args]))

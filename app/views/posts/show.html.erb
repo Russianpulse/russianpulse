@@ -29,7 +29,7 @@
     <% end %>
   <% end %>
 
-  <%= comments_link @post, without_comments: true %>
+  <%= ajax_cell('posts/comments_link', @post.id) %>
 
   <br />
   <br />
