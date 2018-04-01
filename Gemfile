@@ -51,6 +51,8 @@ gem 'webpacker'
 gem 'nokogiri', '1.8.2'
 gem 'erubis'
 
+gem 'rack-attack'
+
 group :production do
   gem 'newrelic_rpm'
   gem 'rails_12factor'
