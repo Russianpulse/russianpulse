@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   end
 
   get 'robots.txt' => 'robots#index'
+  get 'sitemap.xml' => 'robots#sitemap'
 
   get 'welcome/index'
 
