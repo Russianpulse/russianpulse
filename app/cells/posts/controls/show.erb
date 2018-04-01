@@ -1,0 +1,7 @@
+<% if policy(@post).update? %>
+  <%= link_to('Edit', { controller: 'blogs/posts', action: :edit, id: @post }, { class: 'btn btn-primary' }) %>
+<% end %>
+
+<% if policy(@post).block? %>
+  <%= link_to("Block", block_post_path(@post), method: :put, class: "btn btn-danger")  %>
+<% end %>
