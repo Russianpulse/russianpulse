@@ -1,6 +1,8 @@
 class BlogsController < ApplicationController
   def index
     @blogs = Blog.popular
+
+    expires_in(30.minutes, public: true)
   end
 
   def show
