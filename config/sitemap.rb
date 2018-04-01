@@ -51,7 +51,11 @@ SitemapGenerator::Sitemap.create do
     add blog_path(blog.slug), lastmod: blog.updated_at, changefreq: 'hourly', priority: 1
   end
 
-  Post.published.find_each do |post|
+  Post.top.recent.limit(1000).each do |post|
+    add smart_post_path(post), lastmod: post.updated_at, priority: 0.1, changefreq: 'monthly'
+  end
+
+  Post.published.not_top.newer_than(1.month.ago).find_each do |post|
     add smart_post_path(post), lastmod: post.updated_at, priority: 0.1, changefreq: 'monthly'
   end
 end

@@ -19,11 +19,12 @@ class PostBase < ApplicationRecord
   scope :older_than, ->(date) { where("#{table_name}.created_at < ?", date) }
   scope :created_between, ->(from, to) { where("#{table_name}.created_at >= ? AND #{table_name}.created_at <= ?", from, to) }
 
-  COMMENTS_POWER = 50
+  COMMENTS_POWER = 1000
   scope :popular, -> { order("(views + comments_count * #{COMMENTS_POWER}) DESC NULLS LAST") }
   scope :unpopular, -> { order("(views + comments_count * #{COMMENTS_POWER}), accessed_at DESC NULLS FIRST") }
 
   scope :top, -> { where('top = ? OR comments_count > 0', true) }
+  scope :not_top, -> { where('top = ? AND comments_count = 0', false) }
   scope :with_picture, -> { where("picture_url LIKE '%//%'") }
   scope :most_discussed, -> { where('comments_count > 0').order('comments_count DESC') }
   scope :published, -> { where(blocked_at: nil) }
