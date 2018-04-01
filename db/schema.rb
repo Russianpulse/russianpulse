@@ -24,20 +24,6 @@ ActiveRecord::Schema.define(version: 20180401211516) do
     t.boolean "equal"
   end
 
-  create_table "active_admin_comments", force: :cascade do |t|
-    t.string "namespace"
-    t.text "body"
-    t.string "resource_type"
-    t.bigint "resource_id"
-    t.string "author_type"
-    t.bigint "author_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
-    t.index ["namespace"], name: "index_active_admin_comments_on_namespace"
-    t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
-  end
-
   create_table "blogs", id: :serial, force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -73,8 +59,8 @@ ActiveRecord::Schema.define(version: 20180401211516) do
   create_table "comments", id: :serial, force: :cascade do |t|
     t.string "title", limit: 50, default: ""
     t.text "comment"
-    t.integer "commentable_id"
     t.string "commentable_type"
+    t.integer "commentable_id"
     t.integer "user_id"
     t.string "role", default: "comments"
     t.datetime "created_at"
@@ -86,10 +72,10 @@ ActiveRecord::Schema.define(version: 20180401211516) do
   end
 
   create_table "follows", id: :serial, force: :cascade do |t|
-    t.integer "followable_id", null: false
     t.string "followable_type", null: false
-    t.integer "follower_id", null: false
+    t.integer "followable_id", null: false
     t.string "follower_type", null: false
+    t.integer "follower_id", null: false
     t.boolean "blocked", default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -142,29 +128,13 @@ ActiveRecord::Schema.define(version: 20180401211516) do
     t.index ["views"], name: "index_posts_on_views"
   end
 
-  create_table "posts_archived", id: :serial, force: :cascade do |t|
-    t.integer "blog_id"
-    t.text "title"
-    t.text "body"
-    t.integer "views", default: 0, null: false
-    t.text "source_url"
-    t.datetime "accessed_at"
-    t.text "source_html"
-    t.text "tags_list"
-    t.string "slug_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["created_at"], name: "index_posts_archived_on_created_at"
-    t.index ["slug_id"], name: "index_posts_archived_on_slug_id", unique: true
-    t.index ["views"], name: "index_posts_archived_on_views"
-  end
-
   create_table "snippets", id: :serial, force: :cascade do |t|
     t.string "key", null: false
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "v2"
+    t.index ["key"], name: "index_snippets_on_key", unique: true
   end
 
   create_table "tags", id: :serial, force: :cascade do |t|
