@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180320181705) do
+ActiveRecord::Schema.define(version: 20180401211516) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20180320181705) do
     t.integer "health_status", default: 0
     t.string "default_stream", default: "inbox", null: false
     t.string "type"
+    t.integer "posts_count", default: 0, null: false
     t.index ["featured"], name: "index_blogs_on_featured"
     t.index ["rating"], name: "index_blogs_on_rating"
     t.index ["slug"], name: "index_blogs_on_slug", unique: true
