@@ -110,4 +110,10 @@ Rails.application.configure do
                                               mrkdwn: true
                                             }
                                           }
+
+    config.action_dispatch.rack_cache = {
+      verbose: true,
+      metastore: "#{ENV.fetch('MEMCACHED_URL', :memcached)}/meta",
+      entitystore: "#{ENV.fetch('MEMCACHED_URL', :memcached)}/body",
+    }
 end
