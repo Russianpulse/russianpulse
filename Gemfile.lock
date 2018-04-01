@@ -661,6 +661,7 @@ DEPENDENCIES
   letter_opener_web (~> 1.2.0)
   liquid
   listen (~> 3.0.5)
+  mime-types
   newrelic_rpm
   nokogiri (= 1.8.2)
   pg

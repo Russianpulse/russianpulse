@@ -52,6 +52,7 @@ gem 'nokogiri', '1.8.2'
 gem 'erubis'
 
 gem 'rack-attack'
+gem 'mime-types'
 
 group :production do
   gem 'newrelic_rpm'
