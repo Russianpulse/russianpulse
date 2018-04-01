@@ -5,4 +5,5 @@ class BaseCell < Cell::ViewModel
   include CommentsHelper
   include PostsHelper
   include ActionView::Helpers::TranslationHelper
+  include Devise::Controllers::Helpers
 end

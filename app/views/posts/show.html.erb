@@ -9,8 +9,7 @@
 
   <h1><%= @post.title %></h1>
 
-  <%= link_to("Edit", { controller: 'blogs/posts', action: :edit, id: @post }, { class: 'btn btn-primary' }) if policy(@post).update? %>
-  <%= link_to("Block", block_post_path(@post), method: :put, class: "btn btn-danger") if policy(@post).block? %>
+  <%= ajax_cell('posts/controls', @post.id) %>
 
   <%= render :partial => 'tags' %>
 
@@ -30,7 +29,7 @@
     <% end %>
   <% end %>
 
-  <%= comments_link @post, without_comments: true %>
+  <%= ajax_cell('posts/comments_link', @post.id) %>
 
   <br />
   <br />
