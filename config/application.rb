@@ -41,7 +41,11 @@ module Mazavr
                            socket_failure_delay: 0.2,
                            race_condition_ttl: 5 }
 
-    config.action_dispatch.rack_cache = true
+    config.action_dispatch.rack_cache = {
+      verbose: true,
+      metastore: "#{ENV.fetch('MEMCACHED_URL', :memcached)}/meta",
+      entitystore: "#{ENV.fetch('MEMCACHED_URL', :memcached)}/body",
+    }
 
     # Use a real queuing backend for Active Job (and separate queues per environment)
     config.active_job.queue_adapter = :sidekiq
