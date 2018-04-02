@@ -6,8 +6,7 @@ class RedirectsController < ApplicationController
       days = params[:days] || 7
       @posts = Post.newer_than(days.to_i.days.ago).order('views DESC').limit(20)
     else
-      redirect_to root_path
+      render html: 'Not found', status: 404
     end
-    expires_in(30.minutes, public: true)
   end
 end
