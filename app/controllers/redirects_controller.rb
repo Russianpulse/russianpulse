@@ -8,5 +8,6 @@ class RedirectsController < ApplicationController
     else
       redirect_to root_path
     end
+    expires_in(30.minutes, public: true)
   end
 end

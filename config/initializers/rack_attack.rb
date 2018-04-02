@@ -14,7 +14,7 @@ Rack::Attack.blocklist('fail2ban pentesters') do |req|
 end
 
 
-Rack::Attack.throttle('limit gotos', limit: 5, period: 60) do |req|
+Rack::Attack.throttle('limit gotos', limit: 5, period: 10.minutes) do |req|
   if req.path.start_with? '/goto'
     req.ip
   end
