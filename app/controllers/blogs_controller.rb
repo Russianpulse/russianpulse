@@ -13,7 +13,7 @@ class BlogsController < ApplicationController
       return
     end
 
-    @posts = @blog.posts
+    @posts = @blog.posts.published
 
     @posts = @posts.includes(:blog).order('created_at DESC').limit(12)
     @posts = @posts.older_than(Time.at(params[:before].to_f)) if params[:before].present?
