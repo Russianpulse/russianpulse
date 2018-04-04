@@ -5,6 +5,10 @@
 
   <% if params[:before].present? %>
     <% content_for(:meta_title, strip_tags("#{@blog.title}: #{t(:posts_before)} #{format_date Time.at(params[:before].to_f)}")) %>
+
+    <% content_for :head_include do %>
+      <meta name="robots" content="noindex" />
+    <% end %>
   <% else %>
     <% content_for(:meta_title, @blog.title) %>
   <% end %>
