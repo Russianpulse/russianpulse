@@ -1,3 +1,7 @@
+<% content_for :head_include do %>
+   <link rel="canonical" href="<%= root_url %>" />
+<% end %>
+
 <div class="well">
   <div class="row">
     <% @posts_top.take(3).each do |post| %>
