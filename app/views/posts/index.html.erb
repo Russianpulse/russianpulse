@@ -1,6 +1,9 @@
 <div class="well">
   <% if params[:before].present? %>
     <%= render partial: 'title_with_date', locals: { title: raw("#{params[:top] ? 'Популярное' : 'Новое'} до #{format_date Time.at(params[:before].to_f)}") } %>
+    <% content_for :head_include do %>
+      <meta name="robots" content="noindex" />
+    <% end %>
   <% else %>
     <%= render partial: 'title', locals: { title: params[:top] ? 'Популярное' : 'Новое' } %>
   <% end %>
