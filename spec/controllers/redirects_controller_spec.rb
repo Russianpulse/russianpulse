@@ -9,7 +9,7 @@ RSpec.describe RedirectsController, type: :controller do
 
     it 'returns http redirect' do
       get :bye, params: { url: 'http://russianpulse.ru/colonelcassad/2016/02/21/1500394-krym-problemy-bezopasnosti' }
-      expect(response).to have_http_status(:redirect)
+      expect(response).to have_http_status(:not_found)
     end
   end
 end
