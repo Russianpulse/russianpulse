@@ -1,27 +1,19 @@
 <div class="well">
-  <% if params[:before].present? %>
-    <%= render partial: 'title_with_date', locals: { title: raw("#{params[:top] ? 'Популярное' : 'Новое'} до #{format_date Time.at(params[:before].to_f)}") } %>
-    <% content_for :head_include do %>
-      <meta name="robots" content="noindex" />
-    <% end %>
-  <% else %>
-    <%= render partial: 'title', locals: { title: params[:top] ? 'Популярное' : 'Новое' } %>
-  <% end %>
+  <%= render partial: 'title', locals: { title: params[:top] ? 'Популярное' : 'Новое' } %>
 
-  <hr />
+  <ol class="breadcrumb">
+    <li>
+      <%= link_to(t(:all).mb_chars.capitalize, posts_path)  %>
+    </li>
+    <% if @posts.first_page? %>
+      <li class="active"><%= params[:top] ? 'Популярное' : 'Новое' %></li>
+    <% else %>
+      <li><%= link_to (params[:top] ? 'Популярное' : 'Новое'), page: nil %></li>
+      <li class="active">Страница <%= @posts.current_page %></li>
+    <% end %>
+  </ol>
 
   <%= render :partial => "posts/list", :locals => { :posts => @posts } %>
 
-  <ul class='pager'>
-    <% if Post.older_than(@posts.last.try(:created_at)).exists? %>
-      <li class='next pull-left'>
-        <%= link_to("#{t(:more_stories).mb_chars.capitalize} →", url_for(:before => @posts.last.created_at.to_f, :top => params[:top]), :class => "")  %>
-      </li>
-    <% else %>
-      <li class='next pull-left disabled'>
-        <%= link_to("#{t(:more_stories).mb_chars.capitalize} →", "#", :class => "disabled")  %>
-
-      </li>
-    <% end %>
-  </ul>
+  <%= paginate @posts %>
 </div>
