@@ -3,12 +3,9 @@
     <%= auto_discovery_link_tag :atom, url_for(:format => :atom), :title => @blog.title %>
   <% end %>
 
-  <% if params[:before].present? %>
-    <% content_for(:meta_title, strip_tags("#{@blog.title}: #{t(:posts_before)} #{format_date Time.at(params[:before].to_f)}")) %>
+  <% if params[:page].present? %>
+    <% content_for(:meta_title, strip_tags("#{@blog.title}: #{t(:posts_before)} #{params[:page]}")) %>
 
-    <% content_for :head_include do %>
-      <meta name="robots" content="noindex" />
-    <% end %>
   <% else %>
     <% content_for(:meta_title, @blog.title) %>
   <% end %>
@@ -54,15 +51,6 @@
   <%= render :partial => "posts/list", :locals => { :posts => @posts } %>
 
   <ul class='pager'>
-    <% if Post.older_than(@posts.last.try(:created_at)).exists? %>
-      <li class='next pull-left'>
-        <%= link_to("#{t(:more_stories).mb_chars.capitalize} →", url_for(:before => @posts.last.created_at.to_f ), :class => "")  %>
-      </li>
-    <% else %>
-      <li class='next pull-left disabled'>
-        <%= link_to("#{t(:more_stories).mb_chars.capitalize} →", "#", :class => "disabled")  %>
-
-      </li>
-    <% end %>
+    <%= paginate @posts %>
   </ul>
 </div>
