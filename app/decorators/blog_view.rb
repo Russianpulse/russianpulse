@@ -4,7 +4,7 @@ class BlogView
   end
 
   def favicon_url
-    "http://www.google.com/s2/favicons?domain=#{URI(posts.first.try(:source_url) || "http://#{Rails.configuration.x.domain}").host}"
+    "https://www.google.com/s2/favicons?domain=#{URI(posts.first.try(:source_url) || "https://#{Rails.configuration.x.domain}").host}"
   end
 
   private

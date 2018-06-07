@@ -35,7 +35,7 @@ class PostsController < ApplicationController
       raise ActiveRecord::RecordNotFound if params[:slug_id].blank?
 
       @slug_id = params[:slug_id]
-      redirect_to goto_path(url: "http://goo.gl/#{@slug_id}")
+      redirect_to goto_path(url: "https://goo.gl/#{@slug_id}")
 
       expires_in(1.hour, public: true)
     elsif request.path == URI(smart_post_path(@post)).path

@@ -7,6 +7,6 @@ class RobotsController < ApplicationController
   end
 
   def sitemap
-    redirect_to "http://#{ENV['S3_BUCKET_NAME']}.s3.amazonaws.com/sitemaps/sitemap.xml.gz"
+    redirect_to "https://#{ENV['S3_BUCKET_NAME']}.s3.amazonaws.com/sitemaps/sitemap.xml.gz"
   end
 end

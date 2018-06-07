@@ -92,12 +92,6 @@ class BlogBase < ApplicationRecord
     html
   end
 
-  def home_url
-    Rails.cache.fetch("BlogView##{id}#home_url", expires_in: 1.hour) do
-      "http://#{URI(posts.first.try(:source_url) || "http://#{Rails.configuration.x.domain}").host}"
-    end
-  end
-
   def checked!
     recent_fetches.push [FETCH_SUCCESS, nil]
     update_health_status

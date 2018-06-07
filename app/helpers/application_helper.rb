@@ -5,7 +5,7 @@ module ApplicationHelper
 
   def proxy_image_url(url, size='')
     if ENV['IMAGEPROXY_URL'].present?
-      File.join(ENV['IMAGEPROXY_URL'], size.to_s, url)
+      File.join(ENV['IMAGEPROXY_URL'], size.to_s, url.to_s)
     else
       url
     end

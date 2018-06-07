@@ -23,6 +23,7 @@ module PostsHelper
     post_url options.merge(only_path: true)
   end
 
+  # FIXME
   def smart_post_url(post, options = {})
     "http://#{Rails.configuration.x.domain}#{smart_post_path(post, options)}"
   end
