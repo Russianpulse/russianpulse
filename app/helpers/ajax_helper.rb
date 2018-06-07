@@ -8,6 +8,6 @@ module AjaxHelper
   end
 
   def ajax_cell(name, *args)
-    ajax_block ajax_cell_url(name, args: args.to_json)
+    ajax_block ajax_cell_path(name, args: args.to_json)
   end
 end
