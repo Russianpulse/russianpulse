@@ -1,7 +1,7 @@
 <% content_for(:meta_title, strip_tags(@post.title)) %>
 
 <% content_for :share_description do %>
-  <%= render :partial => "shared/share_description", :locals => { :title => strip_tags(@post.title), :url => smart_post_url(@post), :text => @post.body, :image => @post.picture_url } %>
+  <%= render :partial => "shared/share_description", :locals => { :title => strip_tags(@post.title), :url => smart_post_url(@post), :text => @post.body, :image => proxy_image_url(@post.picture_url) } %>
 <% end %>
 
 <div itemscope itemtype="http://schema.org/BlogPosting" class='well'>
