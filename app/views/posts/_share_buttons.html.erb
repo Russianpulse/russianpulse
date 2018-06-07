@@ -5,4 +5,4 @@
                        data-title="<%= strip_tags(@post.title) %>"
                        data-description="<%= strip_tags(@post.body.to_s).gsub(/\s+/, " ").mb_chars.truncate(160) %>"
                        data-url="<%= smart_post_url(@post) %>"
-                       data-image="<%= @post.picture_url %>"></div>
+                       data-image="<%= proxy_image_url(@post.picture_url) %>"></div>

@@ -1,6 +1,6 @@
 <div class="cells-post cells-post-high">
   <%= link_to smart_post_path(@post) do %>
-    <div class="picture" style="background-image: url('<%= @post.picture_url %>')">
+    <div class="picture" style="background-image: url('<%= proxy_image_url @post.picture_url, 500 %>')">
       
     </div>
   <% end %>

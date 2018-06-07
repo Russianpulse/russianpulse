@@ -55,10 +55,6 @@ class PostBase < ApplicationRecord
     picture_url.present?
   end
 
-  def picture_url
-    self[:picture_url].to_s.gsub(/^http:/, '')
-  end
-
   def tags
     self.class.tags_from_tags_list(tags_list)
   end

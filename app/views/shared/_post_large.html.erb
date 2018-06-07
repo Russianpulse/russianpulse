@@ -1,7 +1,7 @@
 <% if post.has_picture? %>
   <div class="post post-with-picture well">
     <%= link_to smart_post_path(post) do %>
-      <img src="<%= post.picture_url %>" class="img-responsive" />
+      <img src="<%= proxy_image_url(post.picture_url, 750) %>" class="img-responsive" />
     <% end %>
     <div class="blog">
       <%= post.blog.title %>

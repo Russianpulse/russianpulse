@@ -1,0 +1,4 @@
+proxy:
+  image: willnorris/imageproxy
+  ports:
+    - "8080:8080"

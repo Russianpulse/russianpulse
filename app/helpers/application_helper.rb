@@ -3,6 +3,24 @@ module ApplicationHelper
     raw "<img src='/p/views/#{post_id}.png' alt='' title='' width=1, height=1 />"
   end
 
+  def proxy_image_url(url, size='')
+    if ENV['IMAGEPROXY_URL'].present?
+      File.join(ENV['IMAGEPROXY_URL'], size.to_s, url)
+    else
+      url
+    end
+  end
+
+  def proxy_all_images(html)
+    doc = Nokogiri::HTML::DocumentFragment.parse(html)
+
+    doc.css('img').each do |img|
+      img['src'] = proxy_image_url(img['src'])
+    end
+
+    doc.to_html
+  end
+
   def glyphicon(name, _type = :bootstrap)
     content_tag(:i, nil, class: "glyphicon glyphicon-#{name}")
   end

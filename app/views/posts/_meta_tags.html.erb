@@ -12,4 +12,4 @@
 <%= content_tag :meta, nil, :itemprop => :name, :content => @post.blog.title %>
 <%= content_tag :meta, nil, :itemprop => :publisher, :content => @post.blog.title %>
 
-<%= content_tag :meta, nil, :itemprop => :image, :content => @post.picture_url %>
+<%= content_tag :meta, nil, :itemprop => :image, :content => proxy_image_url(@post.picture_url) %>

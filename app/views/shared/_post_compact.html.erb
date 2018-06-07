@@ -1,7 +1,7 @@
 <% if post.has_picture? %>
   <div class="post post-with-picture">
     <%= link_to smart_post_path(post) do %>
-      <div class="preview" style="background-image: url('<%= post.picture_url %>')"></div>
+      <div class="preview" style="background-image: url('<%= proxy_image_url(post.picture_url, 500) %>')"></div>
     <% end %>
     <div class="title">
       <%= link_to post.title, smart_post_path(post), :class => (:strong if post.blog.featured?), :title => post.title %>
