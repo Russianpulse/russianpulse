@@ -5,7 +5,7 @@ module PostsHelper
   end
 
   def permalink_url(post)
-    post_permalink_url(post.slug_id.presence || post.id)
+    post_permalink_url(post.slug_id.presence || post.id, protocol: protocol)
   end
 
   def smart_post_path(post, options = {})
@@ -23,9 +23,8 @@ module PostsHelper
     post_url options.merge(only_path: true)
   end
 
-  # FIXME
   def smart_post_url(post, options = {})
-    "http://#{Rails.configuration.x.domain}#{smart_post_path(post, options)}"
+    "#{protocol}://#{Rails.configuration.x.domain}#{smart_post_path(post, options)}"
   end
 
   def post_descritpion_has_image?(post)
