@@ -23,4 +23,6 @@ TopPostsSpiderJob:
 RefreshSitemapJob:
   cron: "15 3 * * *"
 
+GenerateTurboFeedsJob:
+  cron: "<%= ENV['TURBO_FEED_SCHEDULE'] || '45 * * * *' %>"
 

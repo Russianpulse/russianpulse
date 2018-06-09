@@ -4,6 +4,7 @@ class BaseCell < Cell::ViewModel
   include ApplicationHelper
   include CommentsHelper
   include PostsHelper
+  include SnippetsHelper
   include ActionView::Helpers::TranslationHelper
   include Devise::Controllers::Helpers
 end

@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 
   before_action :set_locale
 
-  helper_method :ab_variant?, :ssl?, :protocol
+  helper_method :ab_variant?
   layout :layout
 
   rescue_from ActiveRecord::RecordNotFound do
@@ -85,13 +85,5 @@ class ApplicationController < ActionController::Base
     else
       'application'
     end
-  end
-
-  def ssl?
-    ENV['SSL'] == 'true'
-  end
-
-  def protocol
-    ssl? :https : :http
   end
 end

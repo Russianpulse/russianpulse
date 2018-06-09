@@ -1,0 +1,29 @@
+<rss
+  xmlns:yandex="http://news.yandex.ru"
+  xmlns:media="http://search.yahoo.com/mrss/"
+  xmlns:turbo="http://turbo.yandex.ru"
+  version="2.0"
+  >
+  <channel>
+    <title><%= snippet :site_name %></title>
+    <link><%= protocol %>://<%= ENV['DOMAIN_NAME'] %>/</link>
+    <% @posts.each do |post| %>
+      <item turbo="true">
+        <link><%= post_url(post) %></link>
+        <turbo:content>
+          <![CDATA[
+          <header>
+            <% if post.has_picture? %>
+              <figure>
+                <%= image_tag proxy_image_url(post.picture_url) %>
+              </figure>
+            <% end %>
+            <h1><%= post.title %></h1>
+          </header>
+          <%= turbo_content proxy_all_images(post.body) %>
+          ]]>
+        </turbo:content>
+      </item>
+    <% end %>
+  </channel>
+</rss>

@@ -34,6 +34,7 @@ ENV DATABASE_URL=sqlite3:///db/production.sqlite3
 ENV SECRET_KEY_BASE=abc123
 RUN rake assets:precompile
 
+VOLUME /app/public/yandex
 EXPOSE 80
 
 COPY docker-entrypoint.sh /usr/local/bin/

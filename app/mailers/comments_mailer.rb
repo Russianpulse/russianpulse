@@ -1,4 +1,6 @@
 class CommentsMailer < ApplicationMailer
+  add_template_helper Rails.application.routes.url_helpers
+  add_template_helper UriHelper
   add_template_helper PostsHelper
   add_template_helper CommentsHelper
 

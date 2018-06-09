@@ -22,4 +22,8 @@ module UriHelper
     # compile URL which can be used in <img src="RIGHT_HERE"...
     "//www.gravatar.com/avatar/#{hash}?s=#{args[:size] || 35}"
   end
+
+  def path_to_url(path)
+    URI.join(root_url, path).to_s
+  end
 end

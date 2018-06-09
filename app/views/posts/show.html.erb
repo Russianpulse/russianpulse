@@ -57,7 +57,7 @@
 <div class="row">
   <div class="col-sm-6">
     <div>
-      <%= ajax_block ajax_post_comments_url(id: @post.id) %>
+      <%= ajax_block ajax_post_comments_path(id: @post.id) %>
     </div>
   </div>
   <div class="col-sm-6">
@@ -72,7 +72,7 @@
 
 <br />
   
-<%= ajax_block ajax_comments_recent_url(post_id: @post.id) %>
+<%= ajax_block ajax_comments_recent_path(post_id: @post.id) %>
 
 <br />
 

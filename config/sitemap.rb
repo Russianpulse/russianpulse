@@ -1,5 +1,5 @@
 # Set the host name for URL creation
-SitemapGenerator::Sitemap.default_host = "#{ENV['SSL'] ? 'https' : 'http'}://#{Rails.configuration.x.domain}"
+SitemapGenerator::Sitemap.default_host = "#{ENV['SSL'] == 'true' ? 'https' : 'http'}://#{Rails.configuration.x.domain}"
 SitemapGenerator::Interpreter.send :include, PostsHelper
 
 unless Rails.env.test?
@@ -10,7 +10,7 @@ unless Rails.env.test?
                                     fog_directory: ENV['S3_BUCKET_NAME'],
                                     fog_region: ENV['S3_REGION'])
 
-  SitemapGenerator::Sitemap.sitemaps_host = "http://#{ENV['S3_BUCKET_NAME']}.s3.amazonaws.com/"
+  SitemapGenerator::Sitemap.sitemaps_host = "https://#{ENV['S3_BUCKET_NAME']}.s3.amazonaws.com/"
 end
 
 SitemapGenerator::Sitemap.sitemaps_path = 'sitemaps/'

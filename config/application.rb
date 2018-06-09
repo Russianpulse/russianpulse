@@ -25,6 +25,13 @@ module Mazavr
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
 
+
+    config.action_controller.default_url_options = {
+      host: ENV['DOMAIN_NAME'],
+      protocol: (ENV['SSL'] == 'true' ? :https : :http)
+    }
+    config.action_mailer.default_url_options = config.action_controller.default_url_options.clone
+
     config.x.domain = ENV['DOMAIN_NAME']
     config.x.archive_sign_salt = ENV['ARCHIVE_SIGN_SALT'] || 'abc123'
 
