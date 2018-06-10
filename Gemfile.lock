@@ -410,7 +410,7 @@ GEM
     rack-pjax (1.0.0)
       nokogiri (~> 1.5)
       rack (>= 1.1)
-    rack-protection (2.0.0)
+    rack-protection (2.0.3)
       rack
     rack-proxy (0.6.4)
       rack
