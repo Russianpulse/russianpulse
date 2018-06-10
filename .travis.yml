@@ -21,5 +21,9 @@ script:
   - bundle exec rake db:create db:migrate
   - bundle exec rspec
 
+  - gem i bundler-audit
+  - bundle audit update
+  - bundle audit check
+
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
