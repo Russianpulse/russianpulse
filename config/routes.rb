@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     get '/:year/:month/:day', action: :day, as: :archive_day
   end
 
-  get 'goto' => 'redirects#bye', as: :goto
+  get 'goto', to: redirect('/')
 
   get 'ratings/posts', as: :rating
 
