@@ -17,6 +17,11 @@ if [ "$1" = 'web' ]; then
   bundle exec rails server puma -p 80 --binding 0.0.0.0
 fi
 
+if [ "$1" = 'server' ]; then
+  rm -rf tmp/pids/*
+  bundle exec rails server puma -p 80 --binding 0.0.0.0
+fi
+
 if [ "$1" = 'test' ]; then
   bundle exec bundle-audit check --update
   echo 'Rubocop check...'
