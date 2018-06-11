@@ -53,7 +53,7 @@ class PostsController < ApplicationController
     views = Post.where(id: params[:id]).pluck(:views).first
     Post.where(id: params[:id]).update_all accessed_at: Time.now, views: views.to_i + 1
 
-    redirect_to '/counter.png'
+    redirect_to '/counter.png', protocol: request.ssl? ? 'https://' : 'http://'
   end
 
   def block
