@@ -29,5 +29,5 @@ deploy:
     - master
   script:
     - docker pull $CONTAINER_IMAGE:master
-    - docker build --cache-from $CONTAINER_IMAGE:master --tag $CONTAINER_IMAGE:latest
+    - docker build --cache-from $CONTAINER_IMAGE:master --tag $CONTAINER_IMAGE:latest .
     - docker push $CONTAINER_IMAGE:latest
