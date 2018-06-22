@@ -1,82 +1,21 @@
+image: docker:stable
+
+services:
+  - docker:dind
 
 variables:
-  DOCKER_DRIVER: overlay
+  CONTAINER_IMAGE: registry.gitlab.com/$CI_PROJECT_PATH
+  DOCKER_DRIVER: overlay2
 
-stages:
-  - test
-  - build
-  - deploy
-
-test:
-  stage: test
-  image: ruby:2.3.1
-  services:
-    - postgres:9.4.5
-    - redis:3.2.3
-    - memcached:1.4.27
-
-  variables:
-    RAILS_ENV: test
-    DATABASE_URL: postgresql://postgres:postgres@postgres/test
-    MEMCACHED_URL: memcached
-  script:
-    - bundle install
-    - bundle exec bundle-audit check --update
-    - bundle exec rubocop
-
-    - bundle exec rake db:create db:migrate
-    - bundle exec rspec
+before_script:
+  - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
 
 build:
   stage: build
-  image: docker:17.03.1-ce
-
-  services:
-    - docker:dind
-  only:
-    - master
-  variables:
-    IMAGE_TAG_BRANCH: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
-    IMAGE_TAG_HASH: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
-
-  before_script:
-    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
-
   script:
+    - docker pull $CONTAINER_IMAGE:master || true
+    - docker build --cache-from $CONTAINER_IMAGE:latest --tag $CONTAINER_IMAGE:$CI_BUILD_REF --tag $CONTAINER_IMAGE:$CI_COMMIT_REF_SLUG .
+    - docker push $CONTAINER_IMAGE:$CI_BUILD_REF
+    - docker push $CONTAINER_IMAGE:$CI_COMMIT_REF_SLUG
 
-    - docker build -f Dockerfile -t $IMAGE_TAG_HASH .
-    - docker push $IMAGE_TAG_HASH
 
-    - docker build -f Dockerfile -t $IMAGE_TAG_BRANCH .
-    - docker push $IMAGE_TAG_BRANCH
-
-deploy:
-  stage: deploy
-  image: debian:jessie
-  only:
-    - master
-
-  before_script:
-    # Install ssh-agent if not already installed, it is required by Docker.
-    # (change apt-get to yum if you use a CentOS-based image)
-    - 'which ssh-agent || ( apt-get update && apt-get install -y openssh-client )'
-
-    # Run ssh-agent (inside the build environment)
-    - eval $(ssh-agent -s)
-
-    # Add the SSH key stored in SSH_PRIVATE_KEY variable to the agent store
-    - mkdir -p ~/.ssh
-    - echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-    - chmod 600 ~/.ssh/id_rsa
-    - ssh-add ~/.ssh/id_rsa
-
-    # For Docker builds disable host key checking. Be aware that by adding that
-    # you are suspectible to man-in-the-middle attacks.
-    # WARNING: Use this only with the Docker executor, if you use it with shell
-    # you will overwrite your user's SSH config.
-    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-
-  script:
-    - ssh root@185.58.205.213 "cd /my-cluster && git pull && docker-compose pull web"
-    - ssh root@185.58.205.213 "cd /my-cluster && git pull && docker-compose run --rm web update"
-    - ssh root@185.58.205.213 "cd /my-cluster && git pull && make"
