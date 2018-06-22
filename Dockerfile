@@ -1,3 +1,27 @@
+###############################################################################
+# Code Quality
+
+FROM ruby:2.3.1 as code-quality
+
+RUN gem install rubocop -v '0.57.2'
+WORKDIR /app
+COPY . /app/
+RUN rubocop
+
+###############################################################################
+# Security Audit
+
+FROM ruby:2.3.1 as security-audit
+
+RUN gem install bundler-audit
+WORKDIR /app
+COPY . /app/
+RUN bundle-audit check --update
+
+
+###############################################################################
+# Result Image
+
 FROM ruby:2.3.1
 
 MAINTAINER Sergei O. Udalov <sergei.udalov@gmail.com>
@@ -16,7 +40,6 @@ RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - && \
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
     apt-get update && apt-get install -y yarn nodejs unzip
 
-RUN mkdir -p /app
 WORKDIR /app
 
 ADD Gemfile* ./
