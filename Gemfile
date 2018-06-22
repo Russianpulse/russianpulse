@@ -31,7 +31,6 @@ gem 'httpclient'
 gem 'kaminari'
 gem 'kaminari-i18n'
 gem 'liquid'
-gem 'pg'
 gem 'pundit'
 gem 'rack-cache'
 gem 'redcarpet'
@@ -43,18 +42,19 @@ gem 'sidekiq-scheduler'
 gem 'simple_form'
 gem 'sitemap_generator'
 gem 'slack-notifier'
-gem 'sqlite3'
 gem 'staccato'
 gem 'typogruby'
 gem 'dotenv-rails'
 gem 'fog'
 gem 'webpacker'
-
 gem 'nokogiri', '1.8.2'
 gem 'erubis'
-
 gem 'rack-attack'
 gem 'mime-types'
+
+# Dataabses
+gem 'sqlite3'
+gem 'pg'
 
 group :production do
   gem 'newrelic_rpm'
