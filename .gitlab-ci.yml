@@ -42,7 +42,7 @@ build-dev:
   script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
     - docker pull $CONTAINER_IMAGE:latest-dev || true
-    - docker build --cache-from $CONTAINER_IMAGE:latest-dev --tag $CONTAINER_IMAGE:$CI_PIPELINE_IID-dev --tag $CONTAINER_IMAGE:$CI_COMMIT_REF_NAME-$CI_PIPELINE_IID-dev --tag $CONTAINER_IMAGE:$CI_COMMIT_REF_NAME-dev .
+    - docker build --cache-from $CONTAINER_IMAGE:latest-dev --tag $CONTAINER_IMAGE:$CI_PIPELINE_IID-dev --tag $CONTAINER_IMAGE:$CI_COMMIT_REF_NAME-$CI_PIPELINE_IID-dev --tag $CONTAINER_IMAGE:$CI_COMMIT_REF_NAME-dev -f Dockerfile.dev .
     - docker push $CONTAINER_IMAGE:$CI_PIPELINE_IID-dev
     - docker push $CONTAINER_IMAGE:$CI_COMMIT_REF_NAME-$CI_PIPELINE_IID-dev
     - docker push $CONTAINER_IMAGE:$CI_COMMIT_REF_NAME-dev
