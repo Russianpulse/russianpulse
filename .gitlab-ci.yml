@@ -37,13 +37,34 @@ build:
     - docker push $CONTAINER_IMAGE:$CI_BUILD_REF
     - docker push $CONTAINER_IMAGE:$CI_COMMIT_REF_SLUG
 
+build-dev:
+  stage: build
+  script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
+    - docker pull $CONTAINER_IMAGE:latest-dev || true
+    - docker build --cache-from $CONTAINER_IMAGE:latest-dev --tag $CONTAINER_IMAGE:$CI_BUILD_REF-dev --tag $CONTAINER_IMAGE:$CI_COMMIT_REF_SLUG-dev -f Dockerfile.dev .
+    - docker push $CONTAINER_IMAGE:$CI_BUILD_REF-dev
+    - docker push $CONTAINER_IMAGE:$CI_COMMIT_REF_SLUG-dev
+
 
 deploy:
   stage: deploy
   only:
     - master
+    - tags
   script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
-    - docker pull $CONTAINER_IMAGE:master
-    - docker build --cache-from $CONTAINER_IMAGE:master --tag $CONTAINER_IMAGE:latest .
+    - docker pull $CONTAINER_IMAGE:$CI_BUILD_REF
+    - docker build --cache-from $CONTAINER_IMAGE:$CI_BUILD_REF --tag $CONTAINER_IMAGE:latest .
     - docker push $CONTAINER_IMAGE:latest
+
+deploy-dev:
+  stage: deploy
+  only:
+    - master
+    - tags
+  script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
+    - docker pull $CONTAINER_IMAGE:$CI_BUILD_REF-dev
+    - docker build --cache-from $CONTAINER_IMAGE:$CI_BUILD_REF --tag $CONTAINER_IMAGE:latest-dev -f Dockerfile.dev .
+    - docker push $CONTAINER_IMAGE:latest-dev

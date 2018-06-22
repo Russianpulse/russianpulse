@@ -2,7 +2,7 @@
 .bundle
 .env*
 .git*
-Dockerfile
+Dockerfile*
 containers
 coverage
 docker-compose.*

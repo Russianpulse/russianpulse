@@ -1,32 +1,51 @@
-site.local:
-  build: .
-  links: 
-    - db
-    - memcached
-    - redis
-  env_file:
-    - .env.test
-  environment:
-    - RAILS_ENV=test
-    - DATABASE_URL=postgresql://postgres:postgres@db/test
-    - MEMCACHED_URL=memcached
-    - RAILS_MAX_THREADS=16
-    - CAPYBARA_DRIVER=firefox
-  command: "spec"
-  volumes:
-    - "./:/app"
+version: '3'
 
-db:
-  image: postgres:9.4.5
+services:
+  site.local:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    networks:
+      - webnet
+    depends_on:
+      - db
+      - memcached
+      - redis
+      - webdriver-firefox
+    env_file:
+      - .env.test
+    environment:
+      - RAILS_ENV=test
+      - DATABASE_URL=postgresql://postgres:postgres@db/test
+      - MEMCACHED_URL=memcached
+      - RAILS_MAX_THREADS=16
+      - CAPYBARA_DRIVER=firefox
+    command: "spec"
+    volumes:
+      - "./:/app"
+      - "./volumes/vendor:/vendor"
 
-memcached:
-  image: memcached:1.4.27
+  db:
+    image: postgres:9-alpine
+    networks:
+      - webnet
+    environment:
+      - POSTGRES_DB=test
 
-redis:
-  image: redis:3.2.3
+  memcached:
+    image: memcached:alpine
+    networks:
+      - webnet
 
-webdriver-firefox:
-  image: selenium/standalone-firefox:3
-  links:
-    - site.local
+  redis:
+    image: redis:alpine
+    networks:
+      - webnet
 
+  webdriver-firefox:
+    image: selenium/standalone-firefox:3
+    networks:
+      - webnet
+
+networks:
+  webnet:
