@@ -1,0 +1,32 @@
+site.local:
+  build: .
+  links: 
+    - db
+    - memcached
+    - redis
+  env_file:
+    - .env.test
+  environment:
+    - RAILS_ENV=test
+    - DATABASE_URL=postgresql://postgres:postgres@db/test
+    - MEMCACHED_URL=memcached
+    - RAILS_MAX_THREADS=16
+    - CAPYBARA_DRIVER=firefox
+  command: "spec"
+  volumes:
+    - "./:/app"
+
+db:
+  image: postgres:9.4.5
+
+memcached:
+  image: memcached:1.4.27
+
+redis:
+  image: redis:3.2.3
+
+webdriver-firefox:
+  image: selenium/standalone-firefox:3
+  links:
+    - site.local
+

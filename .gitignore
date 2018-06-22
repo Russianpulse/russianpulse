@@ -13,6 +13,7 @@ public/sitemap*
 tags
 tmp
 vendor/cache
+vendor/bundle/
 /public/packs
 /public/packs-test
 /public/yandex

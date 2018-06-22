@@ -6,5 +6,7 @@ AllCops:
   TargetRubyVersion: 2.3
   Exclude:
     - 'db/**/*'
+    - 'node_modules/**/*'
+    - 'vendor/**/*'
 FrozenStringLiteralComment:
   Enabled: false

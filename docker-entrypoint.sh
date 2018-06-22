@@ -22,18 +22,6 @@ if [ "$1" = 'server' ]; then
   bundle exec rails server puma -p 80 --binding 0.0.0.0
 fi
 
-if [ "$1" = 'test' ]; then
-  bundle exec bundle-audit check --update
-  echo 'Rubocop check...'
-  bundle exec rubocop
-
-  echo 'Specs...'
-  export RAILS_ENV=test
-  bundle exec rake db:create db:migrate
-  bundle exec rspec
-  exit 0
-fi
-
 if [ "$1" = 'spec' ]; then
   echo 'Specs...'
   export RAILS_ENV=test

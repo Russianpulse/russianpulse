@@ -6,10 +6,31 @@ require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 require 'webmock/rspec'
 require 'capybara/rails'
-require 'capybara/poltergeist'
-Capybara.javascript_driver = :poltergeist
-Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, { js_errors: true })
+
+
+case ENV['CAPYBARA_DRIVER']
+when 'firefox'
+  Capybara.register_driver :firefox do |app|
+    Capybara::Selenium::Driver.new(app,
+                                   :browser => :remote,
+                                   :desired_capabilities => :firefox,
+                                   :url => "http://webdriver-firefox:4444/wd/hub"
+                                  )
+  end
+
+  Capybara.server_port = 80
+  Capybara.app_host = "http://site.local:#{Capybara.server_port}"
+
+
+  Capybara.default_driver = :firefox
+  Capybara.javascript_driver = :firefox
+
+else
+  require 'capybara/poltergeist'
+  Capybara.javascript_driver = :poltergeist
+  Capybara.register_driver :poltergeist do |app|
+    Capybara::Poltergeist::Driver.new(app, { js_errors: true })
+  end
 end
 
 # Requires supporting ruby files with custom matchers and macros, etc, in

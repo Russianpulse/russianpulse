@@ -12,4 +12,5 @@ public/sitemaps
 tags
 tmp
 vendor/cache
+vendor/bundle
 node_modules/
