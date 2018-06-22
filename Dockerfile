@@ -1,4 +1,4 @@
-FROM ruby:2.3-slim as bundle
+FROM ruby:2.3-slim
 MAINTAINER Sergei O. Udalov <sergei.udalov@gmail.com>
 WORKDIR /app
 
