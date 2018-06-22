@@ -1,4 +1,4 @@
-# Assets
+# Bundle
 FROM ruby:2.3-slim as bundle
 WORKDIR /app
 RUN apt-get update -qq && apt-get install -y libxml2-dev libxslt1-dev libsqlite3-dev libpq-dev
@@ -22,7 +22,6 @@ RUN bundle exec rake assets:precompile
 FROM ruby:2.3-slim
 WORKDIR /app
 RUN apt-get update -qq && apt-get install -y libxml2-dev libxslt1-dev libsqlite3-dev libpq-dev
-RUN apt-get update -qq && apt-get install -y build-essential curl gnupg
 MAINTAINER Sergei O. Udalov <sergei.udalov@gmail.com>
 ENV HOME /root
 ENV RAILS_ENV=production
