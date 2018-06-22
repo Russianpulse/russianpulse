@@ -10,19 +10,18 @@ variables:
 before_script:
 
 stages:
-  - check
   - build
   - deploy
 
 rubocop:
-  stage: check
+  stage: build
   image: ruby
   script:
     - gem install rubocop -v '0.57.2'
     - rubocop
 
 audit:
-  stage: check
+  stage: build
   image: ruby
   script:
     - gem install bundler-audit
