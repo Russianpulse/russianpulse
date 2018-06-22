@@ -33,17 +33,20 @@ build:
   script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
     - docker pull $CONTAINER_IMAGE:latest || true
-    - docker build --cache-from $CONTAINER_IMAGE:latest --tag $CONTAINER_IMAGE:$CI_PIPELINE_IID --tag $CONTAINER_IMAGE:$CI_COMMIT_REF_SLUG-$CI_PIPELINE_IID .
+    - docker build --cache-from $CONTAINER_IMAGE:latest --tag $CONTAINER_IMAGE:$CI_PIPELINE_IID --tag $CONTAINER_IMAGE:$CI_COMMIT_REF_SLUG-$CI_PIPELINE_IID  --tag $CONTAINER_IMAGE:$CI_COMMIT_REF_SLUG .
     - docker push $CONTAINER_IMAGE:$CI_PIPELINE_IID
     - docker push $CONTAINER_IMAGE:$CI_COMMIT_REF_SLUG-$CI_PIPELINE_IID
+    - docker push $CONTAINER_IMAGE:$CI_COMMIT_REF_SLUG
 
 build-dev:
   stage: build
   script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
     - docker pull $CONTAINER_IMAGE:latest-dev || true
-    - docker build --cache-from $CONTAINER_IMAGE:latest-dev --tag $CONTAINER_IMAGE:$CI_PIPELINE_IID-dev -f Dockerfile.dev .
+    - docker build --cache-from $CONTAINER_IMAGE:latest-dev --tag $CONTAINER_IMAGE:$CI_PIPELINE_IID-dev --tag $CONTAINER_IMAGE:$CI_COMMIT_REF_SLUG-$CI_PIPELINE_IID-dev --tag $CONTAINER_IMAGE:$CI_COMMIT_REF_SLUG-dev .
     - docker push $CONTAINER_IMAGE:$CI_PIPELINE_IID-dev
+    - docker push $CONTAINER_IMAGE:$CI_COMMIT_REF_SLUG-$CI_PIPELINE_IID-dev
+    - docker push $CONTAINER_IMAGE:$CI_COMMIT_REF_SLUG-dev
 
 latest:
   stage: deploy
