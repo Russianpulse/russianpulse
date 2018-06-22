@@ -9,19 +9,26 @@ variables:
 
 before_script:
 
+stages:
+  - build
+  - deploy
+
 rubocop:
+  stage: build
   image: ruby
   script:
     - gem install rubocop -v '0.57.2'
     - rubocop
 
 audit:
+  stage: build
   image: ruby
   script:
     - gem install bundler-audit
     - bundle-audit check --update
 
 build:
+  stage: build
   script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
     - docker pull $CONTAINER_IMAGE:latest || true
@@ -31,6 +38,7 @@ build:
     - docker push $CONTAINER_IMAGE:$CI_COMMIT_REF_NAME
 
 build-dev:
+  stage: build
   script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
     - docker pull $CONTAINER_IMAGE:latest-dev || true
@@ -40,8 +48,7 @@ build-dev:
     - docker push $CONTAINER_IMAGE:$CI_COMMIT_REF_NAME-dev
 
 latest:
-  dependencies:
-    - build
+  stage: deploy
   only:
     - master
   script:
@@ -51,8 +58,7 @@ latest:
     - docker push $CONTAINER_IMAGE:latest
 
 latest-dev:
-  dependencies:
-    - build-dev
+  stage: deploy
   only:
     - master
   script:
