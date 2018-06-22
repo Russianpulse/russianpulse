@@ -1,27 +1,3 @@
-###############################################################################
-# Code Quality
-
-FROM ruby:2.3.1 as code-quality
-
-RUN gem install rubocop -v '0.57.2'
-WORKDIR /app
-COPY . /app/
-RUN rubocop
-
-###############################################################################
-# Security Audit
-
-FROM ruby:2.3.1 as security-audit
-
-RUN gem install bundler-audit
-WORKDIR /app
-COPY . /app/
-RUN bundle-audit check --update
-
-
-###############################################################################
-# Result Image
-
 FROM ruby:2.3.1
 
 MAINTAINER Sergei O. Udalov <sergei.udalov@gmail.com>

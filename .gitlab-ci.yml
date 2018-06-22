@@ -8,17 +8,32 @@ variables:
   DOCKER_DRIVER: overlay2
 
 before_script:
-  - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
 
 stages:
+  - check
   - build
   - deploy
+
+rubocop:
+  stage: check
+  image: ruby
+  script:
+    - gem install rubocop -v '0.57.2'
+    - rubocop
+
+audit:
+  stage: check
+  image: ruby
+  script:
+    - gem install bundler-audit
+    - bundle-audit check --update
 
 build:
   stage: build
   script:
-    - docker pull $CONTAINER_IMAGE:master || true
-    - docker build --cache-from $CONTAINER_IMAGE:master --tag $CONTAINER_IMAGE:$CI_BUILD_REF --tag $CONTAINER_IMAGE:$CI_COMMIT_REF_SLUG .
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
+    - docker pull $CONTAINER_IMAGE:latest || true
+    - docker build --cache-from $CONTAINER_IMAGE:latest --tag $CONTAINER_IMAGE:$CI_BUILD_REF --tag $CONTAINER_IMAGE:$CI_COMMIT_REF_SLUG .
     - docker push $CONTAINER_IMAGE:$CI_BUILD_REF
     - docker push $CONTAINER_IMAGE:$CI_COMMIT_REF_SLUG
 
@@ -28,6 +43,7 @@ deploy:
   only:
     - master
   script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
     - docker pull $CONTAINER_IMAGE:master
     - docker build --cache-from $CONTAINER_IMAGE:master --tag $CONTAINER_IMAGE:latest .
     - docker push $CONTAINER_IMAGE:latest
