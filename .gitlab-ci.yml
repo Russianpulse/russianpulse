@@ -11,6 +11,7 @@ before_script:
 
 stages:
   - build
+  - test
   - deploy
 
 rubocop:
@@ -46,6 +47,15 @@ build-dev:
     - docker push $CONTAINER_IMAGE:$CI_PIPELINE_IID-dev
     - docker push $CONTAINER_IMAGE:$CI_COMMIT_REF_NAME-$CI_PIPELINE_IID-dev
     - docker push $CONTAINER_IMAGE:$CI_COMMIT_REF_NAME-dev
+
+spec:
+  stage: test
+  image: udalov/docker-and-compose
+  script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
+    - docker pull $CONTAINER_IMAGE:$CI_COMMIT_REF_NAME-dev
+    - docker build --cache-from $CONTAINER_IMAGE:$CI_COMMIT_REF_NAME-dev --tag test-image -f Dockerfile.dev .
+    - docker-compose -f docker-compose.test.yml run app spec
 
 latest:
   stage: deploy

@@ -1,17 +1,16 @@
 version: '3'
 
 services:
-  site.local:
-    build:
-      context: .
-      dockerfile: Dockerfile.dev
+  app:
+    image: test-image
     networks:
-      - webnet
+      main:
+        aliases:
+          - foobar.com
     depends_on:
       - db
       - memcached
       - redis
-      - webdriver-firefox
     env_file:
       - .env.test
     environment:
@@ -23,29 +22,23 @@ services:
     command: "spec"
     volumes:
       - "./:/app"
-      - "./volumes/vendor:/vendor"
 
   db:
     image: postgres:9-alpine
     networks:
-      - webnet
+      - main
     environment:
       - POSTGRES_DB=test
 
   memcached:
     image: memcached:alpine
     networks:
-      - webnet
+      - main
 
   redis:
     image: redis:alpine
     networks:
-      - webnet
-
-  webdriver-firefox:
-    image: selenium/standalone-firefox:3
-    networks:
-      - webnet
+      - main
 
 networks:
-  webnet:
+  main:
