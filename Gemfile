@@ -102,7 +102,6 @@ group :test do
   gem 'webmock'
   gem 'capybara'
   gem 'poltergeist'
-  gem 'selenium-webdriver'
 
   # TODO: remove it
   gem 'rails-controller-testing'
