@@ -67,5 +67,15 @@ latest-slim:
   script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
     - docker pull $CONTAINER_IMAGE:latest-slim || true
-    - docker build --cache-from $CONTAINER_IMAGE:latest-slim --tag $CONTAINER_IMAGE:latest-slim .
+    - docker build --cache-from $CONTAINER_IMAGE:latest-slim --tag $CONTAINER_IMAGE:latest-slim -f Dockerfile.slim .
     - docker push $CONTAINER_IMAGE:latest-slim
+
+tag-slim:
+  stage: deploy
+  only:
+    - tags
+  script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
+    - docker pull $CONTAINER_IMAGE:latest-slim || true
+    - docker build --cache-from $CONTAINER_IMAGE:latest-slim --tag $CONTAINER_IMAGE:$CI_COMMIT_REF_NAME-slim -f Dockerfile.slim .
+    - docker push $CONTAINER_IMAGE:$CI_COMMIT_REF_NAME-slim
