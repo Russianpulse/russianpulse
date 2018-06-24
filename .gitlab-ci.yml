@@ -66,6 +66,6 @@ latest-slim:
     - master
   script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
-    - docker pull $CONTAINER_IMAGE:latest-slim
+    - docker pull $CONTAINER_IMAGE:latest-slim || true
     - docker build --cache-from $CONTAINER_IMAGE:latest-slim --tag $CONTAINER_IMAGE:latest-slim .
     - docker push $CONTAINER_IMAGE:latest-slim
