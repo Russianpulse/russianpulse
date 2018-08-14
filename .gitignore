@@ -4,6 +4,7 @@
 .byebug_history
 .env
 .env.pg-backup
+.rbenv-vars
 .vagrant/
 .yarn-integrity
 /node_modules
