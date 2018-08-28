@@ -8,7 +8,8 @@ class User < ApplicationRecord
   has_many :comments
   validates :name, presence: true
 
-  after_save -> { SetUserCountryJob.perform_later(self) }
+  after_create -> { SetUserCountryJob.perform_later(self) }
+  after_save -> { SetUserCountryJob.perform_later(self) if current_sign_in_ip_changed? }
 
   def admin?
     role == 'admin'
