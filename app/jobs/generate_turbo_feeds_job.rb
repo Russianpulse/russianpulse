@@ -15,6 +15,6 @@ class GenerateTurboFeedsJob < ApplicationJob
   end
 
   def posts
-    Post.top.recent.limit(1000) + Post.published.not_top.newer_than(1.month.ago)
+    Post.top.recent.limit(100) + Post.published.not_top.newer_than(2.days.ago)
   end
 end
