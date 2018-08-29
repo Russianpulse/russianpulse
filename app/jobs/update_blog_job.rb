@@ -7,9 +7,11 @@ class UpdateBlogJob < ApplicationJob
 
   attr_reader :blog
 
-  def perform(blog = nil, force = false)
+  def perform(blog = nil, _force = false)
     if blog.nil?
       BlogBase.with_feed.find_each do |blog|
+        next unless need_check?(blog)
+
         case blog
         when Blog
           UpdateBlogJob.perform_later blog
@@ -22,8 +24,6 @@ class UpdateBlogJob < ApplicationJob
     end
 
     @blog = blog
-
-    return unless need_check?(blog) || force
 
     logger.info "Updating blog #{blog.id} feed '#{blog.feed_url}'"
 
