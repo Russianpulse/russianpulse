@@ -9,17 +9,20 @@ fi
 if [ "$1" = 'worker' ]; then
   rm -rf tmp/pids/*
   bundle exec sidekiq -C config/sidekiq.yml
+  exit 1
 fi
 
 if [ "$1" = 'web' ]; then
   rm -rf tmp/pids/*
   bundle exec rake db:migrate
   bundle exec rails server puma -p 80 --binding 0.0.0.0
+  exit 1
 fi
 
 if [ "$1" = 'server' ]; then
   rm -rf tmp/pids/*
   bundle exec rails server puma -p 80 --binding 0.0.0.0
+  exit 1
 fi
 
 if [ "$1" = 'spec' ]; then
