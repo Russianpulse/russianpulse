@@ -78,5 +78,6 @@ deploy:
     - ssh-add ~/.ssh/id_rsa
 
     - export SERVICE_CMD="docker service update --image registry.gitlab.com/mazavr/mazavr:$CI_PIPELINE_IID russianpulse_web"
+    - export SERVICE_CMD="docker service update --image registry.gitlab.com/mazavr/mazavr:$CI_PIPELINE_IID russianpulse_worker"
     - ssh root@$SWARM_MANAGER $SERVICE_CMD
 
