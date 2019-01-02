@@ -59,3 +59,24 @@ latest:
     - docker pull $CONTAINER_IMAGE:$CI_PIPELINE_IID
     - docker build --cache-from $CONTAINER_IMAGE:$CI_PIPELINE_IID --tag $CONTAINER_IMAGE:latest .
     - docker push $CONTAINER_IMAGE:latest
+
+deploy:
+  stage: deploy
+  only:
+    - master
+
+  image: alpine
+  script:
+    - apk add --no-cache openssh
+
+    - mkdir -p ~/.ssh
+    - echo "$SSH_KEY" > ~/.ssh/id_rsa
+    - echo "$SSH_CONFIG" > ~/.ssh/config
+    - chmod 600 ~/.ssh/*
+
+    - eval $(ssh-agent -s)
+    - ssh-add ~/.ssh/id_rsa
+
+    - export SERVICE_CMD="docker service update --image registry.gitlab.com/mazavr/mazavr:$CI_PIPELINE_IID russianpulse_web"
+    - ssh root@$SWARM_MANAGER $SERVICE_CMD
+
