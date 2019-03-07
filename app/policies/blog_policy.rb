@@ -9,7 +9,7 @@ class BlogPolicy < ApplicationPolicy
     private
 
     def allowed_blogs
-      Blog.joins(:authors)
+      Blog.joins(:authors).where(blogs_users: { user_id: user.id })
     end
   end
 end
