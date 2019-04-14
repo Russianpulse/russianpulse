@@ -12,14 +12,14 @@ class ApplicationController < ActionController::Base
 
   rescue_from ActiveRecord::RecordNotFound do
     respond_to do |format|
-      format.html { render 'errors/not_found', status: 404 }
-      format.any { render plain: 'Страница не найдена. Воспользуйтесь поиском.', status: 404 }
+      format.html { render 'errors/not_found', status: :not_found }
+      format.any { render plain: 'Страница не найдена. Воспользуйтесь поиском.', status: :not_found }
     end
   end
 
   rescue_from ActionView::MissingTemplate, ActionController::UnknownFormat do
     respond_to do |format|
-      format.any { render plain: 'Неверный формат запроса. Видимо, плохая ссылка.', status: 400 }
+      format.any { render plain: 'Неверный формат запроса. Видимо, плохая ссылка.', status: :bad_request }
     end
   end
 
@@ -55,8 +55,8 @@ class ApplicationController < ActionController::Base
         break
       end
     end
-  rescue StandardError => ex
-    logger.error ex
+  rescue StandardError => e
+    logger.error e
   end
 
   def ga_event(args)

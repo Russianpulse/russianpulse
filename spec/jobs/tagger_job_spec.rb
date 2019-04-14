@@ -21,7 +21,7 @@ RSpec.describe TaggerJob, type: :job do
 
   it 'should add russian tag if alias match' do
     post.title = 'All about our Putin'
-    tag.update_attributes title: 'Putin', aliases: 'Mr. President'
+    tag.update title: 'Putin', aliases: 'Mr. President'
     job.perform(post)
     expect(post.tags).to include(tag)
   end

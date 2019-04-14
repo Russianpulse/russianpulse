@@ -9,11 +9,9 @@ module PostsHelper
   end
 
   def smart_post_path(post, options = {})
-    blog_slug = Rails.cache.fetch("Blog#slug##{post.blog_id}", expires_in: 1.hour) { post.blog.slug }
-
     options = {
       controller: :posts, action: :show,
-      blog: blog_slug,
+      blog: post.blog_slug,
       year: post.created_at.year,
       month: post.created_at.strftime('%m'),
       day: post.created_at.strftime('%d')
@@ -54,6 +52,7 @@ module PostsHelper
 
   def post_teaser_for(post)
     return nil unless PostTeaser.exists?
+
     PostTeaser.offset(post.id % PostTeaser.count).first.body
   end
 end

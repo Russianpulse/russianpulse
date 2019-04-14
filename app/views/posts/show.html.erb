@@ -9,7 +9,7 @@
 
   <h1><%= @post.title %></h1>
 
-  <%= ajax_cell('posts/controls', @post.id) %>
+  <%= cell('posts/controls', @post.id) %>
 
   <%= render :partial => 'tags' %>
 
@@ -29,7 +29,7 @@
     <% end %>
   <% end %>
 
-  <%= ajax_cell('posts/comments_link', @post.id) %>
+  <%= cell('posts/comments_link', @post.id) %>
 
   <br />
   <br />
@@ -57,7 +57,7 @@
 <div class="row">
   <div class="col-sm-6">
     <div>
-      <%= ajax_block ajax_post_comments_path(id: @post.id) %>
+      <%= render partial: 'comments', locals: { comments: @post.comments.order(:created_at) } %>
     </div>
   </div>
   <div class="col-sm-6">
@@ -72,7 +72,7 @@
 
 <br />
   
-<%= ajax_block ajax_comments_recent_path(post_id: @post.id) %>
+<%= render partial: 'shared/recent_comments', locals: { comments: Comment.recent.includes(:user, commentable: [:blog]).not_for(@post).limit(20) } %>
 
 <br />
 

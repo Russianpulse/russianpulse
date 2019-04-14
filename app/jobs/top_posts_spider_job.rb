@@ -5,7 +5,7 @@ class TopPostsSpiderJob < ApplicationJob
     case mode.to_s
     when 'month'
       (1.month.ago.to_i..Time.now.to_i).step(1.day).each do |from|
-        from = Time.at(from).beginning_of_day
+        from = Time.at(from).in_time_zone.beginning_of_day
         to = from.end_of_day
         set_top_between(from, to)
       end

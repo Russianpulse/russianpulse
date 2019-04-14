@@ -8,22 +8,14 @@ class PostsController < ApplicationController
     @posts = @posts.top if params[:top] == '1'
     @posts = @posts.page params[:page]
 
-
     respond_to do |format|
       format.html
       format.atom
     end
   end
 
-  def comments
-    @post = Post.find params[:id]
-    @comments = @post.comments.order(:created_at)
-  end
-
   def most_discussed
     @post = Post.find params[:id]
-
-    expires_in(30.minutes, public: true)
 
     render html: cell('most_discussed', @post)
   end
@@ -37,13 +29,8 @@ class PostsController < ApplicationController
       @slug_id = params[:slug_id]
       redirect_to goto_path(url: "https://goo.gl/#{@slug_id}")
 
-      expires_in(1.hour, public: true)
     elsif request.path == URI(smart_post_path(@post)).path
-      if @post.blocked?
-        render template: 'posts/show_blocked'
-      else
-        fresh_when(etag: @post, last_modified: @post.updated_at, public: true)
-      end
+      render template: 'posts/show_blocked' if @post.blocked?
     else
       redirect_to smart_post_path(@post)
     end
@@ -51,7 +38,7 @@ class PostsController < ApplicationController
 
   def counter
     views = Post.where(id: params[:id]).pluck(:views).first
-    Post.where(id: params[:id]).update_all accessed_at: Time.now, views: views.to_i + 1
+    Post.where(id: params[:id]).update_all accessed_at: Time.now.in_time_zone, views: views.to_i + 1
 
     redirect_to '/counter.png', protocol: request.ssl? ? 'https://' : 'http://'
   end

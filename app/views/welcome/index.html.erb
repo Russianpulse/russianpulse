@@ -4,7 +4,7 @@
 
 <div class="well">
   <div class="row">
-    <% @posts_top.take(3).each do |post| %>
+    <% @posts_top.includes(:blog).take(3).each do |post| %>
       <div class="col-sm-4">
         <%= cell("posts/high", post) %>
       </div>
@@ -17,18 +17,18 @@
     <div class="col-sm-4">
       <%= cell('posts/ads') %>
 
-      <%= cell("posts/text_block", @posts_recent[0..5]) %>
+      <%= cell("posts/text_block", @posts_recent.includes(:blog)[0..5]) %>
     </div>
     <% @posts_featured.in_groups(2, false) do |posts| %>
       <div class="col-sm-4">
-        <%= cell("posts/triple", posts) if posts.size == 3 %>
+        <%= cell("posts/triple", Post.where(id: posts).includes(:blog)) if posts.size == 3 %>
         <hr />
       </div>
     <% end %>
   </div>
 
   <div class="row">
-    <% (@posts_recent[6..-1] || []).in_groups(3, false) do |posts| %>
+    <% (@posts_recent.includes(:blog)[6..-1] || []).in_groups(3, false) do |posts| %>
       <div class="col-sm-4">
         <%= cell("posts/text_block", posts) %>
       </div>

@@ -3,7 +3,7 @@ module ApplicationHelper
     raw "<img src='/p/views/#{post_id}.png' alt='' title='' width=1, height=1 />"
   end
 
-  def proxy_image_url(url, size='')
+  def proxy_image_url(url, size = '')
     if ENV['IMAGEPROXY_URL'].present?
       File.join(ENV['IMAGEPROXY_URL'], size.to_s, url.to_s)
     else
@@ -29,15 +29,15 @@ module ApplicationHelper
     if date > 1.minute.ago
       t 'just_now'
     elsif date > 60.minutes.ago
-      minutes = ((Time.now - date) / 1.minute).round
+      minutes = ((Time.now.in_time_zone - date) / 1.minute).round
       unit = Russian.pluralize(minutes, 'minute', 'minutes', 'minutes_5')
 
       "#{minutes} #{t unit} #{t :ago}"
     elsif date.today?
       l date, format: '%H:%M'
-    elsif date > Time.now.yesterday.beginning_of_day
+    elsif date > Time.now.in_time_zone.yesterday.beginning_of_day
       l date, format: "#{t(:yesterday)} %H:%M"
-    elsif date > (Time.now - 7.days).beginning_of_day
+    elsif date > (Time.now.in_time_zone - 7.days).beginning_of_day
       l date, format: '%A %H:%M'
     else
       l date, format: '%e %b %Y'
@@ -45,7 +45,7 @@ module ApplicationHelper
   end
 
   def time_or_date(date)
-    if date > Time.now.yesterday.beginning_of_day
+    if date > Time.now.in_time_zone.yesterday.beginning_of_day
       date.strftime('%H:%M')
     else
       l date, format: '%e %b %Y'
@@ -96,11 +96,11 @@ module ApplicationHelper
   end
 
   def benchmark(name)
-    t0 = Time.now
+    t0 = Time.now.in_time_zone
 
     yield
 
-    t1 = Time.now
+    t1 = Time.now.in_time_zone
 
     Rails.logger.debug "TEMPLATE BENCHMARK '#{name}': #{t1 - t0}"
   end

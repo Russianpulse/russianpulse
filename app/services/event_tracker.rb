@@ -15,14 +15,16 @@ class EventTracker
 
   def track(category, action, label = nil, value = nil)
     return if Rails.env.test?
+
     Rails.logger.warn 'EventTracker.track is depricated'
     event(category: category, action: action, label: label, value: value, non_interactive: true)
-  rescue Exception => ex
-    ExceptionNotifier.notify_exception ex
+  rescue Exception => e
+    ExceptionNotifier.notify_exception e
   end
 
   def notify(category, action, label = nil, value = nil)
     return if Rails.env.test?
+
     slack_notifier.ping "#{category.to_s.titleize} #{action} #{label} #{value}"
   rescue Exception => ex
     ExceptionNotifier.notify_exception ex

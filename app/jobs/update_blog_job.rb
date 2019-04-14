@@ -42,7 +42,7 @@ class UpdateBlogJob < ApplicationJob
     not_older_than = blog.posts.maximum(:created_at)
 
     # сначала старые
-    feed.entries.reverse.each do |entry|
+    feed.entries.reverse_each do |entry|
       if not_older_than.present? && entry.published.present? && entry.published < not_older_than
         logger.warn "Entry #{entry.url} is old"
         next
@@ -79,10 +79,10 @@ class UpdateBlogJob < ApplicationJob
     end
 
     blog.checked!
-  rescue Feedjira::FetchFailure, Timeout::Error => ex
-    blog.failed_to_check!(ex)
-  rescue StandardError => ex
-    blog.failed_to_check!(ex)
+  rescue Feedjira::FetchFailure, Timeout::Error => e
+    blog.failed_to_check!(e)
+  rescue StandardError => e
+    blog.failed_to_check!(e)
     raise
   end
 
@@ -106,7 +106,7 @@ class UpdateBlogJob < ApplicationJob
     end
 
     target_url
-  rescue
+  rescue StandardError
     source_url
   end
 
@@ -125,11 +125,11 @@ class UpdateBlogJob < ApplicationJob
     title = entry.title
 
     pub_date = if entry.published.blank?
-                 Time.now
+                 Time.now.in_time_zone
                elsif entry.published < (blog.checked_at || 1.hour.ago)
                  (blog.checked_at || 1.hour.ago)
                else
-                 [entry.published.to_time, Time.now].min
+                 [entry.published.to_time, Time.now.in_time_zone].min
                end
 
     title = title.mb_chars.capitalize.to_s if caps? title

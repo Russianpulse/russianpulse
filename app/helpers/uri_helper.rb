@@ -1,7 +1,7 @@
 module UriHelper
   def host_from_url(url)
     URI(url).host
-  rescue
+  rescue StandardError
     nil
   end
 

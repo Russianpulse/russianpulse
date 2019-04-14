@@ -18,7 +18,7 @@ rubocop:
   stage: build
   image: ruby
   script:
-    - gem install rubocop -v '0.57.2'
+    - gem install rubocop -v '0.67.2'
     - rubocop
 
 audit:

@@ -73,8 +73,8 @@ class CleanupJob < ApplicationJob
       median_to = to
 
       current = -> { (median_from + median_to) / 2 }
-      count_older = -> { Post.created_between(Time.at(from), Time.at(current.call)).count }
-      count_newer = -> { Post.created_between(Time.at(current.call), Time.at(to)).count }
+      count_older = -> { Post.created_between(Time.at(from).in_time_zone, Time.at(current.call).in_time_zone).count }
+      count_newer = -> { Post.created_between(Time.at(current.call).in_time_zone, Time.at(to).in_time_zone).count }
       error = -> { (count_older.call - count_newer.call).abs.to_f / ((count_older.call + count_newer.call).abs / 2) }
 
       i = 0
@@ -91,7 +91,7 @@ class CleanupJob < ApplicationJob
         i += 1
       end
 
-      Time.at current.call
+      Time.Time.at(current.call).in_time_zone
     end
 
     # делим весь период на 16 частей

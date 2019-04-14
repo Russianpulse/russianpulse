@@ -9,7 +9,7 @@
     <h2><%= year %> год</h2>
     <div class='row archive'>
       <% (1..12).to_a.reverse.map { |month| Date.new(year, month) }.each do |cursor| %>
-        <% next if cursor < start %>
+        <% next if cursor < start.beginning_of_month %>
         <% next if cursor.future? %>
 
         <div class="col-md-4 col-sm-6">
