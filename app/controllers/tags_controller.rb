@@ -4,6 +4,6 @@ class TagsController < ApplicationController
     raise ActiveRecord::RecordNotFound if @tag.blank?
 
     @posts = @tag.posts.order('created_at DESC').limit(12)
-    @posts = @posts.older_than(Time.at(params[:before].to_f)) if params[:before].present?
+    @posts = @posts.older_than(Time.at(params[:before].to_f).in_time_zone) if params[:before].present?
   end
 end

@@ -12,7 +12,7 @@ class PingerJob < ApplicationJob
 
   protected
 
-  def default_url_options 
+  def default_url_options
     Rails.configuration.action_controller.default_url_options
   end
 end

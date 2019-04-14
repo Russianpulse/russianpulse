@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature "WriteAPosts", type: :feature, skip: true do
+RSpec.feature 'WriteAPosts', type: :feature, skip: true do
   scenario 'User can write a post' do
     visit '/editor/posts'
 

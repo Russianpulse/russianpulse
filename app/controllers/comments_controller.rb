@@ -15,8 +15,6 @@ class CommentsController < ApplicationController
 
   def recent
     @post = Post.find params[:post_id]
-
-    expires_in(30.minutes, public: true)
     @comments = Comment.recent.not_for(@post).limit(20)
   end
 
@@ -30,8 +28,8 @@ class CommentsController < ApplicationController
 
   def spam
     if current_user.admin?
-      @comment.update_attributes(spam: true)
-      @comment.user.update_attributes(flagged: true)
+      @comment.update(spam: true)
+      @comment.user.update(flagged: true)
     end
 
     redirect_to smart_post_path(@comment.commentable), notice: 'Comment marked as SPAM.'
@@ -63,7 +61,7 @@ class CommentsController < ApplicationController
         #{@comment.comment}
         #{@post.title} #{(begin
                             comment_url(@comment)
-                          rescue
+                          rescue StandardError
                             :cant_get_comment_url
                           end)}
         MSG
@@ -71,7 +69,7 @@ class CommentsController < ApplicationController
         begin
           sign_in @user
           remember_me @user
-        rescue
+        rescue StandardError
           nil
         end
 
@@ -120,6 +118,7 @@ class CommentsController < ApplicationController
   def notify_post_subscribers
     @post.followers.each do |follower|
       next if follower == current_user
+
       CommentsMailer.created(@comment, follower).deliver_later
     end
   end
@@ -127,7 +126,8 @@ class CommentsController < ApplicationController
   def flag_spammer
     return if @comment.user.new_record?
     return unless Comment.exists?(comment: @comment.comment, user: @comment.user)
-    @comment.user.update_attributes! flagged: true
+
+    @comment.user.update! flagged: true
   end
 
   def cooldown_spammer?(user)

@@ -1,8 +1,7 @@
 class Blogs::PostsController < ApplicationController
   include Pundit
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :set_post, only: %i[show edit update destroy]
   helper_method :blogs
-
 
   # GET /blogs/posts
   def index
@@ -55,17 +54,18 @@ class Blogs::PostsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_post
-      @post = Post.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def post_params
-      params.require(:post).permit(:blog_id, :title, :body).merge(user_id: current_user.id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_post
+    @post = Post.find(params[:id])
+  end
 
-    def blogs
-      policy_scope Blog.all
-    end
+  # Only allow a trusted parameter "white list" through.
+  def post_params
+    params.require(:post).permit(:blog_id, :title, :body).merge(user_id: current_user.id)
+  end
+
+  def blogs
+    policy_scope Blog.all
+  end
 end

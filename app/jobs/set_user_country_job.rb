@@ -9,7 +9,7 @@ class SetUserCountryJob < ApplicationJob
 
     return unless country_update_required?
 
-    user.update_attributes(country_code: country_code(user.current_sign_in_ip.to_s))
+    user.update(country_code: country_code(user.current_sign_in_ip.to_s))
   end
 
   private
@@ -27,7 +27,7 @@ class SetUserCountryJob < ApplicationJob
     return RUSSIA_COUNTRY_CODE if data['region_name'] == 'Republic of Crimea'
 
     country_code
-  rescue
+  rescue StandardError
     DEFAULT_COUNTRY_CODE
   end
 end

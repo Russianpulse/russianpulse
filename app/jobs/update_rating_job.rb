@@ -5,7 +5,6 @@ class UpdateRatingJob < ApplicationJob
     EventTracker.track 'Jobs', 'Rating update'
 
     Blog.find_each do |blog|
-
       blog.update_attribute :rating, rating(blog)
     end
   end
@@ -17,7 +16,6 @@ class UpdateRatingJob < ApplicationJob
 
     (views(blog) + comments(blog) * PostBase::COMMENTS_POWER)
   end
-  
 
   def count(blog)
     blog.posts.count

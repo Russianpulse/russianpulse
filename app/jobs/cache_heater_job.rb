@@ -15,6 +15,6 @@ class CacheHeaterJob < ApplicationJob
       http.request(req)
     end
 
-    "#{path}##{Time.now}"
+    "#{path}##{Time.now.in_time_zone}"
   end
 end

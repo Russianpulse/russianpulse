@@ -8,7 +8,7 @@ class PostBase < ApplicationRecord
 
   belongs_to :blog, class_name: 'BlogBase'
 
-  delegate :title, to: :blog, prefix: true, allow_nil: true
+  delegate :title, :slug, to: :blog, prefix: true, allow_nil: true
 
   validates :title, presence: true
   validates :body, presence: true
@@ -75,7 +75,7 @@ class PostBase < ApplicationRecord
 
       _tags = tags
 
-      (1..[_tags.size, 3].min).to_a.reverse.each do |n|
+      (1..[_tags.size, 3].min).to_a.reverse_each do |n|
         _tags.sort_by { |t| t.post_ids.size }.combination(n).each do |tags_combination|
           tagged = tags_combination.map(&:post_ids).inject(&:&)
 
@@ -102,8 +102,6 @@ class PostBase < ApplicationRecord
     posts
   end
 
-  private_class_method
-
   def self.tags_from_tags_list(tags_list)
     Tag.where(slug: tags_list.to_s.split(',')
       .map(&:strip).map { |t| Tag.generate_slug(t) }
@@ -126,7 +124,7 @@ class PostBase < ApplicationRecord
 
   def block_if_trashed
     if stream == 'trash'
-      self.blocked_at ||= Time.now
+      self.blocked_at ||= Time.now.in_time_zone
     else
       self.blocked_at = nil
     end

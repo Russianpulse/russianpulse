@@ -110,8 +110,8 @@ class BlogBase < ApplicationRecord
 
     update_columns(
       recent_fetches: recent_fetches,
-      checked_at: Time.now,
-      updated_at: Time.now
+      checked_at: Time.now.in_time_zone,
+      updated_at: Time.now.in_time_zone
     )
   end
 

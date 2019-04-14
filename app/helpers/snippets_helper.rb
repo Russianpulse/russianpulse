@@ -1,6 +1,6 @@
 module SnippetsHelper
   def snippet(key, variables = {}, options = {}, &block)
-    snippet = Snippet.find_by_key(key)
+    snippet = Snippet.find_by(key: key)
 
     if snippet.present?
       snippet_body = if snippet.v2.present?
