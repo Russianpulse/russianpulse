@@ -41,23 +41,21 @@ class CommentsController < ApplicationController
   # POST /comments
   def create
     @post = Post.find params[:post_id]
-    @user = User.find_or_initialize_by user_params
-    @user.password = SecureRandom.hex if @user.new_record?
-    @comment = @post.comments.new(comment_params.merge(user: @user))
+    @comment = @post.comments.new(comment_params.merge(user: current_user))
 
     flag_spammer
 
     if !verify_recaptcha
       redirect_to smart_post_path(@post), error: t('security.robot_atack')
-    elsif cooldown_spammer?(@user)
+    elsif cooldown_spammer?(current_user)
       redirect_to smart_post_path(@post), error: t('security.spammer_atack')
     else
 
-      if @user.save && @comment.save
+      if @comment.save
         ga_event category: :comments, action: :create, label: @post.title, interaction: 1, value: 1
 
         EventTracker.notify 'comments', 'create', <<-MSG
-        #{@user.name}:
+        #{current_user.name}:
         #{@comment.comment}
         #{@post.title} #{(begin
                             comment_url(@comment)
@@ -66,14 +64,7 @@ class CommentsController < ApplicationController
                           end)}
         MSG
 
-        begin
-          sign_in @user
-          remember_me @user
-        rescue StandardError
-          nil
-        end
-
-        @user.follow(@post) if params[:subscribe] == '1'
+        current_user.follow(@post) if params[:subscribe] == '1'
 
         notify_post_subscribers
 
@@ -109,10 +100,6 @@ class CommentsController < ApplicationController
   # Only allow a trusted parameter "white list" through.
   def comment_params
     params.require(:comment).permit(:comment)
-  end
-
-  def user_params
-    (params[:comment] || {}).require(:user_attributes).permit(:name, :email)
   end
 
   def notify_post_subscribers

@@ -58,12 +58,13 @@ ru:
 
   posts:
     comments:
-      leave_comment: "Что Вы думаете?"
       comments: "Отзывы"
-      your_name: "Ваше имя"
-      email: "Email (скрыто от посетителей)"
+    new_comment_form:
+      leave_comment: "Что Вы думаете?"
       send: "Опубликовать"
       subscribe: "Пописаться на обсуждение"
+      your_name: "Ваше имя"
+      email: "Email (скрыто от посетителей)"
 
   comments:
     thank_you: "Спасибо за Ваш отзыв!"

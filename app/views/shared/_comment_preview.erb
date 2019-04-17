@@ -1,4 +1,4 @@
-<% cache comment, expires_in: 5.minutes do %>
+<% cache comment do %>
   <div class="media comment well">
     <div class="media-left">
       <%= image_tag gravatar_url(comment.user.email, size: 35), class: "media-object", width: 35, height: 35 %>

@@ -24,46 +24,14 @@
   </div>
 <% end %>
 
-<h2><%= t ".leave_comment" %></h2>
+<% if signed_in? %>
+  <%= render "new_comment_form" %>
+<% else %>
+  <div class="well">
+    Только <%= link_to 'зарегистрированные', new_user_registration_path %> пользовати могут оставлять комментарии.
 
-<div class="well">
-  <%= simple_form_for Comment.new, html: { id: "comments_form", class: :form } do |f| %>
-    <%= hidden_field_tag :post_id, @post.id %>
-    <%= f.input :comment, label: false, input_html: { rows: 8 } %>
-
-
-    <%= f.simple_fields_for :user_attributes, current_user do |f| %>
-      <% if signed_in? %>
-        <%= f.input :name, as: :hidden %>
-        <%= f.input :email, as: :hidden %>
-      <% else %>
-        <%= f.input :name, label: t(".your_name"), input_html: { class: "name memorized-field" } %>
-        <%= f.input :email, as: :email, label: t(".email"), input_html: { class: "name memorized-field" } %>
-      <% end %>
-    <% end %>
-
-    <% unless (signed_in? && !current_user.flagged?) %>
-      <div style='margin-bottom: 12px'>
-        <%= recaptcha_tags rescue "Can't render captcha widget" %>
-      </div>
-    <% end %>
-
-    <div class='form-group'>
-      <div class="checkbox">
-        <%= label_tag :subscribe do %>
-          <%= check_box_tag :subscribe, 1, true %>
-          <%= t('.subscribe') %>
-        <% end %>
-      </div>
-    </div>
-
-    <%= f.button :submit, t(".send"), class: "btn-primary btn-lg" %>
-
-    <% if signed_in? %>
-      как
-      <%= current_user.name  %>
-      (<%= link_to 'Выйти', destroy_user_session_path, method: :delete %>)
-    <% end %>
-  <% end %>
-
-</div>
+    <br/>
+    <%= link_to 'Войти', new_user_session_path, class: 'btn btn-primary' %>
+    <%= link_to 'Зарегистрироваться', new_user_registration_path, class: 'btn btn-default' %>
+  </div>
+<% end %>
