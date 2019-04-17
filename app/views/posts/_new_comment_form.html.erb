@@ -1,0 +1,36 @@
+<h2><%= t ".leave_comment" %></h2>
+
+<div class="well">
+  <%= simple_form_for Comment.new, html: { id: "comments_form", class: :form } do |f| %>
+    <%= hidden_field_tag :post_id, @post.id %>
+    <%= f.input :comment, label: false, input_html: { rows: 8 } %>
+
+
+    <%= f.simple_fields_for :user_attributes, current_user do |f| %>
+      <% if signed_in? %>
+        <%= f.input :name, as: :hidden %>
+        <%= f.input :email, as: :hidden %>
+      <% else %>
+        <%= f.input :name, label: t(".your_name"), input_html: { class: "name memorized-field" } %>
+        <%= f.input :email, as: :email, label: t(".email"), input_html: { class: "name memorized-field" } %>
+      <% end %>
+    <% end %>
+
+    <% unless (signed_in? && !current_user.flagged?) %>
+      <div style='margin-bottom: 12px'>
+        <%= recaptcha_tags rescue "Can't render captcha widget" %>
+      </div>
+    <% end %>
+
+    <div class='form-group'>
+      <div class="checkbox">
+        <%= label_tag :subscribe do %>
+          <%= check_box_tag :subscribe, 1, true %>
+          <%= t('.subscribe') %>
+        <% end %>
+      </div>
+    </div>
+
+    <%= f.button :submit, t(".send"), class: "btn-primary btn-lg" %>
+  <% end %>
+</div>

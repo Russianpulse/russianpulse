@@ -29,15 +29,12 @@ RSpec.describe CommentsController, type: :controller do
   # adjust the attributes here as well.
   let(:valid_attributes) do
     {
-      comment: FactoryGirl.attributes_for(:comment).merge(user_attributes: {
-                                                            name: user_attributes[:name],
-                                                            email: user_attributes[:email]
-                                                          }), post_id: current_post.id
+      comment: FactoryGirl.attributes_for(:comment), post_id: current_post.id
     }
   end
 
   let(:invalid_attributes) do
-    { comment: { comment: 'Me comment', user_attributes: { name: 'Name', email: 'bademail' } }, post_id: current_post.id }
+    { comment: { comment: '' }, post_id: current_post.id }
   end
 
   let(:valid_session) do
@@ -45,10 +42,12 @@ RSpec.describe CommentsController, type: :controller do
   end
 
   let(:current_post) { FactoryGirl.create(:post) }
+  let(:current_user) { create :user }
 
   describe 'POST #create' do
     before do
       allow(controller).to receive(:verify_recaptcha) { true }
+      sign_in current_user
     end
 
     context 'with valid params' do
@@ -71,10 +70,6 @@ RSpec.describe CommentsController, type: :controller do
         expect(response).to redirect_to(smart_post_path(current_post, anchor: "comment_#{assigns(:comment).id}"))
       end
 
-      it 'should register a new user' do
-        expect { request }.to change(User, :count).by(1)
-      end
-
       context 'when *subscribe* box is checked' do
         before do
           valid_attributes.merge!(subscribe: 1)
@@ -82,35 +77,16 @@ RSpec.describe CommentsController, type: :controller do
 
         it 'should subscribe user on a conversation' do
           request
-          user = User.last
-          expect(current_post.followers).to include user
+          expect(current_post.followers).to include current_user
         end
-      end
-
-      context 'when user already registered' do
-        let!(:user) { FactoryGirl.create :user, user_attributes }
-        it { expect { request }.not_to change(User, :count) }
-        it { expect { request }.to change(user.comments, :count).by(1) }
-      end
-
-      describe 'user' do
-        before do
-          post :create, params: valid_attributes, session: valid_session
-        end
-        subject { assigns(:user) }
-
-        it { should be_a(User) }
-        its(:email) { should eq(user_attributes[:email]) }
-        its(:flagged) { is_expected.not_to eq true }
       end
 
       context 'when comment is duplicated (looks like a SPAM)' do
-        let(:user) { create :user }
         let(:user_attributes) { user.attributes.symbolize_keys }
-        before { create :comment, comment: valid_attributes[:comment][:comment], user: user }
+        before { create :comment, comment: valid_attributes[:comment][:comment], user: current_user }
         it 'should mark user as flagged' do
           post :create, params: valid_attributes, session: valid_session
-          expect(user.reload.flagged).to eq true
+          expect(current_user.reload.flagged).to eq true
         end
       end
     end

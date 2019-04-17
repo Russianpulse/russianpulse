@@ -78,7 +78,6 @@ group :development do
   gem 'faker'
   gem 'guard-livereload'
   gem 'letter_opener'
-  gem 'letter_opener_web', '~> 1.2.0'
   gem 'rack-livereload'
   gem 'rack-mini-profiler'
   gem 'rb-readline'
@@ -101,6 +100,8 @@ end
 
 group :test do
   gem 'capybara'
+  gem 'capybara-email'
+  gem 'capybara-screenshot'
   gem 'poltergeist'
   gem 'webmock'
 

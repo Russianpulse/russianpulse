@@ -1,18 +1,24 @@
-<h2><%= t(".sign_up") %></h2>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="well">
+      <h2><%= t(".sign_up") %></h2>
 
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= f.error_notification %>
+      <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <%= f.error_notification %>
 
-  <div class="form-inputs">
-    <%= f.input :name, required: true, autofocus: true %>
-    <%= f.input :email, required: true %>
-    <%= f.input :password, required: true %>
-    <%= f.input :password_confirmation, required: true %>
+        <div class="form-inputs">
+          <%= f.input :name, required: true, autofocus: true, label: 'Имя' %>
+          <%= f.input :email, required: true %>
+          <%= f.input :password, required: true, label: 'Пароль' %>
+          <%= f.input :password_confirmation, required: true, label: 'Подтверждение пароля' %>
+        </div>
+
+        <div class="form-actions">
+          <%= f.button :submit, 'Зарегистрироваться', class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+
+      <%= render "devise/shared/links" %>
+    </div>
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, t(".sign_up") %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>

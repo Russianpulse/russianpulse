@@ -1,5 +1,5 @@
 module SnippetsHelper
-  def snippet(key, variables = {}, options = {}, &block)
+  def snippet(key, _variables = {}, options = {}, &block)
     snippet = Snippet.find_by(key: key)
 
     if snippet.present?
@@ -9,12 +9,7 @@ module SnippetsHelper
                        snippet.body
                      end
 
-      if snippet_body.present?
-        html = snippet_body.to_s
-
-        template = Liquid::Template.parse(html) # Parses and compiles the template
-        raw template.render(variables.stringify_keys)
-      end
+      raw snippet_body.to_s if snippet_body.present?
     elsif block_given?
       html = capture(&block)
       Snippet.create(key: key, body: html) unless options[:do_not_create_missing]

@@ -7,6 +7,8 @@ require 'rspec/rails'
 require 'webmock/rspec'
 require 'capybara/rails'
 require 'capybara/poltergeist'
+require 'capybara-screenshot/rspec'
+require 'capybara/email/rspec'
 
 Capybara.javascript_driver = :poltergeist
 Capybara.register_driver :poltergeist do |app|
