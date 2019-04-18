@@ -9,7 +9,7 @@
         <%= fa_icon 'chevron-down' %>
       <% end %>
       <div class="btn btn-default <%= comment.rating.negative? ? 'text-danger' : '' %>">
-        <%= comment.rating %>
+        <strong><%= comment.rating %></strong>
       </div>
       <%= link_to upvote_comment_path(comment), class: "btn btn-default btn-xs #{upvote_button_class(comment)}", method: :put, remote: true do %>
         <%= fa_icon 'chevron-up' %>
