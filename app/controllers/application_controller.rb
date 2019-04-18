@@ -86,4 +86,8 @@ class ApplicationController < ActionController::Base
       'application'
     end
   end
+
+  def render_js_redirect(target)
+    render js: "window.location = '#{target}'"
+  end
 end

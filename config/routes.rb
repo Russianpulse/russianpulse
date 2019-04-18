@@ -20,7 +20,11 @@ Rails.application.routes.draw do
   }
 
   resources :comments, only: [:create] do
-    put :spam, on: :member
+    member do
+      put :spam
+      put :upvote
+      put :downvote
+    end
   end
 
   get 'robots.txt' => 'robots#index'

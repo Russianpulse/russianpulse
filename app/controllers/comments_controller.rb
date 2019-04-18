@@ -3,10 +3,10 @@ class CommentsController < ApplicationController
   include PostsHelper
   include CommentsHelper
   include Devise::Controllers::Rememberable
-  before_action :set_comment, only: %i[show edit update destroy spam]
+  before_action :set_comment, only: %i[show edit update destroy spam upvote downvote]
 
   # already protected with captcha
-  skip_before_action :verify_authenticity_token, only: :create
+  skip_before_action :verify_authenticity_token, only: %i[create upvote downvote]
 
   # GET /comments
   def index
@@ -16,6 +16,20 @@ class CommentsController < ApplicationController
   def recent
     @post = Post.find params[:post_id]
     @comments = Comment.recent.not_for(@post).limit(20)
+  end
+
+  def upvote
+    if signed_in?
+      authorize @comment, :upvote?
+      @comment.vote_by voter: current_user, vote: 'up'
+    else
+      render_js_redirect new_user_session_path
+    end
+  end
+
+  def downvote
+    authorize @comment, :downvote?
+    @comment.vote_by voter: current_user, vote: 'down'
   end
 
   # GET /comments/1
