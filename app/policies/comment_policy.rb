@@ -3,10 +3,14 @@ class CommentPolicy < ApplicationPolicy
   end
 
   def upvote?
+    return false if record.user == user
+
     true
   end
 
   def downvote?
+    return false if record.user == user
+
     true
   end
 end
