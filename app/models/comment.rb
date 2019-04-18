@@ -1,5 +1,6 @@
 class Comment < ApplicationRecord
   include ActsAsCommentable::Comment
+  acts_as_votable
 
   belongs_to :commentable, polymorphic: true, counter_cache: true
 
@@ -22,5 +23,9 @@ class Comment < ApplicationRecord
     else
       self[:comment]
     end
+  end
+
+  def rating
+    weighted_score
   end
 end

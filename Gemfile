@@ -17,6 +17,7 @@ gem 'uglifier'
 
 gem 'acts_as_commentable'
 gem 'acts_as_follower'
+gem 'acts_as_votable', '~> 0.12.0'
 gem 'cells-erb'
 gem 'cells-rails'
 gem 'devise'
