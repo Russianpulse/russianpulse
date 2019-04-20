@@ -10,9 +10,11 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require moment/min/moment-with-locales.min
+//= require timeago.js/dist/timeago.min
+//= require timeago.js/dist/timeago.locales.min
 //= require bootstrap-sprockets
 //= require bootstrap-material-design
-//= require jquery-timeago
 //= require jquery-ui
 //= require js.cookie
 //= require jquery_ujs
@@ -21,6 +23,7 @@
 //-----------------------------------------------------------------------------
 //= require ./core
 //= require_tree ./utils
+//= require_tree ./plugins
 //= require_tree ./templates
 //= require ./views/news_dashboard
 
@@ -69,3 +72,4 @@ $(".js-news-dashboard").each(function() {
   var widget = new Views.NewsDashboard({ el: $(this) });
   widget.render();
 });
+

@@ -11,17 +11,23 @@
     <% end %>
   </div>
 
-  <%= cell('most_discussed').(:horizontal) %>
+  <% cache :most_discussed, expires_in: 5.minutes do %>
+    <%= cell('most_discussed').(:horizontal) %>
+  <% end %>
 
   <div class="row">
     <div class="col-sm-4">
       <%= cell('posts/ads') %>
 
-      <%= cell("posts/text_block", @posts_recent.includes(:blog)[0..5]) %>
+      <% cache [@posts_recent, :recent] do %>
+        <%= cell("posts/text_block", @posts_recent.includes(:blog)[0..5]) %>
+      <% end %>
     </div>
     <% @posts_featured.in_groups(2, false) do |posts| %>
       <div class="col-sm-4">
-        <%= cell("posts/triple", Post.where(id: posts).includes(:blog)) if posts.size == 3 %>
+        <% cache [posts, :featured] do %>
+          <%= cell("posts/triple", Post.where(id: posts).includes(:blog)) if posts.size == 3 %>
+        <% end %>
         <hr />
       </div>
     <% end %>
@@ -30,7 +36,9 @@
   <div class="row">
     <% (@posts_recent.includes(:blog)[6..-1] || []).in_groups(3, false) do |posts| %>
       <div class="col-sm-4">
-        <%= cell("posts/text_block", posts) %>
+        <% cache [posts, :text_block] do %>
+          <%= cell("posts/text_block", posts) %>
+        <% end %>
       </div>
     <% end %>
   </div>

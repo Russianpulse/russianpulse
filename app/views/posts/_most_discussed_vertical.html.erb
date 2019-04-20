@@ -1,5 +1,7 @@
 <h2><%= t(:most_discussed) %></h2>
 
 <div class="well">
-  <%= cell 'most_discussed', post.id %>
+  <% cache :most_discussed, expires_in: 5.minutes do %>
+    <%= cell 'most_discussed' %>
+  <% end %>
 </div>
