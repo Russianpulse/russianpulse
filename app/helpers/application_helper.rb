@@ -26,30 +26,11 @@ module ApplicationHelper
   end
 
   def smart_date(date)
-    if date > 1.minute.ago
-      t 'just_now'
-    elsif date > 60.minutes.ago
-      minutes = ((Time.now.in_time_zone - date) / 1.minute).round
-      unit = Russian.pluralize(minutes, 'minute', 'minutes', 'minutes_5')
-
-      "#{minutes} #{t unit} #{t :ago}"
-    elsif date.today?
-      l date, format: '%H:%M'
-    elsif date > Time.now.in_time_zone.yesterday.beginning_of_day
-      l date, format: "#{t(:yesterday)} %H:%M"
-    elsif date > (Time.now.in_time_zone - 7.days).beginning_of_day
-      l date, format: '%A %H:%M'
-    else
-      l date, format: '%e %b %Y'
-    end
+    content_tag :span, l(date, format: '%e.%m.%Y %H:%M'), class: 'smart-date', 'data-dt' => date
   end
 
   def time_or_date(date)
-    if date > Time.now.in_time_zone.yesterday.beginning_of_day
-      date.strftime('%H:%M')
-    else
-      l date, format: '%e %b %Y'
-    end
+    content_tag :span, l(date, format: '%e.%m.%Y %H:%M'), class: 'time-or-date', 'data-dt' => date
   end
 
   def format_date(date, time: true)

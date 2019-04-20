@@ -12,7 +12,7 @@
             </small>
           <% end %>
         </h2>
-        <span class="date"><%= l  post.created_at, format: "%e %b %Y" %></span>
+        <span class="date"><%= time_or_date post.created_at %></span>
         •
         <span class="blog"><%= post.blog.title %></span>
       </div>

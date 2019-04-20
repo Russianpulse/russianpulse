@@ -4,7 +4,9 @@ namespace :faker do
     [Post, Tag, Blog, Comment, User].each(&:delete_all)
 
     100.times do |_n|
-      User.create! name: Faker::Name.name, email: Faker::Internet.email, password: 'secret123', password_confirmation: 'secret123'
+      user = User.new name: Faker::Name.name, email: Faker::Internet.email, password: 'secret123', password_confirmation: 'secret123'
+      user.skip_confirmation!
+      user.save!
     end
 
     50.times do |_n|
@@ -34,7 +36,5 @@ namespace :faker do
         print Post.count if rand(100) > 97
       end
     end
-
-    tags.each(&:save)
   end
 end

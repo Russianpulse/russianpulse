@@ -17,7 +17,7 @@
 
   <%= link_to @post.blog.title, blog_path(@post.blog.slug), class: 'blog_link' %>,
 
-  <%= content_tag(:span, format_date(@post.created_at, time: false), class: '') %>
+  <%= time_or_date @post.created_at %>
 
   <% if @post.source_url.present? %>
     &nbsp;
@@ -41,7 +41,7 @@
         <%= render :partial => 'body' %>
       </td>
       <td valign="top" class="visible-lg visible-md" style="padding-left: 15px">
-        <%= snippet :post_right_tower, adult: @post.has_picture? %>
+        <%= snippet :post_right_tower %>
       </td>
     </tr>
   </table>
@@ -52,7 +52,7 @@
 
 <hr />
 
-<%= snippet :below_article, :url => smart_post_url(@post), adult: @post.has_picture? %>
+<%= snippet :below_article %>
 
 <div class="row">
   <div class="col-sm-6">
@@ -78,4 +78,4 @@
 
 <%= render "read_more" %>
 
-<%= snippet :below_comments, :url => smart_post_url(@post), adult: @post.has_picture? %>
+<%= snippet :below_comments %>

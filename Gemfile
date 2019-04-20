@@ -119,7 +119,6 @@ gem 'font-awesome-rails'
 # TODO: remove it
 source 'https://rails-assets.org' do
   gem 'rails-assets-backbone'
-  gem 'rails-assets-jquery-timeago'
   gem 'rails-assets-jquery-ui'
   gem 'rails-assets-underscore'
 end

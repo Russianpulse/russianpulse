@@ -2,7 +2,7 @@ class Comment < ApplicationRecord
   include ActsAsCommentable::Comment
   acts_as_votable
 
-  belongs_to :commentable, polymorphic: true, counter_cache: true
+  belongs_to :commentable, polymorphic: true, counter_cache: true, touch: true
 
   scope :recent, -> { order('created_at DESC') }
   scope :not_for, ->(commentable) { where.not('commentable_type = ? AND commentable_id = ?', commentable.class.base_class, commentable.id) }
