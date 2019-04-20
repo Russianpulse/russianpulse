@@ -19,7 +19,7 @@ class YandexTurboCell < BaseCell
   def post_url(post)
     "#{protocol}://#{Rails.configuration.x.domain}/posts#{post.id}"
   end
-  
+
   def ab_variant?
     false
   end
