@@ -12,6 +12,8 @@ class PostsController < ApplicationController
       format.html
       format.atom
     end
+
+    fresh_when @posts, public: true
   end
 
   def most_discussed

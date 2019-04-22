@@ -20,5 +20,7 @@ class BlogsController < ApplicationController
       format.html
       format.atom
     end
+
+    fresh_when last_modified: [@posts.maximum(:updated_at), @blog.updated_at].max, public: true
   end
 end

@@ -54,5 +54,11 @@ module Mazavr
     # config.active_job.queue_name_prefix = "mazavr_#{Rails.env}"
 
     config.middleware.use Rack::Attack
+
+    config.action_dispatch.rack_cache = {
+      verbose: true,
+      metastore: "#{ENV.fetch('MEMCACHED_URL', :memcached)}/meta",
+      entitystore: "#{ENV.fetch('MEMCACHED_URL', :memcached)}/body"
+    }
   end
 end

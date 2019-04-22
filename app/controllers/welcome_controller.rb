@@ -10,6 +10,8 @@ class WelcomeController < ApplicationController
 
     @posts_recent = posts_scope.where.not(id: ids).recent.limit(30)
     ids += @posts_recent.pluck(:id)
+
+    fresh_when Post.where(id: ids), public: true
   end
 
   private
