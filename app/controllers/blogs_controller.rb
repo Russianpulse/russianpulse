@@ -21,6 +21,6 @@ class BlogsController < ApplicationController
       format.atom
     end
 
-    fresh_when last_modified: [@posts.maximum(:updated_at), @blog.updated_at].max, public: true
+    fresh_when last_modified: [@posts.maximum(:updated_at), @blog.updated_at].compact.max, public: true
   end
 end
