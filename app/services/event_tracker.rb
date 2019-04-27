@@ -3,14 +3,11 @@ class EventTracker
 
   delegate :pageview, :event, :social, :exception, :timing, :transaction, :transaction_item, to: :staccato, allow_nil: true
 
-  attr_reader :slack_notifier
-
   def initialize
     @ga_id = Snippet.find_by(key: 'google_analytics_id').try(:body)
     return if Rails.env.test?
 
     @staccato = Staccato.tracker(@ga_id)
-    @slack_notifier = Slack::Notifier.new ENV['SLACK_WEBHOOK_URL']
   end
 
   def track(category, action, label = nil, value = nil)
@@ -22,10 +19,8 @@ class EventTracker
     ExceptionNotifier.notify_exception e
   end
 
-  def notify(category, action, label = nil, value = nil)
+  def notify(_category, _action, _label = nil, _value = nil)
     return if Rails.env.test?
-
-    slack_notifier.ping "#{category.to_s.titleize} #{action} #{label} #{value}"
   rescue Exception => ex
     ExceptionNotifier.notify_exception ex
   end

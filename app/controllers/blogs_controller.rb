@@ -22,5 +22,6 @@ class BlogsController < ApplicationController
     end
 
     fresh_when last_modified: [@posts.maximum(:updated_at), @blog.updated_at].compact.max, public: true
+    expires_in 5.minutes, public: true
   end
 end

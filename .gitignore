@@ -3,6 +3,7 @@
 .bundle
 .byebug_history
 .env
+.env.production
 .env.pg-backup
 .rbenv-vars
 .vagrant/

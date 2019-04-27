@@ -90,4 +90,8 @@ class ApplicationController < ActionController::Base
   def render_js_redirect(target)
     render js: "window.location = '#{target}'"
   end
+
+  def guest?
+    !signed_in?
+  end
 end
