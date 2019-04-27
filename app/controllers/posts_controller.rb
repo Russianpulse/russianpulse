@@ -13,7 +13,8 @@ class PostsController < ApplicationController
       format.atom
     end
 
-    fresh_when @posts, public: true
+    fresh_when @posts
+    expires_in 5.minutes, public: true
   end
 
   def most_discussed
@@ -33,6 +34,7 @@ class PostsController < ApplicationController
 
     elsif request.path == URI(smart_post_path(@post)).path
       render template: 'posts/show_blocked' if @post.blocked?
+      fresh_when(@post, public: true) if guest?
     else
       redirect_to smart_post_path(@post)
     end

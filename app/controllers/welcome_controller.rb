@@ -1,17 +1,19 @@
 class WelcomeController < ApplicationController
   def index
-    ids = []
+    if stale? Post.maximum(:updated_at)
+      ids = []
 
-    @posts_top = posts_top.where.not(id: ids).limit(3)
-    ids += @posts_top.pluck(:id)
+      @posts_top = posts_top.where.not(id: ids).limit(3)
+      ids += @posts_top.pluck(:id)
 
-    @posts_featured = posts_scope.joins(:blog).where(posts: { blogs: { featured: true } }).where.not(id: ids).recent.limit(6)
-    ids += @posts_featured.pluck(:id)
+      @posts_featured = posts_scope.joins(:blog).where(posts: { blogs: { featured: true } }).where.not(id: ids).recent.limit(6)
+      ids += @posts_featured.pluck(:id)
 
-    @posts_recent = posts_scope.where.not(id: ids).recent.limit(30)
-    ids += @posts_recent.pluck(:id)
+      @posts_recent = posts_scope.where.not(id: ids).recent.limit(30)
+      ids += @posts_recent.pluck(:id)
+    end
 
-    fresh_when Post.where(id: ids), public: true
+    expires_in 5.minutes, public: true
   end
 
   private

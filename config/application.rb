@@ -55,10 +55,8 @@ module Mazavr
 
     config.middleware.use Rack::Attack
 
-    config.action_dispatch.rack_cache = {
-      verbose: true,
-      metastore: "#{ENV.fetch('MEMCACHED_URL', :memcached)}/meta",
-      entitystore: "#{ENV.fetch('MEMCACHED_URL', :memcached)}/body"
-    }
+    Raven.configure do |config|
+      config.dsn = ENV['SENTRY_DSN']
+    end
   end
 end
