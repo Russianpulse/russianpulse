@@ -6,7 +6,7 @@ class PostBase < ApplicationRecord
 
   serialize :related_ids, JSON
 
-  belongs_to :blog, class_name: 'BlogBase'
+  belongs_to :blog, class_name: 'BlogBase', touch: true
 
   delegate :title, :slug, to: :blog, prefix: true, allow_nil: true
 
