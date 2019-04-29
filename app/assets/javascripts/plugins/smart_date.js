@@ -1,26 +1,24 @@
-$(function() {
-  $('.smart-date').each(function() {
-    var dt = $(this).data('dt');
+$('.smart-date').each(function() {
+  var dt = $(this).data('dt');
+  $(this).html(timeago.format(dt, 'ru'));
+
+  setInterval(function() {
     $(this).html(timeago.format(dt, 'ru'));
+  }.bind(this), 1000);
+});
 
-    setInterval(function() {
-      $(this).html(timeago.format(dt, 'ru'));
-    }.bind(this), 1000);
-  });
+var ONE_HOUR = 60 * 60 * 1000; // ms
 
-  var ONE_HOUR = 60 * 60 * 1000; // ms
+moment.locale('ru');
+$('.time-or-date').each(function() {
+  var dt = moment($(this).data('dt'));
+  var text;
 
-  moment.locale('ru');
-  $('.time-or-date').each(function() {
-    var dt = moment($(this).data('dt'));
-    var text;
+  if(dt > moment().subtract(12, 'hours')) {
+    text = moment(dt).format('HH:mm');
+  } else {
+    text = moment(dt).format('D MMM');
+  }
 
-    if(dt > moment().subtract(12, 'hours')) {
-      text = moment(dt).format('HH:mm');
-    } else {
-      text = moment(dt).format('D MMM');
-    }
-
-    $(this).text(text);
-  });
+  $(this).text(text);
 });
