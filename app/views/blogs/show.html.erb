@@ -26,13 +26,9 @@
   </ol>
 
   <% if params[:before].blank? %>
-    <div class="row">
-      <% @blog.posts.newer_than(2.weeks.ago).popular.with_picture.limit(3).each do |post| %>
-        <div class="col-sm-4">
-          <%= cell("posts/high", post) %>
-        </div>
-      <% end %>
-    </div>
+    <% if @blog.posts.newer_than(1.week.ago).exists? %>
+      <%= render :partial => 'popular', locals: { posts: @blog.posts.newer_than(1.week.ago).popular.limit(4) } %>
+    <% end %>
   <% end %>
 
 
