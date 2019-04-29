@@ -34,7 +34,6 @@ class PostsController < ApplicationController
 
     elsif request.path == URI(smart_post_path(@post)).path
       render template: 'posts/show_blocked' if @post.blocked?
-      fresh_when(@post, public: true) if guest?
     else
       redirect_to smart_post_path(@post)
     end
