@@ -12,10 +12,10 @@ $(function() {
 
   moment.locale('ru');
   $('.time-or-date').each(function() {
-    var dt = Date.parse($(this).data('dt'));
+    var dt = moment($(this).data('dt'));
     var text;
 
-    if(((new Date) - dt) < ONE_HOUR * 12) {
+    if(dt > moment().subtract(12, 'hours')) {
       text = moment(dt).format('HH:mm');
     } else {
       text = moment(dt).format('D MMM');
