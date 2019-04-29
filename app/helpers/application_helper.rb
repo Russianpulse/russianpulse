@@ -26,11 +26,11 @@ module ApplicationHelper
   end
 
   def smart_date(date)
-    content_tag :span, l(date, format: '%e.%m.%Y %H:%M'), class: 'smart-date', 'data-dt' => date
+    content_tag :span, l(date, format: '%e.%m.%Y %H:%M'), class: 'smart-date', 'data-dt' => date.iso8601
   end
 
   def time_or_date(date)
-    content_tag :span, l(date, format: '%e.%m.%Y %H:%M'), class: 'time-or-date', 'data-dt' => date
+    content_tag :span, l(date, format: '%e.%m.%Y %H:%M'), class: 'time-or-date', 'data-dt' => date.iso8601
   end
 
   def format_date(date, time: true)
