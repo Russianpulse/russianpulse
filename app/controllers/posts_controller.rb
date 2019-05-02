@@ -3,7 +3,7 @@ class PostsController < ApplicationController
   include PostsHelper
 
   def index
-    @posts = Post.published.recent.includes(:blog).where('posts.created_at < ?', 7.days.ago)
+    @posts = Post.published.recent.includes(:blog).where('posts.created_at > ?', 7.days.ago)
 
     @posts = @posts.top if params[:top] == '1'
 
