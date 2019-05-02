@@ -1,3 +1,5 @@
-<div class="tags">
-  <%= raw  @post.tags.map { |tag| link_to tag.title, tag_path(tag.slug) }.join(" • ") %>
-</div>
+<%= cache @post do %>
+  <div class="tags">
+    <%= raw  @post.tags.map { |tag| link_to tag.title, tag_path(tag.slug) }.join(" • ") %>
+  </div>
+<% end %>
