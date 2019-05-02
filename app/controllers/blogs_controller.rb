@@ -15,9 +15,7 @@ class BlogsController < ApplicationController
 
     @posts = @blog.posts.published.recent
 
-    if time_limit.present?
-      @posts = @posts.where('posts.created_at > ?', time_limit.ago)
-    end
+    @posts = @posts.where('posts.created_at > ?', time_limit.ago) if time_limit.present?
 
     respond_to do |format|
       format.html do
