@@ -39,7 +39,7 @@ class BlogBase < ApplicationRecord
     return nil unless posts.exists?
     return (Time.current - posts.minimum(:created_at)).seconds if posts.count <= number
 
-    (Time.current - posts.order(:created_at).offset(number).limit(1).pluck(:created_at).first).seconds
+    (Time.current - posts.order('created_at DESC').offset(number).limit(1).pluck(:created_at).first).seconds
   end
 
   def cleanup_html(html)
