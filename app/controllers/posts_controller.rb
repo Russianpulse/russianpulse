@@ -3,18 +3,22 @@ class PostsController < ApplicationController
   include PostsHelper
 
   def index
-    @posts = Post.published.recent.includes(:blog).limit(20)
+    @posts = Post.published.recent.includes(:blog).where('posts.created_at < ?', 7.days.ago)
 
     @posts = @posts.top if params[:top] == '1'
-    @posts = @posts.page params[:page]
 
     respond_to do |format|
-      format.html
-      format.atom
+      format.html do
+        @posts = @posts.page params[:page]
+        expires_in 5.minutes, public: true
+      end
+      format.atom do
+        @posts = @posts.limit(20)
+        expires_in 5.minutes, public: true
+      end
     end
 
     fresh_when @posts
-    expires_in 5.minutes, public: true
   end
 
   def most_discussed
