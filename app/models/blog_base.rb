@@ -35,6 +35,13 @@ class BlogBase < ApplicationRecord
     rules
   end
 
+  def duration_having_posts(number)
+    return nil unless posts.exists?
+    return (Time.current - posts.minimum(:created_at)).seconds if posts.count <= number
+
+    (Time.current - posts.order(:created_at).offset(number).limit(1).pluck(:created_at).first).seconds
+  end
+
   def cleanup_html(html)
     # удаляем комментарии
     doc = Nokogiri::HTML::DocumentFragment.parse(html)
