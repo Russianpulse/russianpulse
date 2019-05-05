@@ -16,8 +16,10 @@ $('.time-or-date').each(function() {
 
   if(dt > moment().subtract(12, 'hours')) {
     text = moment(dt).format('HH:mm');
-  } else {
+  } else if(dt > moment().subtract(6, 'months')) {
     text = moment(dt).format('D MMM');
+  } else {
+    text = moment(dt).format('D MMM YYYY');
   }
 
   $(this).text(text);
