@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature 'Mark comment as spam', type: :feature, js: true do
+RSpec.feature 'Mark comment as spam', type: :feature, js: false do
   let!(:post) { FactoryGirl.create(:post, title: 'Post title') }
   let!(:comment) { FactoryGirl.create :comment, commentable: post, comment: 'spam message' }
   let!(:admin) { FactoryGirl.create :user, :admin }

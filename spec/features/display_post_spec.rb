@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature 'Display Post', type: :feature do
+RSpec.feature 'Display Post', type: :feature, js: false do
   let!(:post) { create :post, source_url: 'http://example.com/some/path' }
 
   scenario 'open post page and can see a post text' do
