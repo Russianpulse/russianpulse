@@ -53,10 +53,10 @@ $(function() {
     }
   });
 
-  $("a").not('.skip-utm').each(function() {
+  $("[itemprop='articleBody']").find("a").not('.skip-utm').each(function() {
     if(links.is_external($(this).attr("href"))) {
       $(this).attr("href", links.add_params($(this).attr("href"), {
-        "utm_source": "<%= Rails.configuration.x.domain %>",
+        "utm_source": "russianpulse",
         "utm_medium": "link",
         "utm_compaign": "article",
       }));
