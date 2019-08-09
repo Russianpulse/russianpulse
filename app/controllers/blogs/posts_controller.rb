@@ -62,7 +62,7 @@ class Blogs::PostsController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def post_params
-    params.require(:post).permit(:blog_id, :title, :body).merge(user_id: current_user.id)
+    params.require(:post).permit(:blog_id, :title, :source_url, :body).merge(user_id: current_user.id)
   end
 
   def blogs
