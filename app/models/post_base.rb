@@ -44,7 +44,7 @@ class PostBase < ApplicationRecord
   end
 
   def source_url
-    self[:source_url] unless blog.hide_source_url?
+    self[:source_url] unless blog.try(:hide_source_url?)
   end
 
   def title
