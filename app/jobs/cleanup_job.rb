@@ -1,3 +1,4 @@
+# :nocov:
 class CleanupJob < ApplicationJob
   queue_as :default
 
@@ -91,7 +92,7 @@ class CleanupJob < ApplicationJob
         i += 1
       end
 
-      Time.Time.at(current.call).in_time_zone
+      Time.at(current.call).in_time_zone
     end
 
     # делим весь период на 16 частей
@@ -128,3 +129,4 @@ class CleanupJob < ApplicationJob
 
   include SmartCleanup
 end
+# :nocov:

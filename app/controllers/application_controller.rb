@@ -71,6 +71,7 @@ class ApplicationController < ActionController::Base
     }
   end
 
+  # TODO: extract gateway
   def verify_recaptcha
     return true if signed_in? && !current_user.flagged?
 

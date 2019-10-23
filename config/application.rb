@@ -54,9 +54,5 @@ module Mazavr
     # config.active_job.queue_name_prefix = "mazavr_#{Rails.env}"
 
     config.middleware.use Rack::Attack
-
-    Raven.configure do |config|
-      config.dsn = ENV['SENTRY_DSN']
-    end
   end
 end

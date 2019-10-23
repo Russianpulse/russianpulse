@@ -1,36 +1,8 @@
-version: "3"
+version: "3.7"
 
 services:
-  app:
-    build:
-      dockerfile: Dockerfile.dev
-      context: .
+  selenium:
+    image: 
     ports:
       - "3000:3000"
-    links: 
-      - db
-      - memcached
-      - redis
-    volumes:
-      - .:/app
-      - gems:/usr/local/bundle
-    environment:
-      - DATABASE_URL=postgresql://postgres:postgres@db/mazavr
-      - MEMCACHED_URL=memcached
-      - RAILS_MAX_THREADS=16
-    command: ["bunldle", "exec", "rails", "server", "-b", "0.0.0.0"]
 
-  gems:
-    image: busybox
-
-  db:
-    image: postgres:9.4.5
-
-  memcached:
-    image: memcached:1.4.27
-
-  redis:
-    image: redis:3.2.3
-
-volumes:
-  gems:

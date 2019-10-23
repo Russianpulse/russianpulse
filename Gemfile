@@ -1,7 +1,9 @@
 source 'https://rubygems.org'
 
-gem 'puma', '~> 3.0'
 gem 'rails', '~> 5.0'
+gem 'rails-html-sanitizer', '1.0.3'
+
+gem 'puma', '~> 3.0'
 
 gem 'rails_admin'
 
@@ -20,7 +22,7 @@ gem 'acts_as_follower'
 gem 'acts_as_votable', '~> 0.12.0'
 gem 'cells-erb'
 gem 'cells-rails'
-gem 'devise'
+gem 'devise', '>= 4.6.0'
 gem 'devise-i18n'
 gem 'devise-i18n-views'
 gem 'dotenv-rails'
@@ -35,14 +37,13 @@ gem 'kaminari'
 gem 'kaminari-i18n'
 gem 'liquid'
 gem 'mime-types'
-gem 'nokogiri', '1.8.2'
+gem 'nokogiri'
 gem 'pundit'
 gem 'rack-attack'
 gem 'redcarpet'
 gem 'ruby-readability', require: 'readability'
 gem 'ruby-stemmer', require: 'lingua/stemmer'
 gem 'russian'
-gem 'sentry-raven'
 gem 'sidekiq'
 gem 'sidekiq-scheduler'
 gem 'simple_form'
@@ -59,13 +60,13 @@ group :production do
   gem 'dalli'
   gem 'newrelic_rpm'
   gem 'rails_12factor'
+  gem 'sentry-raven'
 end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console'
 
-  gem 'bundler-audit'
   gem 'listen', '~> 3.0.5'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
@@ -100,7 +101,8 @@ group :test do
   gem 'capybara'
   gem 'capybara-email'
   gem 'capybara-screenshot'
-  gem 'poltergeist'
+  gem 'selenium-webdriver'
+
   gem 'webmock'
 
   # TODO: remove it

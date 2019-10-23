@@ -14,7 +14,7 @@ class UpdateRatingJob < ApplicationJob
   def rating(blog)
     return 0 if count(blog) == 0
 
-    (views(blog) + comments(blog) * PostBase::COMMENTS_POWER)
+    (views(blog) + comments(blog) * Post::COMMENTS_POWER)
   end
 
   def count(blog)

@@ -1,3 +1,10 @@
+require 'simplecov'
+SimpleCov.start 'rails'
+
+require 'pundit/rspec'
+require 'feedjira'
+Feedjira.logger.level = Logger::FATAL
+
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV['RAILS_ENV'] = 'test'
 require 'spec_helper'
@@ -6,14 +13,19 @@ require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 require 'webmock/rspec'
 require 'capybara/rails'
-require 'capybara/poltergeist'
 require 'capybara-screenshot/rspec'
 require 'capybara/email/rspec'
 
-Capybara.javascript_driver = :poltergeist
-Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, js_errors: true)
+Capybara.register_driver :firefox do |app|
+  Capybara::Selenium::Driver.new(app,
+                                 browser: :remote,
+                                 desired_capabilities: :firefox,
+                                 url: "http://#{ENV.fetch('FIREFOX_HOSTNAME', '127.0.0.1')}:4444/wd/hub")
 end
+Capybara.javascript_driver = :firefox
+
+Capybara.app_host = "http://#{ENV.fetch('DOMAIN_NAME')}"
+# Capybara.always_include_port = true
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
