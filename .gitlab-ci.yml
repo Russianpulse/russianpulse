@@ -1,64 +1,69 @@
-image: docker:stable
-
-services:
-  - docker:dind
-
 variables:
   CONTAINER_IMAGE: registry.gitlab.com/$CI_PROJECT_PATH
+  IMAGE: registry.gitlab.com/$CI_PROJECT_PATH
   DOCKER_DRIVER: overlay2
 
 before_script:
 
 stages:
-  - build
+  - setup
   - test
+  - build
   - deploy
 
 rubocop:
-  stage: build
-  image: ruby
+  stage: test
+  image: udalov/rubocop:0.67.2
   script:
-    - gem install rubocop -v '0.67.2'
     - rubocop
 
 audit:
-  stage: build
+  stage: test
   image: ruby:slim
+  before_script:
+    - gem install bundle-audit
   script:
-    - gem install bundler-audit
     - bundle-audit check --update
-
-build:
-  stage: build
-  script:
-    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
-    - docker pull $CONTAINER_IMAGE:latest || true
-    - docker build --cache-from $CONTAINER_IMAGE:latest --tag $CONTAINER_IMAGE:$CI_PIPELINE_IID --tag $CONTAINER_IMAGE:$CI_COMMIT_REF_NAME-$CI_PIPELINE_IID --tag $CONTAINER_IMAGE:$CI_COMMIT_REF_NAME --tag test-image -f Dockerfile .
-    - docker push $CONTAINER_IMAGE:$CI_PIPELINE_IID
-    - docker push $CONTAINER_IMAGE:$CI_COMMIT_REF_NAME-$CI_PIPELINE_IID
-    - docker push $CONTAINER_IMAGE:$CI_COMMIT_REF_NAME
 
 spec:
   stage: test
-  image: udalov/docker-and-compose
+  image: $IMAGE:base
+
+  variables:
+    RAILS_ENV: test
+    DATABASE_URL: postgresql://postgres@postgres/test
+    MEMCACHED_URL: memcached
+    RAILS_MAX_THREADS: 16
+    CAPYBARA_DRIVER: firefox
+
+  services:
+    - memcached
+    - postgres:9-alpine
+    - redis:alpine
+
+  before_script:
+    - bundle install
+    - bundle exec rake db:create db:migrate
+    - yarn install
+
   script:
-    - docker-compose -f docker-compose.test.yml up -d db
-
-    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
-    - docker pull $CONTAINER_IMAGE:$CI_PIPELINE_IID
-    - docker build --cache-from $CONTAINER_IMAGE:$CI_PIPELINE_IID --tag test-image .
-
-    - docker-compose -f docker-compose.test.yml run app spec
+    - bundle exec rspec
 
 latest:
-  stage: deploy
+  stage: build
   only:
     - master
-  script:
+
+  image: docker:stable
+
+  services:
+    - docker:dind
+  before_script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
-    - docker pull $CONTAINER_IMAGE:$CI_PIPELINE_IID
-    - docker build --cache-from $CONTAINER_IMAGE:$CI_PIPELINE_IID --tag $CONTAINER_IMAGE:latest .
-    - docker push $CONTAINER_IMAGE:latest
+    - docker pull $IMAGE:base || true
+  script:
+    - docker build --cache-from $IMAGE:base --tag $IMAGE:latest .
+    - docker push $IMAGE:latest
 
 deploy:
   stage: deploy
@@ -87,3 +92,26 @@ deploy:
     - export SERVICE_CMD="docker service update --image registry.gitlab.com/mazavr/mazavr:$CI_PIPELINE_IID russianpulse_worker --detach=false"
     - ssh root@$SWARM_MANAGER $SERVICE_CMD
 
+
+
+# -----------------------------------------------------------------------------
+# Utils
+
+base-image:
+  stage: setup
+  when: manual
+  only:
+    - master
+
+  image: docker:stable
+
+  services:
+    - docker:dind
+
+  before_script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
+    - docker pull $IMAGE:base || true
+
+  script:
+    - docker build --cache-from $IMAGE:base --tag $IMAGE:base -f Dockerfile.base .
+    - docker push $IMAGE:base

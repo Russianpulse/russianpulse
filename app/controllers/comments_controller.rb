@@ -53,6 +53,7 @@ class CommentsController < ApplicationController
   def edit; end
 
   # POST /comments
+  # TODO: extract CreateComment interactor
   def create
     @post = Post.find params[:post_id]
     @comment = @post.comments.new(comment_params.merge(user: current_user))

@@ -1,3 +1,4 @@
+# TODO: extratct tags serivce
 class TagsController < ApplicationController
   def show
     @tag = Tag.find_by(slug: params[:tag].strip.downcase)
