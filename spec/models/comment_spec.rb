@@ -11,4 +11,10 @@ RSpec.describe Comment, type: :model do
     it { is_expected.to include comment_for_another_commentable }
     it { is_expected.not_to include comment }
   end
+
+  describe '.recent' do
+    subject { Comment.recent }
+    it { is_expected.to include create(:comment) }
+    it { is_expected.not_to include create(:comment, :spam) }
+  end
 end
