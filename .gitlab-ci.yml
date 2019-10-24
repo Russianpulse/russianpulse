@@ -71,6 +71,8 @@ deploy:
   only:
     - master
 
+  when: manual
+
   image: alpine
   script:
     - apk add --no-cache openssh
