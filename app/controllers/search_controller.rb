@@ -11,6 +11,6 @@ class SearchController < ApplicationController
 
   def find_posts(q)
     Post.where('title ILIKE ? OR tags_list ILIKE ?', "%#{q}%", "%#{q}%")
-        .limit(30).recent
+        .limit(30).recent.published
   end
 end
