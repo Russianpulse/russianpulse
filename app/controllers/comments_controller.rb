@@ -56,6 +56,7 @@ class CommentsController < ApplicationController
   # TODO: extract CreateComment interactor
   def create
     @post = Post.find params[:post_id]
+    sign_in_new_user
     @comment = @post.comments.new(comment_params.merge(user: current_user))
 
     flag_spammer
@@ -107,6 +108,24 @@ class CommentsController < ApplicationController
 
   private
 
+  def sign_in_new_user
+    return if signed_in?
+
+    user = User.find_or_initialize_by(user_params)
+
+    if user.new_record?
+
+      user.password = SecureRandom.hex if user.new_record?
+      user.skip_confirmation!
+      user.save
+    end
+
+    sign_in user
+    remember_me user
+
+    user
+  end
+
   # Use callbacks to share common setup or constraints between actions.
   def set_comment
     @comment = Comment.find(params[:id])
@@ -115,6 +134,10 @@ class CommentsController < ApplicationController
   # Only allow a trusted parameter "white list" through.
   def comment_params
     params.require(:comment).permit(:comment)
+  end
+
+  def user_params
+    (params[:comment] || {}).require(:user_attributes).permit(:name, :email)
   end
 
   def notify_post_subscribers
