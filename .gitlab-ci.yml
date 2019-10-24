@@ -49,7 +49,7 @@ spec:
   script:
     - bundle exec rspec
 
-latest:
+build-image:
   stage: build
   only:
     - master
@@ -60,9 +60,10 @@ latest:
     - docker:dind
   before_script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
-    - docker pull $IMAGE:base || true
+    - docker pull $IMAGE:latest || true
   script:
-    - docker build --cache-from $IMAGE:base --tag $IMAGE:latest .
+    - docker build --cache-from $IMAGE:latest --tag $IMAGE:$CI_PIPELINE_IID --tag $IMAGE:latest .
+    - docker push $IMAGE:CI_PIPELINE_IID
     - docker push $IMAGE:latest
 
 deploy:
