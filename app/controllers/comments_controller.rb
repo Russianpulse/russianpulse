@@ -56,39 +56,44 @@ class CommentsController < ApplicationController
   # TODO: extract CreateComment interactor
   def create
     @post = Post.find params[:post_id]
-    sign_in_new_user
-    @comment = @post.comments.new(comment_params.merge(user: current_user))
-
-    flag_spammer
 
     if !verify_recaptcha
       redirect_to smart_post_path(@post), error: t('security.robot_atack')
-    elsif cooldown_spammer?(current_user)
-      redirect_to smart_post_path(@post), error: t('security.spammer_atack')
     else
 
-      if @comment.save
-        ga_event category: :comments, action: :create, label: @post.title, interaction: 1, value: 1
+      sign_in_new_user
+      @comment = @post.comments.new(comment_params.merge(user: current_user))
 
-        EventTracker.notify 'comments', 'create', <<-MSG
-        #{current_user.name}:
-        #{@comment.comment}
-        #{@post.title} #{(begin
-                            comment_url(@comment)
-                          rescue StandardError
-                            :cant_get_comment_url
-                          end)}
-        MSG
+      flag_spammer
 
-        current_user.follow(@post) if params[:subscribe] == '1'
-
-        notify_post_subscribers
-
-        redirect_to comment_path(@comment), notice: t('comments.thank_you')
+      if cooldown_spammer?(current_user)
+        redirect_to smart_post_path(@post), error: t('security.spammer_atack')
       else
-        redirect_to smart_post_path(@post)
+        if @comment.save
+          ga_event category: :comments, action: :create, label: @post.title, interaction: 1, value: 1
+
+          EventTracker.notify 'comments', 'create', <<~MSG
+            #{current_user.name}:
+            #{@comment.comment}
+            #{@post.title} #{safe_comment_url(@comment)}
+          MSG
+
+          current_user.follow(@post) if params[:subscribe] == '1'
+
+          notify_post_subscribers
+
+          redirect_to comment_path(@comment), notice: t('comments.thank_you')
+        else
+          redirect_to smart_post_path(@post)
+        end
       end
     end
+  end
+
+  def safe_comment_url(comment)
+    comment_url comment
+  rescue StandardError
+    :cant_get_comment_url
   end
 
   # PATCH/PUT /comments/1
