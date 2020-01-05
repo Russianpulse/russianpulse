@@ -5,8 +5,6 @@
         <%= time_or_date post.created_at %>
       </div>
       <%= link_to post.title, smart_post_path(post) %>
-
-      <%= comments_link post %>
     </div>
     <hr />
   <% end %>

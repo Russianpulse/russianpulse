@@ -8,11 +8,11 @@ module CommentsHelper
   end
 
   def comments_link(commentable, options = {})
-    return if (commentable.comments_count <= 0) && !options[:without_comments]
+    return unless options[:without_comments]
 
     content_tag :span, class: (options[:class] || 'pull-right'), title: t(:discussion) do
       link_to smart_post_path(commentable, anchor: 'comments'), class: 'no-underline', data: { turbolinks: false } do
-        glyphicon(:comment) + raw('&nbsp;') + commentable.comments_count.to_s if commentable.comments_count.positive?
+        glyphicon(:comment) + raw('&nbsp;')
       end
     end
   end

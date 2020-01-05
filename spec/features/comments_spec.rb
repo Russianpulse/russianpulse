@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature 'Comments', type: :feature, js: false do
+RSpec.feature 'Comments', type: :feature, js: false, skip: true do
   let!(:post) { FactoryGirl.create(:post, title: 'Post title') }
 
   scenario 'Guest creates new comment for a post' do
