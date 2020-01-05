@@ -11,10 +11,6 @@
     <% end %>
   </div>
 
-  <% cache :most_discussed, expires_in: 5.minutes do %>
-    <%= cell('most_discussed').(:horizontal) %>
-  <% end %>
-
   <div class="row">
     <div class="col-sm-4">
       <%= cell('posts/ads') %>
